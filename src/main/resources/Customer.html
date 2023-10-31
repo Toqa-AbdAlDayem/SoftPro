@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editable Fields with Confirm and Cancel</title>
+</head>
+<body>
+<h1>User Profile</h1>
+<div>
+    <label for="name">Name:</label>
+    <span id="name" contenteditable="false">John Doe</span>
+</div>
+<div>
+    <label for="email">Email:</label>
+    <span id="email" contenteditable="false">john.doe@example.com</span>
+</div>
+<div>
+    <label for="phone">Phone:</label>
+    <span id="phone" contenteditable="false">+1 555-555-5555</span>
+</div>
+<div>
+    <label for="ShippingAddress">Shipping Address:</label>
+    <span id="ShippingAddress" contenteditable="false">Nablus, Palestine</span>
+</div>
+<div>
+    <label for="VehicleInfo">Vehicle Info:</label>
+    <span id="VehicleInfo" contenteditable="false">BMW</span>
+</div>
+<div>
+    <button id="editButton">Edit</button>
+    <button id="confirmButton" class="hidden">Confirm</button>
+    <button id="cancelButton" class="hidden">Cancel</button>
+</div>
+<button id="OrderHistory" >view your history</button>
+<button id="InstallationRequests" >view your Installation Requests</button>
+
+
+<script>
+        const editButton = document.getElementById("editButton");
+        const confirmButton = document.getElementById("confirmButton");
+        const cancelButton = document.getElementById("cancelButton");
+        const fields = ["name", "email", "phone", "ShippingAddress", "VehicleInfo"];
+        const originalValues = {};
+
+        // Store the original values when the page loads
+        fields.forEach(function (field) {
+            const element = document.getElementById(field);
+            originalValues[field] = element.textContent;
+        });
+
+        editButton.addEventListener("click", function () {
+            fields.forEach(function (field) {
+                const element = document.getElementById(field);
+                element.contentEditable = !element.isContentEditable;
+                element.classList.toggle("editable");
+            });
+
+            if (editButton.textContent === "Edit") {
+                editButton.textContent = "Save";
+                confirmButton.classList.remove("hidden");
+                cancelButton.classList.remove("hidden");
+            } else {
+                editButton.textContent = "Edit";
+                confirmButton.classList.add("hidden");
+                cancelButton.classList.add("hidden");
+            }
+        });
+
+        confirmButton.addEventListener("click", function() {
+            // Add code to save the changes here
+            console.log("Changes confirmed");
+        });
+
+        cancelButton.addEventListener("click", function() {
+            // Revert changes to original values when cancel is clicked
+            fields.forEach(function (field) {
+                const element = document.getElementById(field);
+                element.textContent = originalValues[field];
+                element.contentEditable = false;
+                element.classList.remove("editable");
+            });
+
+            // Hide Confirm and Cancel buttons
+            editButton.textContent = "Edit";
+            confirmButton.classList.add("hidden");
+            cancelButton.classList.add("hidden");
+        });
+    </script>
+
+<style>
+        .editable {
+            border: 1px solid #ccc;
+            padding: 3px;
+            background-color: #f5f5f5;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</body>
+</html>
