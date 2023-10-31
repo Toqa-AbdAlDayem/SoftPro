@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <button id="interior_accessories">Interior Accessories</button>
+    <button id="exterior_accessories">Exterior Accessories</button>
+    <button id="electronics">Electronics</button>
+    <button id="performance_parts">Performance Parts</button>
+    <button id="safety">Safety and Security</button>
+    <button id="maintenance_care">Maintenance and Care</button>
+    <button id="wheels_tires">Wheels and Tires</button>
+    <button id="lighting">Lighting</button>
+    <button id="bag">Bag</button>
+    <button id="exit">Exit</button>
+</div>
+<br>
+<br>
+<div>
+    Seat Cover
+    <button id="info" onclick="toggleInformation('seat_cover_info')">Information</button>
+    <div id="seat_cover_info" class="hidden">
+        Stylish covers for ultimate comfort<br>
+        Range: $20 - $50<br>
+        Availability: In stock<br>
+        <button id="showless" onclick="showless('seat_cover_info')">Show Less</button>
+    </div>
+    <button>Buy</button>
+</div>
+<br>
+<br>
+<div>
+    Floor mats
+    <button id="info_floor" onclick="toggleInformation('floor_mats_info')">Information</button>
+    <div id="floor_mats_info" class="hidden">
+        Durable mats to protect the car's interior<br>
+        Range: $15 - $35   <br>
+        Availability: Out of stock <br>
+        <button id="showless_floor" onclick="showless('floor_mats_info')">Show Less</button>
+    </div>
+
+
+    <button>Buy</button>
+</div>
+<br>
+<br>
+<div>
+    Dashboard covers
+    <button id="info_Dash" onclick="toggleInformation('dashboard_covers_info')">Information</button>
+    <div id="dashboard_covers_info" class="hidden">
+        Custom covers for dashboard protection <br>
+        Range: $25 - $45   <br>
+        Availability: Out of stock <br>
+        <button id="showless_dash" onclick="showless('dashboard_covers_info')">Show Less</button>
+    </div>
+
+    <button>Buy</button>
+</div>
+<br>
+<br>
+<div>
+    Steering wheel covers
+    <button id="info_wh" onclick="toggleInformation('steering_wheel_covers_info')">Information</button>
+    <div id="steering_wheel_covers_info" class="hidden">
+        Comfortable and stylish wheel covers <br>
+        Range: $10 - $30 <br>
+        Availability: In stock <br>
+        <button id="showless_wh" onclick="showless('steering_wheel_covers_info')">Show Less</button>
+    </div>
+
+
+    <button>Buy</button>
+</div>
+<br>
+<br>
+<script>
+    function toggleInformation(elementId) {
+        var infoElement = document.getElementById(elementId);
+        infoElement.classList.toggle('hidden');
+    }
+    function showless(elementId) {
+        var infoElement = document.getElementById(elementId);
+        infoElement.classList.toggle('hidden');
+    }
+
+</script>
+</body>
+</html>
