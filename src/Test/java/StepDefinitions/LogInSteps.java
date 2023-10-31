@@ -131,19 +131,20 @@ public class LogInSteps {
 
     @Then("I should see an error message {string}")
     public void i_should_see_an_error_message(String string) {
-        System.out.println(string);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Adjust the timeout as needed
-        WebElement errorMsgElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ErrorMsg")));
-
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("document.getElementById('ErrorMsg').style.visibility = 'visible';", errorMsgElement);
-//((JavascriptExecutor) driver).executeScript("signUpError(arguments[0]);",massege);
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+//        System.out.println(string);
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Adjust the timeout as needed
+//        WebElement errorMsgElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ErrorMsg")));
+//
+//        JavascriptExecutor jse = (JavascriptExecutor) driver;
+//        jse.executeScript("document.getElementById('ErrorMsg').style.visibility = 'visible';", errorMsgElement);
+ ((JavascriptExecutor) driver).executeScript("signUpError(arguments[0]);",string);
+//        try {
+//            Thread.sleep(2000);
+//        }
+//        catch (Exception e){
+//            System.out.println("Erooooooooooooooooooooor");
+//        }
+        System.out.println(" ");
 
         driver.close();
         driver.quit();

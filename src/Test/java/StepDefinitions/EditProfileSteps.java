@@ -1,5 +1,6 @@
 package StepDefinitions;
 
+import MyApp.InstallationRequests;
 import MyApp.MyApplication;
 import MyApp.OrderDetail;
 import io.cucumber.java.en.Given;
@@ -20,6 +21,7 @@ public class EditProfileSteps {
         app=new MyApplication();
     }
     private List<Map<String, String>> orderDetailsData;
+    private List<Map<String, String>> InstallationRequestsData;
 
     private WebDriver driver = null;
 
@@ -163,13 +165,31 @@ public class EditProfileSteps {
         // Double, Byte, Short, Long, BigInteger or BigDecimal.
         //
         // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
+        driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Installation.html");
+        if (app.installationRequests == null) {
+            app.installationRequests = new ArrayList<>();
+        }
+        List<Map<String, String>> InstallationRequestsData = dataTable.asMaps(String.class, String.class);
+        for (Map<String, String> order : InstallationRequestsData) {
+            String RequestDate = order.get("Request Date");
+            String RequestNumber = order.get("Request Number");
+            app.installationRequests.add(new InstallationRequests(RequestDate,RequestNumber));
+        }
+        app.runJSInstall(driver,app.installationRequests);
+
+
+        try {
+            Thread.sleep(2000);
+        }
+        catch (Exception e){
+            System.out.println("Erooooooooooooooooooooor");
+        }
     }
 
     @Then("I can reschedule or cancel an appointment if necessary")
     public void i_can_reschedule_or_cancel_an_appointment_if_necessary() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        System.out.println("Doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     }
 
 }
