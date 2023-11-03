@@ -9,8 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-import java.util.Map;
+
 
 public class catag {
     WebDriver driver=null;
@@ -165,7 +164,7 @@ boolean t=false;
             Thread.sleep(2000);
         }
         catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
+            System.out.println(" Erooooooooooooooooooooor");
         }
     }
 }
