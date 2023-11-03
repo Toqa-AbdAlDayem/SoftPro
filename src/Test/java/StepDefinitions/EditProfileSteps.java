@@ -28,7 +28,7 @@ public class EditProfileSteps {
     @Given("I am a logged-in customer")
     public void i_am_a_logged_in_customer() {
         driver =new ChromeDriver();
-        driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Customer.html");
+        driver.get("file:C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Customer.html");
     }
 
     @When("I navigate to the {string} section")

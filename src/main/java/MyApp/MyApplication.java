@@ -4,7 +4,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
-import java.util.Map;
 
 public class MyApplication {
     public List<OrderDetail> orderDetails;

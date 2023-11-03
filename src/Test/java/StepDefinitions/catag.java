@@ -19,37 +19,20 @@ boolean t=false;
     public void the_user_is_on_the_home_page() {
         driver=new ChromeDriver();
         driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Home.html");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
-
-
 
     @When("the user navigates to the {string} section")
     public void the_user_navigates_to_the_section(String string) {
         driver.get("file://C:/Users/PC/Desktop/selcuc/selcuc/src/main/resources/Interior Accesories.html");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
     @Given("the user is on the accessories page")
     public void theUserIsOnTheAccessoriesPage() {
         driver=new ChromeDriver();
         driver.get("C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Interior Accesories.html");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
 
     }
 
@@ -59,12 +42,7 @@ boolean t=false;
     @When("the user clicks the Information button for  Seat Cover")
     public void theUserClicksTheInformationButtonForSeatCover() {
         driver.findElement(By.id("info")).isDisplayed();
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
     @Then("the user should see information about  Seat Cover")
@@ -72,12 +50,7 @@ boolean t=false;
 
         WebElement element = driver.findElement(By.id("info"));
         ((JavascriptExecutor) driver).executeScript("toggleInformation('seat_cover_info')");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
 
@@ -91,12 +64,7 @@ boolean t=false;
 
     WebElement element = driver.findElement(By.id("showless"));
         ((JavascriptExecutor) driver).executeScript("showless('seat_cover_info')");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
     @When("the user clicks on the Interior Accessories button")
@@ -110,47 +78,27 @@ boolean t=false;
     public void theUserClicksTheInformationButtonForFloorMate() {
         driver.findElement(By.id("info_floor")).isDisplayed();
 
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
     @Then("the user should see information about   Floor Mate")
     public void theUserShouldSeeInformationAboutFloorMate() {
         WebElement element = driver.findElement(By.id("info_floor"));
         ((JavascriptExecutor) driver).executeScript("toggleInformation('floor_mats_info')");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
     @When("the user clicks the ShowLess button for  Floor Mate")
     public void theUserClicksTheShowLessButtonForFloorMate() {
         driver.findElement(By.id("showless_floor")).isDisplayed();
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
     @Then("the user should see Floor Mate without information")
     public void theUserShouldSeeFloorMateWithoutInformation() {
         WebElement element = driver.findElement(By.id("showless_floor"));
         ((JavascriptExecutor) driver).executeScript("showless('floor_mats_info')");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
     @When("the user clicks the Information button for  Dashboard covers")
@@ -179,12 +127,7 @@ boolean t=false;
     public void theUserShouldSeeDashboardCoversWithoutInformation() {
         WebElement element = driver.findElement(By.id("showless_dash"));
         ((JavascriptExecutor) driver).executeScript("showless('dashboard_covers_info')");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep();
     }
 
 
@@ -215,6 +158,9 @@ boolean t=false;
     public void the_user_should_see_steering_wheel_covers_without_information() {
         WebElement element = driver.findElement(By.id("showless_wh"));
         ((JavascriptExecutor) driver).executeScript("showless('steering_wheel_covers_info')");
+        sleep();
+    }
+    private static void sleep() {
         try {
             Thread.sleep(2000);
         }
