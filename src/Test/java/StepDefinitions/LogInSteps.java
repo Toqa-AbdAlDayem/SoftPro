@@ -19,7 +19,6 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
-
 public class LogInSteps {
     private WebDriver driver =null;
 
@@ -37,10 +36,13 @@ public class LogInSteps {
     public void i_enter_my_admin_username_and_password(String name, String pass) {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys(pass);
+        sleep(200);
+    }
+
+    private static void sleep(int millis) {
         try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
+            Thread.sleep(millis);
+        } catch (Exception e) {
             System.out.println("Erooooooooooooooooooooor");
         }
     }
@@ -53,12 +55,7 @@ public class LogInSteps {
     @Then("I should be redirected to the admin dashboard")
     public void i_should_be_redirected_to_the_admin_dashboard() {
         driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Admin.html");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(2000);
         driver.close();
         driver.quit();
 
@@ -68,24 +65,14 @@ public class LogInSteps {
     public void i_enter_my_customer_username_and_password(String name, String pass) {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys(pass);
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(2000);
     }
 
 
     @Then("I should be redirected to the customer dashboard")
     public void i_should_be_redirected_to_the_customer_dashboard() {
         driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Customer.html");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(200);
         driver.close();
         driver.quit();
     }
@@ -94,23 +81,13 @@ public class LogInSteps {
     public void i_enter_my_installer_username_and_password(String name, String pass) {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys(pass);
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(200);
     }
 
     @Then("I should be redirected to the installer dashboard")
     public void i_should_be_redirected_to_the_installer_dashboard() {
         driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Installer.html");
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(200);
         driver.close();
         driver.quit();
     }
@@ -121,12 +98,7 @@ public class LogInSteps {
     public void i_enter_an_invalid_username_and_password(String name, String pass) {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys(pass);
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(200);
     }
 
     @Then("I should see an error message {string}")

@@ -21,17 +21,10 @@ WebDriver driver=null;
 boolean t=false;
     @Given("the user is on the registration page")
     public void the_user_is_on_the_registration_page() {
-        this.driver = new ChromeDriver();
-        this.driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//signup.html");
-        try {
-            Thread.sleep(200);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
-
-
+        c.Sign_Up_Page();
+        sleep(200);
     }
+
 
     @And("they fill in the registration form with a valid username {string} and a strong password {string} and a correct email {string} and a correct confim password {string}")
     public void they_fill_in_the_registration_form_with_a_valid_username_and_a_strong_password_and_a_correct_email(String username, String password, String email,String conf) {
@@ -43,12 +36,7 @@ boolean t=false;
 
        int z= 0;
        System.out.println(z);
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(2000);
 
     }
 
@@ -93,12 +81,7 @@ boolean t=false;
     public void they_click_the_button(String string) {
 
         driver.findElement(By.id("signup")).click();
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(2000);
 
     }
 
@@ -106,12 +89,7 @@ boolean t=false;
     public void they_should_be_redirected_to_the_home_page() {
        driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Home.html");
 
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(2000);
 
         //driver.close();
        // driver.quit();
@@ -131,12 +109,7 @@ boolean t=false;
 
         driver.findElement(By.id("conf")).sendKeys(conf);
 
-        try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(2000);
     }
 
     @When("they leave the email")
@@ -173,36 +146,21 @@ boolean t=false;
     @Then("they should see the alert with message {string}")
     public void theyShouldSeeTheAlertWithMessage(String massege) {
         ((JavascriptExecutor) driver).executeScript("signUpError(arguments[0]);",massege);
-        try {
-            Thread.sleep(3000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(3000);
     }
 
 
     @When("they fill in the registration form with an exists username {string}")
     public void theyFillInTheRegistrationFormWithAnExistsUsername(String username) {
         driver.findElement(By.id("user_name")).sendKeys(username);
-        try {
-            Thread.sleep(200);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(200);
     }
 
 
     @Then("Then they should see the alert with message {string}")
     public void thenTheyShouldSeeTheAlertWithMessage(String massege) {
         ((JavascriptExecutor) driver).executeScript("signUpError(arguments[0]);",massege);
-        try {
-            Thread.sleep(3000);
-        }
-        catch (Exception e){
-            System.out.println("Erooooooooooooooooooooor");
-        }
+        sleep(3000);
     }
 
     private void displayErrorAlert(String message) {
@@ -217,14 +175,16 @@ boolean t=false;
         driver.findElement(By.id("pass")).sendKeys(password);
 
 
+        sleep(2000);
+    }
+
+    private static void sleep(int millis) {
         try {
-            Thread.sleep(2000);
-        }
-        catch (Exception e){
+            Thread.sleep(millis);
+        } catch (Exception e) {
             System.out.println("Erooooooooooooooooooooor");
         }
     }
-
 
 }
 

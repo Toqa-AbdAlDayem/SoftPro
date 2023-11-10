@@ -110,11 +110,7 @@ boolean t=false;
         WebElement element = this.driver.findElement(By.id("info_Dash"));
         ((JavascriptExecutor)this.driver).executeScript("toggleInformation('dashboard_covers_info')", new Object[0]);
 
-        try {
-            Thread.sleep(2000L);
-        } catch (Exception var3) {
-            System.out.println("Erooooooooooooooooooooor");
-        }
+     sleep();
     }
 
     @When("the user clicks the ShowLess button for  Dashboard covers")
@@ -140,11 +136,7 @@ boolean t=false;
         WebElement element = this.driver.findElement(By.id("info_wh"));
         ((JavascriptExecutor)this.driver).executeScript("toggleInformation('steering_wheel_covers_info')", new Object[0]);
 
-        try {
-            Thread.sleep(2000L);
-        } catch (Exception var3) {
-            System.out.println("Erooooooooooooooooooooor");
-        }
+      sleep();
 
     }
 

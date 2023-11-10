@@ -1,0 +1,46 @@
+body {
+    background-color: #e0e0e0; /* ashen background */
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
+div {
+ display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+
+}
+#user_profile{
+
+border-radius:200px;
+width:200px;
+
+
+}
+#title{
+border: 1px solid #fff; /* black border */
+ background-color: #5c8a8a  ; /* Pink button background */
+ color: #fff;
+ border-radius: 100px; /* Adjust the value to change the oval shape */
+     width: 1450px;
+
+}
+button {
+
+    background-color: #5c8a8a ; /* Pink button background */
+    color: #fff;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #999966; /* darker red on hover */
+}
+
+
+
