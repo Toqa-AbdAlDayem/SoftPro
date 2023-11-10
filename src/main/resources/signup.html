@@ -52,13 +52,33 @@ Gender
 
 <br>
 <br>
-<button id="signup" onclick="signUpError(massage)">Sign up</button>
+<button id="signup" onclick="saveData()">Sign up</button>
 
 
 <script>
 function signUpError(massage) {
   alert(massage);
 }
+</script>
+<script>
+function saveData() {
+            var textValue = document.getElementById('textInput').value;
+
+            fetch('/api/saveData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ textValue: textValue }),
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
 </script>
 </body>
 </html>

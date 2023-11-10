@@ -7,9 +7,6 @@ Feature: Accessory Information
     Then the user navigates to the "Interior Accessories" section
 
 
-
-
-
   Scenario: View information for Seat Cover
     Given the user is on the accessories page
     When the user clicks the Information button for  Seat Cover
