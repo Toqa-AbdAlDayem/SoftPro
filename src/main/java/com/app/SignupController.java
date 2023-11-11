@@ -1,5 +1,7 @@
 package com.app;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +15,7 @@ import java.sql.Date;
 
 @RestController
 @RequestMapping("/api")
+
 public class SignupController {
 
         @Autowired
@@ -36,10 +39,11 @@ public class SignupController {
                 // Date birthdate = Date.valueOf(driver.findElement(By.id("birth")).getAttribute("value"));
                 String gender = "Male";
 
-                String query = "INSERT INTO customer (CUST_ID, NAME, PASS, CONF_PASS, EMAIL, BIRTHDATE, GENDER) VALUES (?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO customer (CUST_ID, NAME, PASS, CONF_PASS, EMAIL, GENDER) VALUES (?, ?, ?, ?, ?, ?)";
                 jdbcTemplate.update(query, custId, name, password, confirmPassword, email, gender);
 
                 return "Data saved successfully";
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return "Error: " + e.getMessage();

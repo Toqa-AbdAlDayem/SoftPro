@@ -8,11 +8,14 @@ import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+//import sun.security.krb5.internal.ktab.KeyTab;
 
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.app")
 public class MyAppApplication implements CommandLineRunner {
+    @Autowired
+    CustomerRepository custo;
     @Autowired
     private JdbcTemplate jdbcTemplate ;
     public static void main(String[] args) {
@@ -23,8 +26,11 @@ public class MyAppApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String sql="select * from customer";
-        List<customer_db> customer_list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(customer_db.class)) ;
-        customer_list.forEach(System.out :: println);
+        customer_db customer = new  customer_db();
+        customer.setName("John Doe");
+        customer.setEmail("john@example.com");
+
+
+        custo.save(customer);
     }
 }
