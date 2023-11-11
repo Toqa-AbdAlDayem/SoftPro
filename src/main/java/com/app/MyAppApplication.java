@@ -19,18 +19,16 @@ public class MyAppApplication implements CommandLineRunner {
     @Autowired
     private JdbcTemplate jdbcTemplate ;
     public static void main(String[] args) {
-
-
         SpringApplication.run(MyAppApplication.class,args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        customer_db customer = new  customer_db();
-        customer.setName("John Doe");
-        customer.setEmail("john@example.com");
-
-
-        custo.save(customer);
+//        customer_db customer = new  customer_db();
+//        customer.setName("John Doe");
+//        customer.setEmail("john@example.com");
+//        custo.save(customer);
+        List<customer_db> listCustomer = custo.findAll();
+        listCustomer.forEach(System.out :: println);
     }
 }
