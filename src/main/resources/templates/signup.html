@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/saveData}">
+    <!-- Form fields -->
+    User id: <input type="text" id="user_id" name="userId"><br>
+    User Name: <input type="text" id="user_name" name="userName"><br>
+    Email: <input type="text" id="email" name="email"><br>
+    Password: <input type="password" id="pass" name="password"><br>
+    Confirm Password: <input type="password" id="conf" name="confirmPassword"><br>
+    Birth Date: <input type="date" id="birth" name="birthDate"><br>
+    Gender: <input type="text" id="gender" name="gender"><br>
+
+    <button type="submit" id="signup">Sign up</button>
+</form>
+
+<script>
+
+    function signUpError(message) {
+        alert(message);
+    }
+</script>
+
+</body>
+</html>

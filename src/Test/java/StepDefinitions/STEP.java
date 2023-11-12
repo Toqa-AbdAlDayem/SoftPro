@@ -2,6 +2,7 @@ package StepDefinitions;
 
 import MyApp.User;
 import MyApp.car;
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,20 +17,24 @@ import java.time.Duration;
 import static org.junit.Assert.*;
 
 public class STEP {
-    public car c;
+    public car c=new car();
 WebDriver driver=null;
 boolean t=false;
     @Given("the user is on the registration page")
     public void the_user_is_on_the_registration_page() {
-        c.Sign_Up_Page();
-        sleep(200);
+    driver= new ChromeDriver();
+        driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//signup.html");
+        sleep(2000);
     }
 
 
     @And("they fill in the registration form with a valid username {string} and a strong password {string} and a correct email {string} and a correct confim password {string}")
     public void they_fill_in_the_registration_form_with_a_valid_username_and_a_strong_password_and_a_correct_email(String username, String password, String email,String conf) {
         System.out.println("iam in when");
-     driver.findElement(By.id("user_name")).sendKeys(username);
+      //  driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//signup.html");
+
+
+    driver.findElement(By.id("user_name")).sendKeys(username);
      driver.findElement(By.id("pass")).sendKeys(password);
      driver.findElement(By.id("email")).sendKeys(email);
      driver.findElement(By.id("conf")).sendKeys(conf);
@@ -47,7 +52,7 @@ boolean t=false;
 
         // Wait for the "name" element to be present
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("user_name")));
-     car c=new car();
+
         int z=c.user.size();
         User u1=new User();
       for (int i=0;i<z;i++){
@@ -87,7 +92,7 @@ boolean t=false;
 
     @Then("they should be redirected to the home page")
     public void they_should_be_redirected_to_the_home_page() {
-       driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Home.html");
+       driver.get("C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Home.html");
 
         sleep(2000);
 
@@ -185,7 +190,11 @@ boolean t=false;
             System.out.println("Erooooooooooooooooooooor");
         }
     }
+    @After
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
 
-}
 
-
+    }}

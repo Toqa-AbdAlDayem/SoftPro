@@ -14,11 +14,13 @@ import java.util.ArrayList;
 
 public class car {
 
+
   public   ArrayList <User> user=new ArrayList<User>();
   WebDriver driver=null;
   public void Sign_Up_Page(){
   this.driver = new ChromeDriver();
   this.driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//signup.html");
+
   }
 
 
