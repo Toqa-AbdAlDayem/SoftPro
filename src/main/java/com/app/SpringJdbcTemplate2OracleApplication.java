@@ -21,10 +21,7 @@ public class SpringJdbcTemplate2OracleApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String sql = "SELECT * FROM Customer";
 
-        List<customer_db> students = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(customer_db.class));
-        students.forEach(System.out :: println);
 
     }
 
