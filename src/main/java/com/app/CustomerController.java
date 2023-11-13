@@ -18,7 +18,7 @@ private final CustomerRepository customer;
     }
     @RequestMapping("/form")
     public String showForm(Model model) {
-System.out.println("MM");
+
         return "signup"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
 
@@ -27,8 +27,6 @@ System.out.println("MM");
     public ResponseEntity<String> saveData(DataForm dataForm) {
         CustomerService check =new CustomerService(customer);
 
-        System.out.println("vv");
-        System.out.println("Received data: " + dataForm);
 
         CustomerDb dataEntity = new CustomerDb();
         dataEntity.setName(dataForm.getUserName());

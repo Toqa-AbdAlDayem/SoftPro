@@ -8,23 +8,23 @@ public class CustomerDb {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CUST_ID")
-    private int ID;
-    private String  Name;
+    private int id;
+    private String name;
     private String email;
 
-    public int getID() {
+    public int getId() {
 
-        return ID;
+        return id;
     }
 
     public String getName() {
 
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
 
-        this.Name=name;
+        this.name =name;
     }
 
     public void setEmail(String mail) {
@@ -38,6 +38,6 @@ public class CustomerDb {
 
 
     public void setId(int userId) {
-        this.ID=userId ;
+        this.id =userId ;
     }
 }
