@@ -1,8 +1,5 @@
 package StepDefinitions;
 
-import MyApp.User;
-import MyApp.car;
-import com.app.CustomerController;
 import com.app.CustomerController;
 import com.app.DataForm;
 import io.cucumber.java.After;
@@ -20,7 +17,7 @@ import java.time.Duration;
 import static org.junit.Assert.*;
 
 public class STEP {
-    public car c=new car();
+
 WebDriver driver=null;
 boolean t=false;
     @Given("the user is on the registration page")
@@ -54,7 +51,7 @@ boolean t=false;
     }
     @Then("they click the {string} button")
     public void they_click_the_button(String string) {
-        CustomerController customer=new CustomerController();
+
         DataForm data=new DataForm();
 
 

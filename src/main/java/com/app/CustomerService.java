@@ -16,7 +16,7 @@ public class CustomerService {
     }
 
     public boolean userExists(int userId) {
-        Optional<customer_db> existingUser = userRepository.findById(userId);
+        Optional<CustomerDb> existingUser = userRepository.findById(userId);
         return existingUser.isPresent();
     }
 

@@ -16,7 +16,7 @@ public class DataImpl  {
 
 
     public void saveData(DataForm dataForm) {
-        customer_db dataEntity = new  customer_db();
+        CustomerDb dataEntity = new CustomerDb();
         // Map data from DataForm to DataEntity (assuming DataEntity is your JPA entity)
         dataEntity.setId((dataForm.getUserId()));
         dataEntity.setName(dataForm.getUserName());

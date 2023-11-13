@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CustomerController {
 @Autowired
-private CustomerRepository customer;
+private final CustomerRepository customer;
+
+    @Autowired
+    public CustomerController(CustomerRepository cust) {
+        this.customer = cust;
+    }
     @RequestMapping("/form")
     public String showForm(Model model) {
 System.out.println("MM");
@@ -25,7 +30,7 @@ System.out.println("MM");
         System.out.println("vv");
         System.out.println("Received data: " + dataForm);
 
-        customer_db dataEntity = new customer_db();
+        CustomerDb dataEntity = new CustomerDb();
         dataEntity.setName(dataForm.getUserName());
         dataEntity.setId(dataForm.getUserId());
         dataEntity.setEmail(dataForm.getEmail());

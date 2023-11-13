@@ -1,4 +1,4 @@
-package MyApp;
+package my_app;
 
 public class OrderDetail {
     private String orderDate;

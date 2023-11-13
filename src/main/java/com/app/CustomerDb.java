@@ -1,11 +1,10 @@
 package com.app;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
 @Table(name = "customer")
-public class customer_db {
+public class CustomerDb {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CUST_ID")
