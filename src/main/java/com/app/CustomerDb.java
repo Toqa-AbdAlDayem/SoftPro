@@ -1,6 +1,9 @@
 package com.app;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "customer")
@@ -11,10 +14,52 @@ public class CustomerDb {
     private int id;
     private String name;
     private String email;
+ private String pass;
+ private String conf_pass;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name="birthdate")
+ private Date birthDate;
+ private String gender;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getConf_pass() {
+        return conf_pass;
+    }
+
+    public void setConf_pass(String conf_pass) {
+        this.conf_pass = conf_pass;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public int getId() {
 
         return id;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getName() {

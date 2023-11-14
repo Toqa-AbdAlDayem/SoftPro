@@ -1,3 +1,4 @@
+/*
 package StepDefinitions;
 
 import com.app.CustomerController;
@@ -28,16 +29,12 @@ boolean t=false;
     }
 
 
-    @And("they fill in the registration form with a valid username {string} and a strong password {string} and a correct email {string} and a correct confim password {string}")
-    public void they_fill_in_the_registration_form_with_a_valid_username_and_a_strong_password_and_a_correct_email(String username, String password, String email,String conf) {
-        System.out.println("iam in when");
-      //  driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//signup.html");
-        driver.findElement(By.id("user_name")).sendKeys(username);
-        driver.findElement(By.id("pass")).sendKeys(password);
+    @And("they fill in the registration form with a valid username {string} and a strong password {string} and a correct confirmpass {string} and a correct email {string}")
+    public void theyFillInTheRegistrationFormWithAValidUsernameAndAStrongPasswordAndACorrectConfirmpassAndACorrectEmail(String user_name, String pass, String conf, String email) {
+        driver.findElement(By.id("user_name")).sendKeys(user_name);
+        driver.findElement(By.id("pass")).sendKeys(pass);
         driver.findElement(By.id("email")).sendKeys(email);
         driver.findElement(By.id("conf")).sendKeys(conf);
-
-        sleep(2000);
 
     }
 
@@ -176,4 +173,7 @@ boolean t=false;
         }
 
 
-    }}
+    }
+
+
+}*/

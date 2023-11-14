@@ -1,7 +1,54 @@
 package com.app;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 public class DataForm {
 
+    private int  userId;
+    private String userName;
+    private String email;
+
+    private String password;
+    private String confirmPassword;
+
+    private Date birthDate;
+
+    @DateTimeFormat(pattern = "mm-dd-yyyy")
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String gender;
 
     public DataForm() {
         // default constructor
@@ -26,14 +73,12 @@ public class DataForm {
         this.email = email;
     }
 
-    private int  userId;
-    private String userName;
+
 
     public String getEmail() {
         return email;
     }
 
-    private String email;
 
 
 
