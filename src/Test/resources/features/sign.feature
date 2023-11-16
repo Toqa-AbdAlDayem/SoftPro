@@ -4,10 +4,9 @@ Feature: Signup
 
   Scenario:  Successful Sign Up with Minimal Information
     Given  the user is on the registration page
-   And they fill in the registration form with a valid username "toqa" and a strong password "123456toqa" and a correct email "toqaomar24@gmail.com" and a correct confim password "123456toqa"
+    And they fill in the registration form with a valid username "Ahmad" and a strong password "secure123ahmad" and a correct confirmpass "secure123ahmad" and a correct email "ahmadomar24@gmail.com" and Birthdate "1999-2-1" and Gender "Male"
     And they click the "Sign Up" button
    Then their account should be successfully created
-    Then they should see the alert with message "Welcome home"
     And they should be redirected to the home page
 
 

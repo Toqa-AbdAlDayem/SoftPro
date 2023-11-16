@@ -17,20 +17,20 @@ boolean t=false;
     @Given("the user is on the home page")
     public void the_user_is_on_the_home_page() {
         driver=new ChromeDriver();
-        driver.get("file://C://Users//user//Desktop//selcuc//src//main//resources//Home.html");
+        driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Home.html");
         sleep();
     }
 
     @When("the user navigates to the {string} section")
     public void the_user_navigates_to_the_section(String string) {
-        driver.get("file://C:/Users/user/Desktop/selcuc/src/main/resources/Interior Accesories.html");
+        driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Interior Accesories.html");
         sleep();
     }
 
     @Given("the user is on the accessories page")
     public void theUserIsOnTheAccessoriesPage() {
         driver=new ChromeDriver();
-        driver.get("file://C://Users//user//Desktop//selcuc//src//main//resources//Interior Accesories.html");
+        driver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//Interior Accesories.html");
         sleep();
 
     }
