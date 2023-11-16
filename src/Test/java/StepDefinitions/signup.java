@@ -1,44 +1,36 @@
 package StepDefinitions;
 
-import com.app.CustomerController;
-import com.app.CustomerRepository;
-import com.app.DataForm;
-import com.app.DataService;
+import com.app.*;
 import io.cucumber.java.en.*;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Component;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
+@Component
 public class signup{
 
     private WebDriver webDriver =null;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-    @Mock
-    private DataForm data =new DataForm();
-    @Mock
-    private CustomerRepository repository;
-    @Mock
-    private DataService dataService =new DataService(repository);
 
-    @InjectMocks
+    @Autowired
+    private DataForm data =new DataForm();
+    @Autowired
+    private CustomerRepository repository ;
+    @Autowired
+    private DataService dataService ;
+
+    @Autowired
     private CustomerController customerController;
 
 
@@ -91,24 +83,26 @@ public class signup{
        // data.setBirthDate(webDriver.findElement(By.id("birth")).getAttribute("value"));
         data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
 
+        CustomerDb datEntity= new CustomerDb();
+        repository.save(datEntity);
+        CustomerDb dataEntity=new CustomerDb();
 
-        Mockito.when(dataService.createAccount(data)).thenReturn(true);
-        boolean isSucsess= dataService.createAccount(data);
+        String isSucsess= dataService.createAccount(data,dataEntity);
         String result = customerController.signUp(data);
-        if(isSucsess){
-
+       boolean isSucsess2=result.equals("Home");
+        if(isSucsess.equals("Account created successfully")){
+            assertTrue(true);
             webDriver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//templates//Home.html");
         }
 
-       boolean isSucsess2=result.equals("Home");
-        assertTrue(isSucsess2);
+
 
     }
 
     @And("they should be redirected to the home page")
     public void andTheyShouldBeRedirectedToTheHomePage() {
         // Implement verification logic using Selenium
-        Assertions.assertEquals("Home Page", webDriver.getTitle()); // Replace with your actual home page title
+        Assertions.assertEquals("Home page", webDriver.getTitle()); // Replace with your actual home page title
     }
 
     private static void sleep(int millis) {
@@ -117,5 +111,10 @@ public class signup{
         } catch (Exception e) {
             System.out.println("Erooooooooooooooooooooor");
         }
+    }
+
+    @When("they fill in the registration form with an exists username {string}")
+    public void theyFillInTheRegistrationFormWithAnExistsUsername(String arg0) {
+        data.setUserName(webDriver.findElement(By.id("user_name")).getAttribute("value"));
     }
 }

@@ -14,7 +14,7 @@ public class CustomerController {
 @Autowired
 private  CustomerRepository customer;
     @Autowired
-    public CustomerService customerService=new CustomerService(customer);
+    public DataService customerService;
 
     @Autowired
     public CustomerController(CustomerRepository cust) {
@@ -52,14 +52,19 @@ private  CustomerRepository customer;
     @PostMapping(value = "/saveData")
     public String signUp(DataForm data) {
         CustomerDb dataEntity = new CustomerDb();
-        boolean signUpResult = customerService.signUpUser(data,dataEntity,customer);
-        if (signUpResult) {
+        String signUpResult = customerService.createAccount(data, dataEntity);
+        if (signUpResult.equals("Account created successfully")) {
+            customerService.displayPopup("Account created successfully");
             customer.save(dataEntity);
-            return "Home"; // Redirect to the home page if signup is successful
-        } else {
-
-            return "signup"; // Redirect back to the signup page if signup fails
+            return "Home";
         }
+        else if (signUpResult.equals("User ID already exists"))
+            customerService.displayPopup("User ID already exists");
+            else
+            customerService.displayPopup("Password and Confirm Password do not match.");
 
+
+
+        return "signup";
     }
 }

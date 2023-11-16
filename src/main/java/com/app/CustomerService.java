@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Service
 public class CustomerService {
-
+    @Autowired
     private final CustomerRepository userRepository;
 
     @Autowired
@@ -26,7 +26,7 @@ public class CustomerService {
         return existingUser.isPresent();
     }
 
-    public boolean signUpUser(DataForm data,CustomerDb dataEntity,CustomerRepository userRepository) {
+    public String signUpUser(DataForm data,CustomerDb dataEntity,CustomerRepository userRepository) {
 //        Optional<CustomerDb> existingUser = userRepository.findById(data.getUserId());
 //        return existingUser.isPresent();
 
@@ -37,7 +37,7 @@ public class CustomerService {
         dataEntity.setConf_pass(data.getConfirmPassword());
         dataEntity.setBirthDate(data.getBirthDate());
         dataEntity.setGender(data.getGender());
-           return true;
+           return "Account created successfully.";
 
     }
 

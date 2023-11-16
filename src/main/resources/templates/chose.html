@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../cssfiles/Home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment or Online Purchase</title>
+
+    <style>
+        body {
+            background-color: #e0e0e0; /* ashen background */
+            color: black;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #companyCar {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #title {
+            border: 1px solid #fff; /* black border */
+            background-color: #5c8a8a; /* Pink button background */
+            color: #fff;
+            border-radius: 100px; /* Adjust the value to change the oval shape */
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .button-container img {
+            width: 100px; /* Adjust the width to fit with the button */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px;
+        }
+
+        .button-container button {
+            background-color: #5c8a8a; /* Pink button background */
+            color: #fff;
+            padding: 15px 30px;
+            margin: 10px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-container button:hover {
+            background-color: #999966; /* darker red on hover */
+        }
+
+        #appointmentForm {
+            display: none;
+        }
+
+        #additionalButtons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #additionalButtons button {
+            background-color: #5c8a8a; /* Pink button background */
+            color: #fff;
+            padding: 15px 30px;
+            margin: 10px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div id="title">
+    <h1>Your Car Company</h1>
+</div>
+
+<div id="additionalButtons">
+    <button id="profile">Profile</button>
+    <button id="notification">Notification</button>
+    <button id="exit">Exit</button>
+</div>
+
+
+<div class="button-container">
+    <img src="car.png" alt="Car Image">
+    <button onclick="showAppointmentForm()">Make an Appointment</button>
+</div>
+
+<div class="button-container">
+    <img src="spare-parts.png" alt="Spare Parts Image">
+    <button onclick="redirectToOnlineStore()">Buy Online</button>
+</div>
+
+
+<div id="appointmentForm">
+    <!-- Include your appointment form here -->
+    <h2>Appointment Form</h2>
+    <!-- Add your appointment form fields here -->
+    <!-- For example, name, date, time, etc. -->
+</div>
+
+<script>
+    function showAppointmentForm() {
+        var appointmentForm = document.getElementById('appointmentForm');
+        appointmentForm.style.display = 'block';
+    }
+
+    function redirectToOnlineStore() {
+        // Redirect to your online store page
+        window.location.href = 'your-online-store-url';
+    }
+</script>
+
+</body>
+</html>
