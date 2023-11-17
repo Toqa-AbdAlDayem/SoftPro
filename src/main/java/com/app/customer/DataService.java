@@ -12,8 +12,7 @@ public class DataService {
     Logger logger = Logger.getLogger(getClass().getName());
 
     public void displayPopup(String message) {
-
-        logger.info("Displaying popup: " + message);
+        logger.info(String.format("Displaying popup: %s", message));
 
     }
 

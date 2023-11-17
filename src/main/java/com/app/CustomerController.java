@@ -16,20 +16,26 @@ import java.util.logging.Logger;
 @Controller
 public class CustomerController {
     Logger logger = Logger.getLogger(getClass().getName());
-    @Autowired
-    private AppointmenRepository appointmenRepository;
-    @Autowired
-private AppointmentDb appoinmentDb;
-@Autowired
-private CustomerRepository customer;
-    @Autowired
-    public DataService customerService;
-    @Autowired
-    public AppointmentService appointmentService;
+
+    private final AppointmenRepository appointmenRepository;
+
+    private AppointmentDb appoinmentDb;
+
+
+     private final CustomerRepository customer;
+
+    public final DataService customerService;
+
+
+
+    public final AppointmentService appointmentService;
 
     @Autowired
-    public CustomerController(CustomerRepository cust) {
+    public CustomerController(AppointmenRepository appointmenRepository, CustomerRepository cust, DataService customerService, AppointmentService appointmentService) {
+        this.appointmenRepository = appointmenRepository;
         this.customer = cust;
+        this.customerService = customerService;
+        this.appointmentService = appointmentService;
     }
 
     @GetMapping(value = "/form")
@@ -63,19 +69,13 @@ private CustomerRepository customer;
 
     @PostMapping(value = "/saveAppointment")
     public String sendRequest(@ModelAttribute AppointmentForm appoitmentForm){
-        logger.info(appoitmentForm.getService());
-
-
       boolean sendResult=appointmentService.creatRequast(appoitmentForm,appoinmentDb);
-        logger.info(appoinmentDb.getDay());
-
-      logger.info(String.valueOf(appoinmentDb.getAppId()));
-
         appointmenRepository.save(appoinmentDb);
-        if(sendResult)
-        return "Home";
+        if(sendResult){
+        return "Home";}
+        else{
         return "signup";
-    }
+    }}
 
 
 
