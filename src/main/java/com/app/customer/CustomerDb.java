@@ -21,6 +21,7 @@ public class CustomerDb {
     @Column(name="birthdate")
  private Date birthDate;
  private String gender;
+ private String role;
 
     public String getEmail() {
         return email;
@@ -81,5 +82,12 @@ public class CustomerDb {
 
     public void setId(int userId) {
         this.id =userId ;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

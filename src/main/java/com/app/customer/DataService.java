@@ -72,4 +72,25 @@ public class DataService {
 
         dataRepository.save(dataEntity);
     }
+
+    public String searchAccount(DataForm data) {
+        System.out.println("Searching for user: " + data.getUserName());
+        Optional<CustomerDb> userOptional = dataRepository.findByNameAndPassword(data.getUserName(), data.getPassword());
+        System.out.println("User found: " + userOptional.isPresent());
+        if (userOptional.isPresent()) {
+            CustomerDb user = userOptional.get();
+            String role = user.getRole();
+
+            if(role.equals("admin"))
+                return "Admin";
+            else if (role.equals("customer")) {
+                return "Customer";
+            }
+            else if (role.equals("installer")) {
+                return "Installer";
+            }
+        }
+            return "Not Found";
+
+    }
 }

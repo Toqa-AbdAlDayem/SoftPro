@@ -25,7 +25,7 @@ public class LogInSteps {
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Login.html");
+        driver.get("file://C://Users//user//Desktop//selcuc//src//main//resources//templates//Login.html");
 
     }
     @When("I enter my admin username {string} and password {string}")
@@ -51,7 +51,7 @@ public class LogInSteps {
 
     @Then("I should be redirected to the admin dashboard")
     public void i_should_be_redirected_to_the_admin_dashboard() {
-        driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Admin.html");
+       // driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Admin.html");
         sleep(2000);
         driver.close();
         driver.quit();
