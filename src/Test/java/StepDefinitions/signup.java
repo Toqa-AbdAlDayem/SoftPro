@@ -1,10 +1,6 @@
 package StepDefinitions;
 
-import com.app.*;
-import com.app.customer.CustomerDb;
-import com.app.customer.CustomerRepository;
-import com.app.customer.DataForm;
-import com.app.customer.DataService;
+import com.app.customer.*;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;

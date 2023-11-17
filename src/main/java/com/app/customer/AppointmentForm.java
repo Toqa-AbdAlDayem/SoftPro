@@ -1,19 +1,11 @@
-package com.app.appointment;
+package com.app.customer;
 
-import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
-
-@Entity
-@Table(name = "Appointment")
-@Component
-public class AppointmentDb {
-    @Id
-    @Column(name = "app_id")
+public class AppointmentForm {
     private int appId;
-
+    private int custId;
+    private String day;
     private String service;
     private String isreceive;
-    private String day;
     private String hour;
 
     public int getAppId() {
@@ -22,6 +14,22 @@ public class AppointmentDb {
 
     public void setAppId(int appId) {
         this.appId = appId;
+    }
+
+    public int getCustId() {
+        return custId;
+    }
+
+    public void setCustId(int custId) {
+        this.custId = custId;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public String getService() {
@@ -46,13 +54,5 @@ public class AppointmentDb {
 
     public void setHour(String hour) {
         this.hour = hour;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
     }
 }

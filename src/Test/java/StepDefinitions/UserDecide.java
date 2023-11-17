@@ -1,9 +1,9 @@
 package StepDefinitions;
 
-import com.app.appointment.AppointmenRepository;
-import com.app.appointment.AppointmentDb;
-import com.app.appointment.AppointmentForm;
-import com.app.appointment.AppointmentService;
+import com.app.customer.AppointmenRepository;
+import com.app.customer.AppointmentDb;
+import com.app.customer.AppointmentForm;
+import com.app.customer.AppointmentService;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

@@ -1,6 +1,9 @@
-package com.app.appointment;
+package com.app.customer;
 
 
+import com.app.customer.AppointmenRepository;
+import com.app.customer.AppointmentDb;
+import com.app.customer.AppointmentForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,13 +1,5 @@
-package com.app;
+package com.app.customer;
 
-import com.app.appointment.AppointmenRepository;
-import com.app.appointment.AppointmentDb;
-import com.app.appointment.AppointmentForm;
-import com.app.appointment.AppointmentService;
-import com.app.customer.CustomerDb;
-import com.app.customer.CustomerRepository;
-import com.app.customer.DataForm;
-import com.app.customer.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +34,7 @@ public class CustomerController {
     @GetMapping(value = "/form")
     public String showForm() {
 
-        return "chose"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
+        return "signup"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
 
 

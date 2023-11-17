@@ -5,6 +5,8 @@ package com.app.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 import java.util.logging.Logger;
 @Service
 public class DataService {
@@ -38,7 +40,8 @@ public class DataService {
 
 
         else {
-          if (data.getPassword().equals(data.getConfirmPassword())) {
+          if ( !(data.getPassword().equals(data.getConfirmPassword()))) {
+
              logger.info("KKK");
               return "Password and Confirm Password do not match.";
 
@@ -74,8 +77,11 @@ public class DataService {
     }
 
     public String searchAccount(DataForm data) {
+        System.out.println(data.getUserName());
         System.out.println("Searching for user: " + data.getUserName());
-        Optional<CustomerDb> userOptional = dataRepository.findByNameAndPassword(data.getUserName(), data.getPassword());
+        System.out.println("Searching for pass: " + data.getPassword());
+        Optional<CustomerDb> userOptional = dataRepository.findByUsernameAndPassword(data.getUserName().trim(), data.getPassword().trim());
+
         System.out.println("User found: " + userOptional.isPresent());
         if (userOptional.isPresent()) {
             CustomerDb user = userOptional.get();

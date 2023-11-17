@@ -1,4 +1,4 @@
-package com.app;
+package com.app.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,20 @@ public class LogInController {
 
         return "Login"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
+
     @PostMapping(value = "/search")
     public String LogInFunc(DataForm data) {
+
           String logInResult = Dservice.searchAccount(data);
-          if(!logInResult.equals("Not Found"))
-              return logInResult;
-        return "Login";
-    }
+          System.out.println(logInResult);
+          if(logInResult.equals("Not Found")) {
+              return "Login";
+          }
+          else{
+
+        return "chose";
+    }}
+
 
 
 }

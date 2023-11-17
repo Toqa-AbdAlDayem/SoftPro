@@ -1,4 +1,4 @@
-package com.app;
+package com.app.customer;
 
 
 
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.app","StepDefinitions"})
+@ComponentScan(basePackages = {"com.app.customer","StepDefinitions","com.app"})
 public class SpringJdbcTemplate2OracleApplication implements CommandLineRunner {
 
 
