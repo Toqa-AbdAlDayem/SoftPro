@@ -1,4 +1,4 @@
-package com.app;
+package com.app.customer;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

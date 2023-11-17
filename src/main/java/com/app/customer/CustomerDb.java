@@ -1,4 +1,4 @@
-package com.app;
+package com.app.customer;
 
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,7 +15,8 @@ public class CustomerDb {
     private String name;
     private String email;
  private String pass;
- private String conf_pass;
+    @Column(name="conf_pass")
+ private String confPass;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="birthdate")
  private Date birthDate;
@@ -25,12 +26,12 @@ public class CustomerDb {
         return email;
     }
 
-    public String getConf_pass() {
-        return conf_pass;
+    public String getConfPass() {
+        return confPass;
     }
 
-    public void setConf_pass(String conf_pass) {
-        this.conf_pass = conf_pass;
+    public void setConfPass(String confPass) {
+        this.confPass = confPass;
     }
 
     public Date getBirthDate() {
@@ -75,10 +76,6 @@ public class CustomerDb {
     public void setEmail(String mail) {
 
         this.email=mail;
-    }
-    public String getMail(){
-
-        return email;
     }
 
 

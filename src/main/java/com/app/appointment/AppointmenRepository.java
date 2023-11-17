@@ -1,4 +1,4 @@
-package com.app;
+package com.app.appointment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

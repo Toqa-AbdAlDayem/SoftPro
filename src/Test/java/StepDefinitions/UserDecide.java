@@ -1,8 +1,9 @@
 package StepDefinitions;
 
-import com.app.AppointmentDb;
-import com.app.AppointmentForm;
-import com.app.AppointmentService;
+import com.app.appointment.AppointmenRepository;
+import com.app.appointment.AppointmentDb;
+import com.app.appointment.AppointmentForm;
+import com.app.appointment.AppointmentService;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -18,7 +19,9 @@ import static org.junit.Assert.assertTrue;
 
 public class UserDecide {
     @Autowired
-    AppointmentService appointmentService;
+    AppointmenRepository appointmenRepository;
+    @Autowired
+    AppointmentService appointmentService=new AppointmentService(appointmenRepository );
  WebDriver webDriver=null;
     @Given("the user is on the chosen page")
     public void the_user_is_on_the_chosen_page() {

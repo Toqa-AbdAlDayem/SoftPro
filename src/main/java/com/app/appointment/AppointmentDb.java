@@ -1,4 +1,4 @@
-package com.app;
+package com.app.appointment;
 
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;

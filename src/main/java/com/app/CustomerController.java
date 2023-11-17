@@ -1,20 +1,25 @@
 package com.app;
 
+import com.app.appointment.AppointmenRepository;
+import com.app.appointment.AppointmentDb;
+import com.app.appointment.AppointmentForm;
+import com.app.appointment.AppointmentService;
+import com.app.customer.CustomerDb;
+import com.app.customer.CustomerRepository;
+import com.app.customer.DataForm;
+import com.app.customer.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CustomerController {
     @Autowired
     private AppointmenRepository appointmenRepository;
     @Autowired
-private  AppointmentDb appoinmentDb;
+private AppointmentDb appoinmentDb;
 @Autowired
-private  CustomerRepository customer;
+private CustomerRepository customer;
     @Autowired
     public DataService customerService;
     @Autowired
@@ -25,7 +30,7 @@ private  CustomerRepository customer;
         this.customer = cust;
     }
 
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    @GetMapping(value = "/form")
     public String showForm() {
 
         return "chose"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
@@ -41,11 +46,12 @@ private  CustomerRepository customer;
             customer.save(dataEntity);
             return "Home";
         }
-        else if (signUpResult.equals("User ID already exists"))
+        else if (signUpResult.equals("User ID already exists")) {
             customerService.displayPopup("User ID already exists");
-            else
+        }
+        else {
             customerService.displayPopup("Password and Confirm Password do not match.");
-
+        }
 
 
         return "signup";

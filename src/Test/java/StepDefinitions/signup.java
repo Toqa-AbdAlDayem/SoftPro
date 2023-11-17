@@ -1,9 +1,12 @@
 package StepDefinitions;
 
 import com.app.*;
+import com.app.customer.CustomerDb;
+import com.app.customer.CustomerRepository;
+import com.app.customer.DataForm;
+import com.app.customer.DataService;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,14 +28,17 @@ public class signup{
 
     @Autowired
     private DataForm data =new DataForm();
+
     @Autowired
-    private CustomerRepository repository ;
+    private  CustomerRepository repository ;
+
     @Autowired
-    private DataService dataService ;
+    private DataService dataService=new DataService(repository) ;
 
     @Autowired
     private CustomerController customerController;
 
+  
 
 
     @Given("the user is on the registration page")
@@ -83,8 +89,7 @@ public class signup{
        // data.setBirthDate(webDriver.findElement(By.id("birth")).getAttribute("value"));
         data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
 
-        CustomerDb datEntity= new CustomerDb();
-        repository.save(datEntity);
+
         CustomerDb dataEntity=new CustomerDb();
 
         String isSucsess= dataService.createAccount(data,dataEntity);

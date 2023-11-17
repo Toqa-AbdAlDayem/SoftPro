@@ -2,7 +2,7 @@
 package StepDefinitions;
 
 import com.app.CustomerController;
-import com.app.DataForm;
+import com.app.customer.DataForm;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

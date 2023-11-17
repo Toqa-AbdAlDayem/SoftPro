@@ -1,4 +1,5 @@
-package com.app;
+package com.app.appointment;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class AppointmentService {
         this.appointmenRepository=appointmenRepository;
     }
 
-    public boolean creatRequast(AppointmentForm appointmentForm,AppointmentDb appointmentDb) {
+    public boolean creatRequast(AppointmentForm appointmentForm, AppointmentDb appointmentDb) {
        appointmentDb.setService(appointmentForm.getService());
        appointmentDb.setHour(appointmentForm.getHour());
        appointmentDb.setDay(appointmentForm.getDay());
