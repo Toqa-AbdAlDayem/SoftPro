@@ -18,10 +18,14 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Logger;
+
 import static org.junit.Assert.assertTrue;
 
 @Component
 public class signup{
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     private WebDriver webDriver =null;
 
@@ -110,11 +114,11 @@ public class signup{
         Assertions.assertEquals("Home page", webDriver.getTitle()); // Replace with your actual home page title
     }
 
-    private static void sleep(int millis) {
+    private  void sleep(int millis) {
         try {
             Thread.sleep(millis);
         } catch (Exception e) {
-            System.out.println("Erooooooooooooooooooooor");
+          logger.info("Erooooooooooooooooooooor");
         }
     }
 

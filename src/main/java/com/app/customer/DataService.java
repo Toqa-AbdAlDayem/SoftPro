@@ -5,14 +5,16 @@ package com.app.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.logging.Logger;
 @Service
 public class DataService {
 
+    Logger logger = Logger.getLogger(getClass().getName());
 
     public void displayPopup(String message) {
 
-        System.out.println("Displaying popup: " + message);
+        logger.info("Displaying popup: " + message);
+
     }
 
 
@@ -31,14 +33,14 @@ public class DataService {
 
         if (existingData) {
 
-            System.out.println("User ID already exists");
+            logger.info("User ID already exists");
             return "User ID already exists";
         }
 
 
         else {
           if (data.getPassword().equals(data.getConfirmPassword())) {
-              System.out.println("KKK");
+             logger.info("KKK");
               return "Password and Confirm Password do not match.";
 
           }
@@ -50,7 +52,8 @@ public class DataService {
             dataEntity.setConfPass(data.getConfirmPassword());
             dataEntity.setBirthDate(data.getBirthDate());
             dataEntity.setGender(data.getGender());
-            System.out.println("Account created successfully");
+
+          logger.info("Account created successfully");
             return "Account created successfully";
 
         }

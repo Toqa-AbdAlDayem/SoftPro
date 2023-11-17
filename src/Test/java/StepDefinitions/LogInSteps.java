@@ -1,6 +1,7 @@
 package StepDefinitions;
 
 
+import java.util.logging.Logger;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,6 +14,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class LogInSteps {
+
+    Logger logger = Logger.getLogger(getClass().getName());
     private WebDriver driver =null;
 
     @Given("the app is running")
@@ -32,11 +35,12 @@ public class LogInSteps {
         sleep(200);
     }
 
-    private static void sleep(int millis) {
+    private  void sleep(int millis) {
         try {
             Thread.sleep(millis);
         } catch (Exception e) {
-            System.out.println("Erooooooooooooooooooooor");
+
+            logger.info("Erooooooooooooooooooooor");
         }
     }
 
@@ -96,70 +100,13 @@ public class LogInSteps {
 
     @Then("I should see an error message {string}")
     public void i_should_see_an_error_message(String string) {
-//        System.out.println(string);
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Adjust the timeout as needed
-//        WebElement errorMsgElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ErrorMsg")));
-//
-//        JavascriptExecutor jse = (JavascriptExecutor) driver;
-//        jse.executeScript("document.getElementById('ErrorMsg').style.visibility = 'visible';", errorMsgElement);
- ((JavascriptExecutor) driver).executeScript("signUpError(arguments[0]);",string);
-//        try {
-//            Thread.sleep(2000);
-//        }
-//        catch (Exception e){
-//            System.out.println("Erooooooooooooooooooooor");
-//        }
-        System.out.println(" ");
+
+       logger.info(" ");
 
         driver.close();
         driver.quit();
     }
-/*
-    @When("I click the {string} link")
-    public void i_click_the_link(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I enter my email {string}")
-    public void i_enter_my_email(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I click the {string} button")
-    public void i_click_the_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @Then("I should receive a password reset email")
-    public void i_should_receive_a_password_reset_email() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }*/
-/*    @Given("I have received a password reset email")
-    public void i_have_received_a_password_reset_email() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I click the reset password link in the email")
-    public void i_click_the_reset_password_link_in_the_email() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I set a new password")
-    public void i_set_a_new_password() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I click the {string} button")
-    public void i_click_the_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @Then("I should be able to log in with the new password")
-    public void i_should_be_able_to_log_in_with_the_new_password() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-*/
+
+
 
 }

@@ -11,9 +11,11 @@ import com.app.customer.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.logging.Logger;
 
 @Controller
 public class CustomerController {
+    Logger logger = Logger.getLogger(getClass().getName());
     @Autowired
     private AppointmenRepository appointmenRepository;
     @Autowired
@@ -61,12 +63,13 @@ private CustomerRepository customer;
 
     @PostMapping(value = "/saveAppointment")
     public String sendRequest(@ModelAttribute AppointmentForm appoitmentForm){
-System.out.println(appoitmentForm.getService());
-System.out.println("how");
-      boolean sendResult=appointmentService.creatRequast(appoitmentForm,appoinmentDb);
-        System.out.println(appoinmentDb.getDay());
+        logger.info(appoitmentForm.getService());
 
-        System.out.println(appoinmentDb.getAppId());
+
+      boolean sendResult=appointmentService.creatRequast(appoitmentForm,appoinmentDb);
+        logger.info(appoinmentDb.getDay());
+
+      logger.info(String.valueOf(appoinmentDb.getAppId()));
 
         appointmenRepository.save(appoinmentDb);
         if(sendResult)

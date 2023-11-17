@@ -15,9 +15,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.logging.Logger;
+
 import static org.junit.Assert.assertTrue;
 
 public class UserDecide {
+
+    Logger logger = Logger.getLogger(getClass().getName());
     @Autowired
     AppointmenRepository appointmenRepository;
     @Autowired
@@ -91,11 +95,11 @@ public class UserDecide {
 
     }
 
-    private static void sleep(int millis) {
+    private  void sleep(int millis) {
         try {
             Thread.sleep(millis);
         } catch (Exception e) {
-            System.out.println("Erooooooooooooooooooooor");
+           logger.info("Erooooooooooooooooooooor");
         }
     }
 

@@ -1,5 +1,6 @@
 package StepDefinitions;
 
+import java.util.logging.Logger;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,6 +13,8 @@ import org.openqa.selenium.WebElement;
 
 
 public class catag {
+    Logger logger = Logger.getLogger(getClass().getName());
+
     WebDriver driver=null;
 boolean t=false;
     @Given("the user is on the home page")
@@ -151,12 +154,13 @@ boolean t=false;
         ((JavascriptExecutor) driver).executeScript("showless('steering_wheel_covers_info')");
         sleep();
     }
-    private static void sleep() {
+    private  void sleep() {
         try {
             Thread.sleep(2000);
         }
         catch (Exception e){
-            System.out.println(" Erooooooooooooooooooooor");
+
+            logger.info(" Erooooooooooooooooooooor");
         }
     }
 }
