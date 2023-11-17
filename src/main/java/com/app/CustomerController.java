@@ -1,20 +1,24 @@
 package com.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class CustomerController {
-
+    @Autowired
+    private AppointmenRepository appointmenRepository;
+    @Autowired
+private  AppointmentDb appoinmentDb;
 @Autowired
 private  CustomerRepository customer;
     @Autowired
     public DataService customerService;
+    @Autowired
+    public AppointmentService appointmentService;
 
     @Autowired
     public CustomerController(CustomerRepository cust) {
@@ -24,31 +28,10 @@ private  CustomerRepository customer;
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String showForm() {
 
-        return "signup"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
+        return "chose"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
 
 
-//    @PostMapping(value = "/saveData")
-//    public ResponseEntity<String> saveData(DataForm dataForm) {
-//        CustomerService check =new CustomerService(customer);
-//
-//
-//        CustomerDb dataEntity = new CustomerDb();
-//        dataEntity.setName(dataForm.getUserName());
-//        dataEntity.setId(dataForm.getUserId());
-//        dataEntity.setEmail(dataForm.getEmail());
-//
-//
-//
-//
-//
-//        if (check.userExists(dataForm.getUserId())) {
-//            return ResponseEntity.badRequest().body("User already exists!");
-//        }
-//
-//        customer.save(dataEntity);
-//        return ResponseEntity.ok("Data saved successfully!");
-//    }
     @PostMapping(value = "/saveData")
     public String signUp(DataForm data) {
         CustomerDb dataEntity = new CustomerDb();
@@ -67,4 +50,23 @@ private  CustomerRepository customer;
 
         return "signup";
     }
+
+
+
+    @PostMapping(value = "/saveAppointment")
+    public String sendRequest(@ModelAttribute AppointmentForm appoitmentForm){
+System.out.println(appoitmentForm.getService());
+System.out.println("how");
+      boolean sendResult=appointmentService.creatRequast(appoitmentForm,appoinmentDb);
+        System.out.println(appoinmentDb.getDay());
+       // appoinmentDb.setApp_id(46521);
+        System.out.println(appoinmentDb.getApp_id());
+
+        appointmenRepository.save(appoinmentDb);
+        return "Home";
+    }
+
+
+
+
 }
