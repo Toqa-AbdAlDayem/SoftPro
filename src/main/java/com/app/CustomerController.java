@@ -19,6 +19,7 @@ public class CustomerController {
 
     private final AppointmenRepository appointmenRepository;
 
+    @Autowired
     private AppointmentDb appoinmentDb;
 
 
