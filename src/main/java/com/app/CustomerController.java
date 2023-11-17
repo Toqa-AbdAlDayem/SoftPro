@@ -65,11 +65,13 @@ System.out.println(appoitmentForm.getService());
 System.out.println("how");
       boolean sendResult=appointmentService.creatRequast(appoitmentForm,appoinmentDb);
         System.out.println(appoinmentDb.getDay());
-       // appoinmentDb.setApp_id(46521);
-        System.out.println(appoinmentDb.getApp_id());
+
+        System.out.println(appoinmentDb.getAppId());
 
         appointmenRepository.save(appoinmentDb);
+        if(sendResult)
         return "Home";
+        return "signup";
     }
 
 

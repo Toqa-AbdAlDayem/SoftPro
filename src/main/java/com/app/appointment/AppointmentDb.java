@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 public class AppointmentDb {
     @Id
   //  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int app_id;
+    @Column (name = "app_id")
+    private int appId;
 
     private String day;
 
@@ -39,8 +40,8 @@ public class AppointmentDb {
         this.hour = hour;
     }
 
-    public int getApp_id() {
-        return app_id;
+    public int getAppId() {
+        return appId;
     }
 
     public String getDay() {
@@ -51,8 +52,8 @@ public class AppointmentDb {
         this.day = day;
     }
 
-    public void setApp_id(int app_id) {
-        this.app_id = app_id;
+    public void setAppId(int appId) {
+        this.appId = appId;
     }
 
     private String hour;

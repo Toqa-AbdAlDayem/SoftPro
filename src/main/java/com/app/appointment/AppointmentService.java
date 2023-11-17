@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AppointmentService {
-    @Autowired
+
    private AppointmentDb appointmentDb;
 
-    @Autowired
-    private AppointmenRepository appointmenRepository;
+
+    private final AppointmenRepository appointmenRepository;
     @Autowired
     public AppointmentService(AppointmenRepository appointmenRepository){
         this.appointmenRepository=appointmenRepository;
@@ -21,7 +21,7 @@ public class AppointmentService {
        appointmentDb.setService(appointmentForm.getService());
        appointmentDb.setHour(appointmentForm.getHour());
        appointmentDb.setDay(appointmentForm.getDay());
-appointmentDb.setApp_id(223);
+appointmentDb.setAppId(223);
 
 return true;
     }

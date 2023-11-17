@@ -11,7 +11,7 @@ public class DataService {
 
 
     public void displayPopup(String message) {
-        String javascriptCode = "alert('" + message + "');";
+
         System.out.println("Displaying popup: " + message);
     }
 
