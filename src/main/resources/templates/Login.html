@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<h2>Login</h2>
+<form method="post" th:action="@{/search}" th:object="${dataForm}">
+    <label for="user_name">Username:</label>
+    <input type="text" id="user_name" name="username" required><br><br>
+
+    <label for="pass">Password:</label>
+    <input type="password" id="pass" name="password" required><br><br>
+    <button id="LogInBtn">Log In</button>
+
+
+
+</form>
+</body>
+<script>
+function signUpError(massage) {
+  alert(massage);
+}
+</script>
+</html>

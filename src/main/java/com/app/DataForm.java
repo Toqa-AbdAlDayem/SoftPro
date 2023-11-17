@@ -14,6 +14,7 @@ public class DataForm {
     private String confirmPassword;
 
     private Date birthDate;
+    private String role ;
 
     @DateTimeFormat(pattern = "mm-dd-yyyy")
     public Date getBirthDate() {
@@ -79,7 +80,13 @@ public class DataForm {
         return email;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 
+    public String getRole() {
+        return role;
+    }
 
 
     @Override
