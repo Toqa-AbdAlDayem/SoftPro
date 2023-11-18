@@ -1,6 +1,10 @@
 package StepDefinitions;
 
-import com.app.customer.*;
+import com.app.customer.CustomerDb;
+import com.app.customer.CustomerRepository;
+import com.app.customer.DataForm;
+import com.app.customer.DataService;
+import com.app.customer.CustomerController;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -9,44 +13,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.stereotype.Component;
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
-
 import static org.junit.Assert.assertTrue;
 
-@Component
-public class signup{
+public class signup {
 
     Logger logger = Logger.getLogger(getClass().getName());
-
-    private WebDriver webDriver =null;
-
-
+    private WebDriver webDriver = null;
+    private DataForm data = new DataForm();
     @Autowired
-    private DataForm data =new DataForm();
-
-    @Autowired
-    private  CustomerRepository repository ;
-
-    @Autowired
-    private DataService dataService=new DataService(repository) ;
-
+    private DataService dataService;
     @Autowired
     private CustomerController customerController;
 
-  
-
-
     @Given("the user is on the registration page")
     public void givenTheUserIsOnTheRegistrationPage() {
-        webDriver= new ChromeDriver();
-        webDriver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//templates//signup.html");
+        System.out.println("hi");
+      //  executeGet("http://localhost:8080/version");
     }
-
 
     @When("they fill in the registration form with a valid username {string} and a strong password {string} and a correct confirmpass {string} and a correct email {string} and Birthdate {string} and Gender {string}")
     public void theyFillInTheRegistrationFormWithAValidUsernameAndAStrongPasswordAndACorrectConfirmpassAndACorrectEmailAndBirthdateAndGender(String username, String password, String confirmPassword, String email, String birthDate, String gender) {
@@ -81,40 +67,35 @@ public class signup{
     public void thenTheirAccountShouldBeSuccessfullyCreated() throws ParseException {
         String pattern = "mm-dd-yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-      //  data.setUserId(Integer.parseInt(webDriver.findElement(By.id("user_id")).getAttribute("value")));
+
         data.setUserName(webDriver.findElement(By.id("user_name")).getAttribute("value"));
         data.setPassword((webDriver.findElement(By.id("pass")).getAttribute("value")));
         data.setConfirmPassword(webDriver.findElement(By.id("conf")).getAttribute("value"));
         data.setEmail(webDriver.findElement(By.id("email")).getAttribute("value"));
-       // data.setBirthDate(webDriver.findElement(By.id("birth")).getAttribute("value"));
         data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
 
-
-        CustomerDb dataEntity=new CustomerDb();
-
-        String isSucsess= dataService.createAccount(data,dataEntity);
+        CustomerDb dataEntity = new CustomerDb();
         String result = customerController.signUp(data);
-       boolean isSucsess2=result.equals("Home");
-        if(isSucsess.equals("Account created successfully")){
+        String isSuccess = dataService.createAccount(data, dataEntity);
+
+        boolean isSuccess2 = result.equals("Home");
+
+        if (isSuccess.equals("Account created successfully")) {
             assertTrue(true);
             webDriver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//templates//Home.html");
         }
-
-
-
     }
 
     @And("they should be redirected to the home page")
     public void andTheyShouldBeRedirectedToTheHomePage() {
-        // Implement verification logic using Selenium
-        Assertions.assertEquals("Home page", webDriver.getTitle()); // Replace with your actual home page title
+        Assertions.assertEquals("Home page", webDriver.getTitle());
     }
 
-    private  void sleep(int millis) {
+    private void sleep(int millis) {
         try {
             Thread.sleep(millis);
         } catch (Exception e) {
-          logger.info("Erooooooooooooooooooooor");
+            logger.info("Error during sleep");
         }
     }
 

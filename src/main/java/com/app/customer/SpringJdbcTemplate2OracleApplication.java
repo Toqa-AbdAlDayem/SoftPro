@@ -12,7 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.app.customer","StepDefinitions","com.app"})
+@EnableMongoRepositories(basePackageClasses = {CustomerRepository.class, AppointmenRepository.class})
+@ComponentScan(basePackages = {"com.app.customer","StepDefinitions"})
 public class SpringJdbcTemplate2OracleApplication implements CommandLineRunner {
 
 

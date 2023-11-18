@@ -10,18 +10,13 @@ public class CustomerController {
     Logger logger = Logger.getLogger(getClass().getName());
 
     private final AppointmenRepository appointmenRepository;
+    private final CustomerRepository customer;
+    private final DataService customerService;
+    private final AppointmentService appointmentService;
 
-    @Autowired
-    private AppointmentDb appoinmentDb;
-
-
-     private final CustomerRepository customer;
-
-    public final DataService customerService;
+    private AppointmentDb appoinmentDb; // Initialize this object
 
 
-
-    public final AppointmentService appointmentService;
 
     @Autowired
     public CustomerController(AppointmenRepository appointmenRepository, CustomerRepository cust, DataService customerService, AppointmentService appointmentService) {
@@ -29,6 +24,7 @@ public class CustomerController {
         this.customer = cust;
         this.customerService = customerService;
         this.appointmentService = appointmentService;
+        this.appoinmentDb = new AppointmentDb();
     }
 
     @GetMapping(value = "/form")
