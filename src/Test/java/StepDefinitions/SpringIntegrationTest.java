@@ -1,3 +1,4 @@
+/*
 package StepDefinitions;
 
 
@@ -11,21 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 
-@SpringBootTest
+@SpringBootTest(classes = SpringJdbcTemplate2OracleApplication.class)
 @CucumberContextConfiguration
-@ContextConfiguration(classes = {AppointmenRepository.class, AppointmentService.class, CustomerRepository.class, CustomerController.class})
-@ComponentScan(basePackages = "StepDefinitions")
+@ContextConfiguration(classes = {SpringJdbcTemplate2OracleApplication.class, AppointmenRepository.class, AppointmentService.class, CustomerRepository.class, CustomerController.class, SpringIntegrationTest.class})
+
+@ComponentScan(basePackages = {"StepDefinitions", "com.app.customer"})
 public class SpringIntegrationTest {
-    @Autowired
-    AppointmenRepository appointmenRepository;
-    @Autowired
-    AppointmentService appointmentService;
-    @Autowired
-    CustomerRepository customerRepository;
-    @Autowired
-    CustomerController customerController;
-    @Autowired
-    DataService dataService;
+
     @Before
     public void setUp() {
         System.out.println("-------------- Spring Context Initialized For Executing Cucumber Tests --------------");
@@ -34,3 +27,4 @@ public class SpringIntegrationTest {
 
 
 
+*/

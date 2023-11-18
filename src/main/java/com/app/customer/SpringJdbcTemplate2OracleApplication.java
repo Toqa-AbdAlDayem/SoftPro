@@ -9,20 +9,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.context.annotation.ComponentScan;
 
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackageClasses = {CustomerRepository.class, AppointmenRepository.class})
+//@EnableMongoRepositories(basePackageClasses = {CustomerRepository.class, AppointmenRepository.class})
 @ComponentScan(basePackages = {"com.app.customer","StepDefinitions"})
 public class SpringJdbcTemplate2OracleApplication implements CommandLineRunner {
 
 
 
-    private final JdbcTemplate jdbcTemplate;
 
+ private final MongoTemplate mongoTemplate;
     @Autowired
-    public SpringJdbcTemplate2OracleApplication (JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate=jdbcTemplate;
+    public SpringJdbcTemplate2OracleApplication ( MongoTemplate mongoTemplate){
+        this.mongoTemplate=mongoTemplate;
 
     }
 

@@ -1,12 +1,12 @@
 package com.app.customer;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "customer")
+@Document(collection = "customer")
 public class CustomerDb {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,11 +1,12 @@
 package com.app.customer;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
-@Entity
-@Table(name = "Appointment")
-@Component
+@Document(collection = "Appointment")
+
+
 public class AppointmentDb {
     @Id
     @Column(name = "app_id")

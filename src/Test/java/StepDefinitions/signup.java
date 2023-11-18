@@ -12,14 +12,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.ResponseEntity;
+import io.cucumber.java.en.Given;
 
+import java.net.ConnectException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 import static org.junit.Assert.assertTrue;
 
 public class signup {
-
+    @Autowired
+    private TestRestTemplate restTemplate;
     Logger logger = Logger.getLogger(getClass().getName());
     private WebDriver webDriver = null;
     private DataForm data = new DataForm();
@@ -29,9 +34,11 @@ public class signup {
     private CustomerController customerController;
 
     @Given("the user is on the registration page")
-    public void givenTheUserIsOnTheRegistrationPage() {
-        System.out.println("hi");
-      //  executeGet("http://localhost:8080/version");
+    public void givenTheUserIsOnTheRegistrationPage() throws ConnectException {
+        System.out.println("Executing: Given the user is on the registration page");
+        webDriver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//templates//Home.html");
+        webDriver.get("http://localhost:8080/form");
+
     }
 
     @When("they fill in the registration form with a valid username {string} and a strong password {string} and a correct confirmpass {string} and a correct email {string} and Birthdate {string} and Gender {string}")
