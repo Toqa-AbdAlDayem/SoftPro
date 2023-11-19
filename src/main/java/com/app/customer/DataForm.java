@@ -1,12 +1,13 @@
 package com.app.customer;
 
+import org.bson.types.ObjectId;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class DataForm {
 
-    private int  userId;
+    private ObjectId userId;
     private String userName;
     private String email;
 
@@ -58,7 +59,7 @@ public class DataForm {
         return userName;
     }
 
-    public int getUserId() {
+    public ObjectId getUserId() {
         return userId;
     }
 
@@ -66,7 +67,7 @@ public class DataForm {
         this.userName = userName;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(ObjectId userId) {
         this.userId = userId;
     }
 

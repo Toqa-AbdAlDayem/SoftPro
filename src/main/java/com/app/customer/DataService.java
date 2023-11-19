@@ -31,7 +31,7 @@ public class DataService {
 
     public String createAccount(DataForm data, CustomerDb dataEntity) {
      boolean existingData=dataRepository.existsByName(data.getUserName());
-
+System.out.println(data.getUserName());
         if (existingData) {
 
             logger.info("User ID already exists");
@@ -54,7 +54,7 @@ public class DataService {
             dataEntity.setConfPass(data.getConfirmPassword());
             dataEntity.setBirthDate(data.getBirthDate());
             dataEntity.setGender(data.getGender());
-
+            dataRepository.save(dataEntity);
           logger.info("Account created successfully");
             return "Account created successfully";
 
@@ -77,26 +77,35 @@ public class DataService {
     }
 
     public String searchAccount(DataForm data) {
-        System.out.println(data.getUserName());
-        System.out.println("Searching for user: " + data.getUserName());
-        System.out.println("Searching for pass: " + data.getPassword());
-        Optional<CustomerDb> userOptional = dataRepository.findByUsernameAndPassword(data.getUserName().trim(), data.getPassword().trim());
+        try {
+            System.out.println(data.getUserName());
+            System.out.println("Searching for user: " + data.getUserName());
+            System.out.println("Searching for pass: " + data.getPassword());
 
-        System.out.println("User found: " + userOptional.isPresent());
-        if (userOptional.isPresent()) {
-            CustomerDb user = userOptional.get();
-            String role = user.getRole();
+            Optional<CustomerDb> userOptional = dataRepository.findByNameAndPass(
+                    data.getUserName().trim(), data.getPassword().trim()
+            );
 
-            if(role.equals("admin"))
-                return "Admin";
-            else if (role.equals("customer")) {
-                return "Customer";
+            System.out.println("User found: " + userOptional.isPresent());
+
+            if (userOptional.isPresent()) {
+                CustomerDb user = userOptional.get();
+                String role = user.getRole();
+
+                if ("admin".equals(role)) {
+                    return "Admin";
+                } else if ("customer".equals(role)) {
+                    return "Customer";
+                } else if ("installer".equals(role)) {
+                    return "Installer";
+                }
             }
-            else if (role.equals("installer")) {
-                return "Installer";
-            }
-        }
+
             return "Not Found";
-
+        } catch (Exception e) {
+            // Handle the exception, log it, or return an appropriate error message
+            return "Error";
+        }
     }
+
 }

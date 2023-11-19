@@ -136,6 +136,13 @@
       <version>3.12.12</version> <!-- Use the appropriate version -->
     </dependency>
 
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.26</version> <!-- Check for the latest version on Lombok's website -->
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>

@@ -33,11 +33,23 @@ public class signup {
     @Autowired
     private CustomerController customerController;
 
+
     @Given("the user is on the registration page")
     public void givenTheUserIsOnTheRegistrationPage() throws ConnectException {
-        System.out.println("Executing: Given the user is on the registration page");
-        webDriver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//templates//Home.html");
-        webDriver.get("http://localhost:8080/form");
+        ResponseEntity<String> response = restTemplate.getForEntity("/form", String.class);
+
+        // Verify the response status if needed
+        Assertions.assertEquals(200, response.getStatusCodeValue());
+
+        // Get the HTML content from the response body
+        String htmlContent = response.getBody();
+
+        // Use the HTML content or parse it as needed
+        // ...
+
+        // Create your webDriver and navigate as needed
+        webDriver = new ChromeDriver();
+        webDriver.get("data:text/html;charset=utf-8," + htmlContent);
 
     }
 
@@ -83,13 +95,26 @@ public class signup {
 
         CustomerDb dataEntity = new CustomerDb();
         String result = customerController.signUp(data);
-        String isSuccess = dataService.createAccount(data, dataEntity);
+        //String isSuccess = dataService.createAccount(data, dataEntity);
+System.out.println("hhhhh"+result);
+     //   boolean isSuccess2 = result.equals("Home");
 
-        boolean isSuccess2 = result.equals("Home");
-
-        if (isSuccess.equals("Account created successfully")) {
+        if (result.equals("Home")) {
             assertTrue(true);
-            webDriver.get("file://C://Users//PC//Desktop//selcuc//selcuc//src//main//resources//templates//Home.html");
+            ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
+
+            // Verify the response status if needed
+            Assertions.assertEquals(200, response.getStatusCodeValue());
+
+            // Get the HTML content from the response body
+            String htmlContent = response.getBody();
+
+            // Use the HTML content or parse it as needed
+            // ...
+
+            // Create your webDriver and navigate as needed
+            webDriver = new ChromeDriver();
+            webDriver.get("data:text/html;charset=utf-8," + htmlContent);
         }
     }
 

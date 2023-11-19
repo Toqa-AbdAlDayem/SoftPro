@@ -32,7 +32,11 @@ public class CustomerController {
 
         return "signup"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
+    @GetMapping(value = "/home")
+    public String showForm2() {
 
+        return "Home"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
+    }
 
     @PostMapping(value = "/saveData")
     public String signUp(DataForm data) {
@@ -40,7 +44,7 @@ public class CustomerController {
         String signUpResult = customerService.createAccount(data, dataEntity);
         if (signUpResult.equals("Account created successfully")) {
             customerService.displayPopup("Account created successfully");
-            customer.save(dataEntity);
+
             return "Home";
         }
         else if (signUpResult.equals("User ID already exists")) {

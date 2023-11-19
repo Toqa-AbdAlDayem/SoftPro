@@ -1,10 +1,13 @@
 package com.app.customer;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
-@Document(collection = "Appointment")
+@Getter
+@NoArgsConstructor
 
 
 public class AppointmentDb {

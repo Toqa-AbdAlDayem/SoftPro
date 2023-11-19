@@ -2,10 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: beige;
+            font-family: 'Arial Rounded MT Bold', sans-serif;
+        }
+
+        .header {
+            background-color: #94760C;
+            border-radius: 50px;
+            padding: 10px;
+            margin: 5px;
+            color: #fffdf3;
+            font-family: Serif;
+            font-size: 40px;
+        }
+
+        .container {
+            border-radius: 50px;
+            border: 2px solid #94760C;
+            background-color: beige;
+            margin: 5px;
+            padding: 10px;
+        }
+
+        .menu-button {
+            background-color: beige;
+            border-radius: 50px;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+    <title>HTML Representation</title>
 </head>
 <body>
-<label for="username">Admin:</label>
-<input type="text" id="username" name="username"><br><br>
+
+<div class="header">Customers</div>
+
+<div class="container">
+    <div class="menu-button">
+        <img src="@more%20(2).png" alt="More Icon" width="40" height="40">
+        <button onclick="onmenue()">Menu</button>
+    </div>
+    <!-- Add other components here -->
+</div>
+
 </body>
 </html>
