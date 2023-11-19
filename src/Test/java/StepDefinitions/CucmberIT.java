@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = {SpringJdbcTemplate2OracleApplication.class,
                                   CucmberIT.class},
                                   webEnvironment =  SpringBootTest.WebEnvironment.RANDOM_PORT)
-@CucumberOptions(features = "C://Users//PC//Desktop//SoftPro//src//Test//resources//features" ,
+@CucumberOptions(features = "C://Users//user//Desktop//selcuc//src//Test//resources//features" ,
         glue = "StepDefinitions",
         plugin = {"pretty", "html:target/cucumber-reports" })
 

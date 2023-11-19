@@ -36,4 +36,8 @@ Feature: User Login
 #    And I set a new password
 #    And I click the "Save" button
 #    Then I should be able to log in with the new password
+#  │ src/test/resources/cucumber.properties:          cucumber.publish.enabled=true    │
+#  │ src/test/resources/junit-platform.properties:    cucumber.publish.enabled=true    │
+#  │ Environment variable:                            CUCUMBER_PUBLISH_ENABLED=true    │
+#  │ JUnit:                                           @CucumberOptions(publish = true)
 
