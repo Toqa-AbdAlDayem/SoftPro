@@ -39,6 +39,31 @@ public class CustomerController {
 
         return "Home"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
+    @GetMapping(value = "/")
+    public String showForm3() {
+
+        return "Login";
+    }
+
+    @GetMapping(value = "/Admin")
+    public String showForm4() {
+
+        return "Admin";
+    }
+
+    @PostMapping(value = "/search")
+    public String LogInFunc(DataForm data) {
+
+        String logInResult = customerService.searchAccount(data);
+        System.out.println(logInResult);
+        if(logInResult.equals("Not Found")) {
+            return "Login";
+        }
+        else{
+
+            return logInResult;
+        }
+    }
 
     @GetMapping(value = "/Admin")
     public String showForm3() {
