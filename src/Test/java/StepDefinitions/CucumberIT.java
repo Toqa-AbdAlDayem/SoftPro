@@ -9,13 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @RunWith(Cucumber.class)
 @CucumberContextConfiguration
-@SpringBootTest(classes = {SpringJdbcTemplate2OracleApplication.class,
-                                  CucmberIT.class},
-                                  webEnvironment =  SpringBootTest.WebEnvironment.RANDOM_PORT)
-@CucumberOptions(features = "C://Users//user//Desktop//selcuc//src//Test//resources//features" ,
+@SpringBootTest(classes = SpringJdbcTemplate2OracleApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@CucumberOptions(
+        features = "C://Users//user//Desktop//SoftPro//src//Test//resources//features",
         glue = "StepDefinitions",
-        plugin = {"pretty", "html:target/cucumber-reports" })
+        plugin = {"pretty", "html:target/cucumber-reports"}
+)
 
-
-public class CucmberIT {
+public class CucumberIT{
 }

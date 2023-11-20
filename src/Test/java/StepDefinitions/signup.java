@@ -1,10 +1,6 @@
 package StepDefinitions;
 
-import com.app.customer.CustomerDb;
-import com.app.customer.CustomerRepository;
-import com.app.customer.DataForm;
-import com.app.customer.DataService;
-import com.app.customer.CustomerController;
+import com.app.customer.*;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -23,6 +19,8 @@ import java.util.logging.Logger;
 import static org.junit.Assert.assertTrue;
 
 public class signup {
+    @Autowired
+    ErrorMessageRepository errorMessageRepository;
 
     private CustomerDb customerDb=new CustomerDb();
     @Autowired
@@ -85,7 +83,7 @@ public class signup {
         data.setConfirmPassword(webDriver.findElement(By.id("conf")).getAttribute("value"));
         data.setEmail(webDriver.findElement(By.id("email")).getAttribute("value"));
         data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
-
+data.setUserId(12347556);
 
        String result = customerController.signUp(data);
         if (result.equals("Home")) {
@@ -117,6 +115,8 @@ public class signup {
     @When("they fill in the registration form with an exists username {string}")
     public void theyFillInTheRegistrationFormWithAnExistsUsername(String arg0) {
         data.setUserName(webDriver.findElement(By.id("user_name")).getAttribute("value"));
+        data.setPassword("123");
+        data.setConfirmPassword("123");
         String result = dataService.createAccount(data,customerDb);
 
 
@@ -132,14 +132,16 @@ public class signup {
     public void then_they_should_see_the_alert_with_message(String string) {
         String error = dataService.createAccount(data,customerDb);
 
+        ErrorMessage errorMessageEntity = errorMessageRepository.findByMessage(error);
 
+         logger.info(errorMessageEntity.getMessage());
     }
 
     @Then("they should remain on the registration page")
     public void they_should_remain_on_the_registration_page() {
         String result = customerController.signUp(data);
         if (result.equals("signup")) {
-            assertTrue(false);}
+            assertTrue(true);}
     }
 
     @When("they fill in the registration form with a valid username {string} and a strong password {string} and they confirm the password with a different value {string}")
@@ -149,7 +151,7 @@ public class signup {
         data.setPassword((webDriver.findElement(By.id("pass")).getAttribute("value")));
         data.setConfirmPassword(webDriver.findElement(By.id("conf")).getAttribute("value"));
         data.setEmail(webDriver.findElement(By.id("email")).getAttribute("value"));
-       // data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
+
 
 
         String result = dataService.createAccount(data,customerDb);

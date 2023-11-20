@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DataForm {
 
-    private ObjectId userId;
+    private int userId;
     private String userName;
     private String email;
 
@@ -59,7 +59,7 @@ public class DataForm {
         return userName;
     }
 
-    public ObjectId getUserId() {
+    public int getUserId() {
         return userId;
     }
 
@@ -67,7 +67,7 @@ public class DataForm {
         this.userName = userName;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

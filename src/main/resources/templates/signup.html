@@ -48,25 +48,6 @@
         </form>
     </div>
 </div>
-<script th:inline="javascript">
-    /* Display success message */
-    var successMessage = "[[${successMessage}]]";
-    if (successMessage) {
-        alert(successMessage);
-        /* Redirect to home or perform any other action if needed */
-        window.location.href = "/home";
-    }
 
-    /* Display error message */
-    var errorMessage = "[[${errorMessage}]]";
-    if (errorMessage) {
-        alert(errorMessage);
-        /* You can also show a confirmation dialog for error messages if needed */
-        var confirmError = confirm("Do you want to proceed?");
-        if (!confirmError) {
-            window.location.href = "/chose";
-        }
-    }
-</script>
 </body>
 </html>

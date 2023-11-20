@@ -13,8 +13,8 @@ public class ErrorController {
 
     @GetMapping("/errorPage")
     public String showErrorPage(Model model, String errorMessage) {
-        ErrorMessage errorMessageEntity = errorMessageRepository.findByMessage(errorMessage);
-        model.addAttribute("errorMessage", errorMessageEntity.getMessage());
+       ErrorMessage errorMessageEntity = errorMessageRepository.findByMessage(errorMessage);
+        model.addAttribute("errorMessage", errorMessage);
         return "error";
     }
 }

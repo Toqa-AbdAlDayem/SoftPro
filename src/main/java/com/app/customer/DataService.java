@@ -54,6 +54,8 @@ System.out.println(data.getUserName());
             dataEntity.setConfPass(data.getConfirmPassword());
             dataEntity.setBirthDate(data.getBirthDate());
             dataEntity.setGender(data.getGender());
+            dataEntity.setId(data.getUserId());
+            logger.info("the "+dataEntity.getId());
             dataRepository.save(dataEntity);
           logger.info("Account created successfully");
             return "Account created successfully";

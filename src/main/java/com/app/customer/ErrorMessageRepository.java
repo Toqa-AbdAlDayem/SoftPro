@@ -1,7 +1,10 @@
 package com.app.customer;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ErrorMessageRepository extends MongoRepository<ErrorMessage, String> {
+@Repository
+public interface ErrorMessageRepository extends JpaRepository<ErrorMessage, Long> {
+
     ErrorMessage findByMessage(String message);
 }

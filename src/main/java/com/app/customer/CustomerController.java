@@ -65,11 +65,7 @@ public class CustomerController {
         }
     }
 
-    @GetMapping(value = "/Admin")
-    public String showForm3() {
 
-        return "Admin"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
-    }
 
     @PostMapping(value = "/saveData")
     public String signUp(DataForm data) {

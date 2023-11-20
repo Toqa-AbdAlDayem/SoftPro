@@ -12,7 +12,7 @@ Feature: Signup
 
   Scenario: username already exist
     Given the user is on the registration page
-    When they fill in the registration form with an exists username "toqa"
+    When they fill in the registration form with an exists username "eman"
     And they click the "Sign Up" button
     Then  Then they should see the alert with message "username is exist"
     And they should remain on the registration page

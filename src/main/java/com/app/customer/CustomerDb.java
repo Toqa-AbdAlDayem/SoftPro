@@ -1,22 +1,18 @@
 package com.app.customer;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@Getter
-@NoArgsConstructor
-@Document(collection = "customer")
+
+@Entity
+@Table(name = "CUSTOMER")
 public class CustomerDb {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CUST_ID")
-    private ObjectId id;
+    private int id;
     private String name;
     private String email;
  private String pass;
@@ -56,7 +52,7 @@ public class CustomerDb {
         this.birthDate = birthDate;
     }
 
-    public ObjectId getId() {
+    public int getId() {
 
         return id;
     }
@@ -85,7 +81,7 @@ public class CustomerDb {
     }
 
 
-    public void setId(ObjectId userId) {
+    public void setId(int userId) {
         this.id =userId ;
     }
     public String getRole() {

@@ -1,9 +1,12 @@
 package com.app.customer;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "error_messages")
+@Entity
+@Table(name="ErrorMassege")
 public class ErrorMessage {
     @Id
     private String id;
