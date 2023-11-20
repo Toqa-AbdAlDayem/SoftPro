@@ -3,30 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+    <link rel="stylesheet" href="/cssfiles/signup.css">
+
 </head>
 <body>
+<div class="card-back">
+    <div class="center-wrap">
+        <form method="post" th:action="@{/saveData}" th:object="${dataForm}" class="form">
+            <h1 class="text-center">Registration Form</h1>
+
+            <div class="form-step form-step-active">
+
+                    <label for="user_name">User Name</label>
+                    <input type="text" id="user_name" name="userName" placeholder="User Name" value=" " required/>
 
 
-<form method="post" th:action="@{/saveData}" th:object="${dataForm}">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" placeholder="Email" required/>
 
-    User id: <input type="text" id="user_id" name="userId"><br>
-    User Name: <input type="text" id="user_name" name="userName"  value=" " required><br>
-    Email: <input type="text" id="email" name="email" required><br>
-    Password: <input type="password" id="pass" name="password" required><br>
-    Confirm Password: <input type="password" id="conf" name="confirmPassword" required><br>
-    Birth Date: <input type="date" id="birth" name="birthDate"><br>
-    Gender: <input type="text" id="gender" name="gender"><br>
 
-    <button type="submit" id="signup">Sign up</button>
-    </massege>
-</form>
 
-<script>
 
-    function signUpError(message) {
-        alert(message);
+                    <label for="birth">Birth Date</label>
+                    <input type="date" id="birth" name="birthDate" placeholder="Birth Date"/>
+
+
+                    <label for="gender">Gender</label>
+                    <input type="text" id="gender" name="gender" placeholder="Gender"/>
+
+                <!-- Add your fields for the third step here -->
+
+
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass" name="password" placeholder="Password" required/>
+
+
+                    <label for="conf">Confirm Password</label>
+                    <input type="password" id="conf" name="confirmPassword" placeholder="Confirm Password" required/>
+
+            </div>
+<br>
+            <button type="submit" id="signup" class="btn">Sign up</button>
+        </form>
+    </div>
+</div>
+<script th:inline="javascript">
+    /* Display success message */
+    var successMessage = "[[${successMessage}]]";
+    if (successMessage) {
+        alert(successMessage);
+        /* Redirect to home or perform any other action if needed */
+        window.location.href = "/home";
+    }
+
+    /* Display error message */
+    var errorMessage = "[[${errorMessage}]]";
+    if (errorMessage) {
+        alert(errorMessage);
+        /* You can also show a confirmation dialog for error messages if needed */
+        var confirmError = confirm("Do you want to proceed?");
+        if (!confirmError) {
+            window.location.href = "/chose";
+        }
     }
 </script>
-
 </body>
 </html>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @NoArgsConstructor
-
+@Document(collection = "Appointment")
 
 public class AppointmentDb {
     @Id

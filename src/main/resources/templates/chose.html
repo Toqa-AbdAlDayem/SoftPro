@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="../cssfiles/chose.css">
+    <link rel="stylesheet" href="/cssfiles/chose.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment or Online Purchase</title>
 
@@ -138,16 +138,21 @@
 </div>
 
 <div class="button-container">
-    <img src="car.png" alt="Car Image">
+
+    <img src="/images/car.png" alt="Car Image">
+
+
     <button id="Appointment" onclick="toggleAppointmentForm()">Make an Appointment</button>
 </div>
 
 <div class="button-container">
-    <img src="spare-parts.png" alt="Spare Parts Image">
+    <img src="/images/spare-parts.png" alt="Spare Parts ">
+
     <button id="by" onclick="redirectToOnlineStore()">Buy Online</button>
 
 </div>
 <form method="post"action="/saveAppointment" th:object="${appointmentForm}">
+
 <div id="appointmentForm">
 
     <div class="modal-content">

@@ -23,6 +23,8 @@ import java.util.logging.Logger;
 import static org.junit.Assert.assertTrue;
 
 public class signup {
+
+    private CustomerDb customerDb=new CustomerDb();
     @Autowired
     private TestRestTemplate restTemplate;
     Logger logger = Logger.getLogger(getClass().getName());
@@ -37,17 +39,8 @@ public class signup {
     @Given("the user is on the registration page")
     public void givenTheUserIsOnTheRegistrationPage() throws ConnectException {
         ResponseEntity<String> response = restTemplate.getForEntity("/form", String.class);
-
-        // Verify the response status if needed
         Assertions.assertEquals(200, response.getStatusCodeValue());
-
-        // Get the HTML content from the response body
         String htmlContent = response.getBody();
-
-        // Use the HTML content or parse it as needed
-        // ...
-
-        // Create your webDriver and navigate as needed
         webDriver = new ChromeDriver();
         webDriver.get("data:text/html;charset=utf-8," + htmlContent);
 
@@ -93,26 +86,13 @@ public class signup {
         data.setEmail(webDriver.findElement(By.id("email")).getAttribute("value"));
         data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
 
-        CustomerDb dataEntity = new CustomerDb();
-        String result = customerController.signUp(data);
-        //String isSuccess = dataService.createAccount(data, dataEntity);
-System.out.println("hhhhh"+result);
-     //   boolean isSuccess2 = result.equals("Home");
 
+       String result = customerController.signUp(data);
         if (result.equals("Home")) {
             assertTrue(true);
             ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
-
-            // Verify the response status if needed
             Assertions.assertEquals(200, response.getStatusCodeValue());
-
-            // Get the HTML content from the response body
             String htmlContent = response.getBody();
-
-            // Use the HTML content or parse it as needed
-            // ...
-
-            // Create your webDriver and navigate as needed
             webDriver = new ChromeDriver();
             webDriver.get("data:text/html;charset=utf-8," + htmlContent);
         }
@@ -120,7 +100,10 @@ System.out.println("hhhhh"+result);
 
     @And("they should be redirected to the home page")
     public void andTheyShouldBeRedirectedToTheHomePage() {
+
         Assertions.assertEquals("Home page", webDriver.getTitle());
+
+
     }
 
     private void sleep(int millis) {
@@ -134,5 +117,46 @@ System.out.println("hhhhh"+result);
     @When("they fill in the registration form with an exists username {string}")
     public void theyFillInTheRegistrationFormWithAnExistsUsername(String arg0) {
         data.setUserName(webDriver.findElement(By.id("user_name")).getAttribute("value"));
+        String result = dataService.createAccount(data,customerDb);
+
+
+        if (result.equals("User ID already exists")) {
+            assertTrue(true);
+
+        }
+    }
+
+
+
+    @Then("Then they should see the alert with message {string}")
+    public void then_they_should_see_the_alert_with_message(String string) {
+        String error = dataService.createAccount(data,customerDb);
+
+
+    }
+
+    @Then("they should remain on the registration page")
+    public void they_should_remain_on_the_registration_page() {
+        String result = customerController.signUp(data);
+        if (result.equals("signup")) {
+            assertTrue(false);}
+    }
+
+    @When("they fill in the registration form with a valid username {string} and a strong password {string} and they confirm the password with a different value {string}")
+    public void theyFillInTheRegistrationFormWithAValidUsernameAndAStrongPasswordAndTheyConfirmThePasswordWithADifferentValue(String name, String arg1, String arg2) {
+
+        data.setUserName(webDriver.findElement(By.id("user_name")).getAttribute("value"));
+        data.setPassword((webDriver.findElement(By.id("pass")).getAttribute("value")));
+        data.setConfirmPassword(webDriver.findElement(By.id("conf")).getAttribute("value"));
+        data.setEmail(webDriver.findElement(By.id("email")).getAttribute("value"));
+       // data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
+
+
+        String result = dataService.createAccount(data,customerDb);
+        if (result.equals("Password and Confirm Password do not match.")) {
+            assertTrue(true);
+
+        }
+
     }
 }

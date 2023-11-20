@@ -42,7 +42,7 @@ System.out.println(data.getUserName());
         else {
           if ( !(data.getPassword().equals(data.getConfirmPassword()))) {
 
-             logger.info("KKK");
+
               return "Password and Confirm Password do not match.";
 
           }

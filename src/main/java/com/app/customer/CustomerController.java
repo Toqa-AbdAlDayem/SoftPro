@@ -3,6 +3,8 @@ package com.app.customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.swing.*;
 import java.util.logging.Logger;
 
 @Controller
@@ -38,6 +40,12 @@ public class CustomerController {
         return "Home"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
 
+    @GetMapping(value = "/Admin")
+    public String showForm3() {
+
+        return "Admin"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
+    }
+
     @PostMapping(value = "/saveData")
     public String signUp(DataForm data) {
         CustomerDb dataEntity = new CustomerDb();
@@ -46,18 +54,17 @@ public class CustomerController {
             customerService.displayPopup("Account created successfully");
 
             return "Home";
-        }
-        else if (signUpResult.equals("User ID already exists")) {
+        } else if (signUpResult.equals("User ID already exists")) {
             customerService.displayPopup("User ID already exists");
-        }
-        else {
+        } else {
+            //model.addAttribute("errorMessage", signUpResult);
             customerService.displayPopup("Password and Confirm Password do not match.");
         }
 
 
+
         return "signup";
     }
-
 
 
     @PostMapping(value = "/saveAppointment")
@@ -67,9 +74,9 @@ public class CustomerController {
         if(sendResult){
         return "Home";}
         else{
+
         return "signup";
     }}
-
 
 
 
