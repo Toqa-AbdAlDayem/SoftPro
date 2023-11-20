@@ -132,9 +132,7 @@ data.setUserId(12347556);
     public void then_they_should_see_the_alert_with_message(String string) {
         String error = dataService.createAccount(data,customerDb);
 
-        ErrorMessage errorMessageEntity = errorMessageRepository.findByMessage(error);
 
-         logger.info(errorMessageEntity.getMessage());
     }
 
     @Then("they should remain on the registration page")

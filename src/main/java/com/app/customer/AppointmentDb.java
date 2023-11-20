@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 
 @Entity
-@Table(name = "Appointment")
+@Table(name = "appointment")
 
 public class AppointmentDb {
     @Id

@@ -27,7 +27,7 @@ public class testConfi {
         private String jdbcPassword;
 
         @Bean
-        public DataSource dataSource() {
+        public DataSource dataSource2() {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
             dataSource.setUrl(jdbcUrl);
@@ -37,7 +37,7 @@ public class testConfi {
         }
 
         @Bean
-        public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        public JdbcTemplate jdbcTemplate3(DataSource dataSource) {
             return new JdbcTemplate(dataSource);
         }
     }}

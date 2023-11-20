@@ -14,18 +14,18 @@ public class CustomerController {
     private final AppointmenRepository appointmenRepository;
     private final CustomerRepository customer;
     private final DataService customerService;
-    private final AppointmentService appointmentService;
+    //private final AppointmentService appointmentService;
 
     private AppointmentDb appoinmentDb; // Initialize this object
 
 
 
     @Autowired
-    public CustomerController(AppointmenRepository appointmenRepository, CustomerRepository cust, DataService customerService, AppointmentService appointmentService) {
+    public CustomerController(AppointmenRepository appointmenRepository, CustomerRepository cust, DataService customerService) {
         this.appointmenRepository = appointmenRepository;
         this.customer = cust;
         this.customerService = customerService;
-        this.appointmentService = appointmentService;
+       // this.appointmentService = appointmentService;
         this.appoinmentDb = new AppointmentDb();
     }
 
@@ -88,7 +88,7 @@ public class CustomerController {
     }
 
 
-    @PostMapping(value = "/saveAppointment")
+   /* @PostMapping(value = "/saveAppointment")
     public String sendRequest(@ModelAttribute AppointmentForm appoitmentForm){
       boolean sendResult=appointmentService.creatRequast(appoitmentForm,appoinmentDb);
         appointmenRepository.save(appoinmentDb);
@@ -98,7 +98,7 @@ public class CustomerController {
 
         return "signup";
     }}
-
+*/
 
 
 }
