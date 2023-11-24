@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -42,8 +43,13 @@ String isAdd =productService.SaveProduct(productInfo);
 
 
     @GetMapping("/all")
-    public List<Catagroies> getAllProducts() {
-        return catagroisRepositary.findAll();
+
+        public String getAllProducts(Model model) {
+            List<Catagroies> productList = catagroisRepositary.findAll();
+
+            // Add the productList to the model with a specific attribute name
+            model.addAttribute("products", productList);
+        return "Home";
     }
 
 }
