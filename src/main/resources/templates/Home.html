@@ -1,28 +1,174 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
-    <link th:href="@{/cssfiles/Home.css}" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY MARKET</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        header {
+            background-color: #5c8a8a;
+            padding: 15px;
+            color: #fff;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav a:hover {
+            color: #5c8a8a;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .square {
+            background-color: #333;
+            color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            flex-basis: calc(25% - 30px);
+            position: relative;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .square a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .square:hover {
+            background-color: #5c8a8a;
+        }
+
+        .square img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .square p {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
-<div id="title"> CAR COMPANY </div>
+<header>
+    <nav>
+        <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Interior Accessories</a></li>
+            <li><a href="#">Exterior Accessories</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Performance Parts</a></li>
+            <li><a href="#">Safety and Security</a></li>
+            <li><a href="#">Maintenance and Care</a></li>
+            <li><a href="#">Wheels and Tires</a></li>
+            <li><a href="#">Lighting</a></li>
+            <li><a href="#">Bag</a></li>
+            <li><a href="#">Exit</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<header>
+    <nav>
+        <ul id="navList">
+            <!-- Navigation items will be added dynamically here -->
+        </ul>
+    </nav>
+</header>
+
+<main id="productContainer">
+    <!-- Product items will be added dynamically here -->
+</main>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Fetch product data from the Spring Boot API
+            fetch("http://localhost:8080/api/products/all")
+                .then(response => response.json())
+                .then(data => {
+                    // Populate navigation and product items
+                    populateNavigation(data);
+                    populateProducts(data);
+                })
+                .catch(error => console.error("Error fetching data:", error));
+        });
+
+        function populateNavigation(data) {
+            const navList = document.getElementById("navList");
+            const categories = [...new Set(data.map(product => product.category))];
+
+            categories.forEach(category => {
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = `#${category}`;
+                a.textContent = category;
+                li.appendChild(a);
+                navList.appendChild(li);
+            });
+        }
+
+        function populateProducts(data) {
+            const productContainer = document.getElementById("productContainer");
+
+            data.forEach(product => {
+                const square = document.createElement("div");
+                square.className = "square";
+
+                const a = document.createElement("a");
+                a.href = "#";
+
+                const img = document.createElement("img");
+                img.src = product.imageUrl;
+                img.alt = product.name;
+
+                const p = document.createElement("p");
+                p.textContent = product.name;
+
+                a.appendChild(img);
+                a.appendChild(p);
+                square.appendChild(a);
+
+                productContainer.appendChild(square);
+            });
+        }
+    </script>
 </body>
-
-
-<div>
-    <button id ="user_profile">Profile</button>
-    <button id ="inter">Interior Accessories</button>
-<button id ="Exterior">Exterior Accessories</button>
-<button id ="Electronics">Electronics</button>
-<button id ="Performance Parts">Performance Parts</button>
-<button id ="Safty">Safety and Security</button>
-<button id ="Care">Maintenance and Care</button>
-<button id ="Wheels">Wheels and Tires</button>
-<button id ="Lighting">Lighting</button>
-    <button id ="install">Bag</button>
-    <button id ="exit">Exit</button>
-
-</div>
 
 </html>

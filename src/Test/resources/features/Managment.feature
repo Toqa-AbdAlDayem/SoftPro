@@ -5,9 +5,7 @@ Feature: Product Management
     Given the user is on the Admin page
     When the admin click on Add product
     Then the Add product form should appear
-    Then the user fills in the product details:
-      | Product ID  | Product Name  | Information                                   | Price   | Section      | Number of | Image  |
-      | 12345       | Smartphone    | High-performance smartphone with advanced features. | 599.99  | Electronics  | 50        | (User selects a valid image file) |
+    Then the user fills in the product details: Product ID 10057 and Product Name "Dash Cams" Information "Record your driving experiences for safety and documentation." and price 500 and section"Electronics " and number of it 60 and an image "url"
     And the manager submits the form
     Then the system should display a success message: "Product added successfully"
     And the added product details should be visible in the product list

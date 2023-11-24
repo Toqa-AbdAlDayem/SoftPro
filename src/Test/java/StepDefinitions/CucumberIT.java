@@ -1,6 +1,6 @@
 package StepDefinitions;
 
-import com.app.customer.SpringJdbcTemplate2OracleApplication;
+import com.app.SpringJdbcTemplate2OracleApplication;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import io.cucumber.spring.CucumberContextConfiguration;

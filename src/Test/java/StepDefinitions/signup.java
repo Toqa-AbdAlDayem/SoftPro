@@ -19,8 +19,7 @@ import java.util.logging.Logger;
 import static org.junit.Assert.assertTrue;
 
 public class signup {
-    @Autowired
-    ErrorMessageRepository errorMessageRepository;
+
 
     private CustomerDb customerDb=new CustomerDb();
     @Autowired

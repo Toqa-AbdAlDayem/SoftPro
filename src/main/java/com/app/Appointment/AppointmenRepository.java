@@ -1,4 +1,4 @@
-package com.app.customer;
+package com.app.Appointment;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

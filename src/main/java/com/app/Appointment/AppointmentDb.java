@@ -1,4 +1,4 @@
-package com.app.customer;
+package com.app.Appointment;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link th:href="@{/css/Home.css}" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #title {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        #categories {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .category {
+            text-align: center;
+        }
+
+        .category img {
+            width: 100px; /* Set your desired width */
+            height: 100px; /* Set your desired height */
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+  </head>
+<body>
+
+<div id="title">CAR COMPANY</div>
+
+<div id="categories">
+  <div class="category">
+    <img src="/images/hands(1).png" alt="Interior">
+    <button id="inter">Interior Accessories</button>
+  </div>
+  <div class="category">
+    <img src="/images/car-parts.png" alt="Exterior">
+    <button id="Exterior">Exterior Accessories</button>
+  </div>
+  <div class="category">
+    <img src="/images/gadgets.png" alt="Electronics">
+    <button id="Electronics">Electronics</button>
+  </div>
+  <!-- Add more categories as needed -->
+</div>
+
+</body>
+</html>

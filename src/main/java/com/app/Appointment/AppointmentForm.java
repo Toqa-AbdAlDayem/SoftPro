@@ -1,4 +1,4 @@
-package com.app.customer;
+package com.app.Appointment;
 
 public class AppointmentForm {
     private int appId;

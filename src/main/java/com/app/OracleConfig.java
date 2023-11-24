@@ -1,4 +1,4 @@
-package com.app.customer;
+package com.app;
 
 import javax.sql.DataSource;
 

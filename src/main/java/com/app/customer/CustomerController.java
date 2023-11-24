@@ -1,15 +1,27 @@
 package com.app.customer;
-
+import com.app.Appointment.AppointmenRepository;
+import com.app.Appointment.AppointmentDb;
+import com.app.Appointment.AppointmentForm;
+import com.app.Appointment.AppointmentService;
+import com.app.ManegerAndProduct.ProductDb;
+import com.app.ManegerAndProduct.ProductInfo;
+import com.app.ManegerAndProduct.ProductRepository;
+import com.app.ManegerAndProduct.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
+
 import java.util.logging.Logger;
 
 @Controller
 public class CustomerController {
     Logger logger = Logger.getLogger(getClass().getName());
+
+
+
+    @Autowired
+    AppointmentService appointmentService;
 
     private final AppointmenRepository appointmenRepository;
     private final CustomerRepository customer;
@@ -87,8 +99,15 @@ public class CustomerController {
         return "signup";
     }
 
+    @GetMapping ("/manager")
+    public String showManager() {
+        return "manager";
+    }
 
-   /* @PostMapping(value = "/saveAppointment")
+
+
+
+    @PostMapping(value = "/saveAppointment")
     public String sendRequest(@ModelAttribute AppointmentForm appoitmentForm){
       boolean sendResult=appointmentService.creatRequast(appoitmentForm,appoinmentDb);
         appointmenRepository.save(appoinmentDb);
@@ -98,7 +117,6 @@ public class CustomerController {
 
         return "signup";
     }}
-*/
 
 
 }

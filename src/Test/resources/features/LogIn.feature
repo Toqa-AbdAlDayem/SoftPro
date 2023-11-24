@@ -5,7 +5,7 @@ Feature: User Login
     And I am on the login page
 
   Scenario: Successful login as an admin
-    When I enter my admin username "admin_user" and password "admin_password"
+    When I enter my admin username "eman" and password "555"
     And I click the "LogInBtn" button
     Then I should be redirected to the admin dashboard
 
