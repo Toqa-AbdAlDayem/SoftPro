@@ -94,10 +94,10 @@ public class LogInSteps {
         String result=dataService.searchAccount(dataForm);
         if(result.equals("Admin")){
             assert(true);
-        ResponseEntity<String> response = restTemplate.getForEntity("/Admin", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
         Assertions.assertEquals(200, response.getStatusCodeValue());
         String htmlContent = response.getBody();
-        driver = new ChromeDriver();
+      //  driver = new ChromeDriver();
         driver.get("data:text/html;charset=utf-8," + htmlContent);
         sleep(2000);}
         driver.close();
@@ -115,8 +115,18 @@ public class LogInSteps {
 
     @Then("I should be redirected to the customer dashboard")
     public void i_should_be_redirected_to_the_customer_dashboard() {
-        driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Customer.html");
-        sleep(200);
+        dataForm.setUserName( driver.findElement(By.id("user_name")).getAttribute("value"));
+        dataForm.setPassword( driver.findElement(By.id("pass")).getAttribute("value"));
+
+        String result=dataService.searchAccount(dataForm);
+        if(result.equals("Admin")){
+            assert(true);
+            ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
+            Assertions.assertEquals(200, response.getStatusCodeValue());
+            String htmlContent = response.getBody();
+            //  driver = new ChromeDriver();
+            driver.get("data:text/html;charset=utf-8," + htmlContent);
+            sleep(2000);}
         driver.close();
         driver.quit();
     }
@@ -130,8 +140,18 @@ public class LogInSteps {
 
     @Then("I should be redirected to the installer dashboard")
     public void i_should_be_redirected_to_the_installer_dashboard() {
-        driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Installer.html");
-        sleep(200);
+        dataForm.setUserName( driver.findElement(By.id("user_name")).getAttribute("value"));
+        dataForm.setPassword( driver.findElement(By.id("pass")).getAttribute("value"));
+
+        String result=dataService.searchAccount(dataForm);
+        if(result.equals("Admin")){
+            assert(true);
+            ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
+            Assertions.assertEquals(200, response.getStatusCodeValue());
+            String htmlContent = response.getBody();
+            //  driver = new ChromeDriver();
+            driver.get("data:text/html;charset=utf-8," + htmlContent);
+            sleep(2000);}
         driver.close();
         driver.quit();
     }
