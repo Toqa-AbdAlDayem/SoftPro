@@ -57,7 +57,7 @@
             border-radius: 10px;
             padding: 15px;
             text-align: center;
-            flex-basis: calc(25% - 30px);
+            flex-basis: calc(30% - 20px);
             position: relative;
             transition: background-color 0.3s ease-in-out;
         }
@@ -90,27 +90,18 @@
     <nav>
         <ul>
             <li><a href="#">Profile</a></li>
-            <li><a href="#">Interior Accessories</a></li>
-            <li><a href="#">Exterior Accessories</a></li>
-            <li><a href="#">Electronics</a></li>
-            <li><a href="#">Performance Parts</a></li>
-            <li><a href="#">Safety and Security</a></li>
-            <li><a href="#">Maintenance and Care</a></li>
-            <li><a href="#">Wheels and Tires</a></li>
-            <li><a href="#">Lighting</a></li>
+            <li><a href="#">category</a></li>
             <li><a href="#">Bag</a></li>
             <li><a href="#">Exit</a></li>
+            <li th:if="${userRole == 'Admin'}"><a href="#">Admin Section</a></li>
+
         </ul>
     </nav>
 </header>
 
 
 <header>
-    <nav>
-        <ul id="navList">
-            <!-- Navigation items will be added dynamically here -->
-        </ul>
-    </nav>
+
 
 </header>
 
@@ -120,7 +111,7 @@
 
     <div th:each="product : ${products}">
 
-    <div class="square">
+        <div class="square" th:onclick="'/product/' + ${product.getId()}">
         <a href="#">
             <img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">
             <p th:text="${product.getName()}"></p>
@@ -129,58 +120,6 @@
     </div>
 </main>
 
-<script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Fetch product data from the Spring Boot API
-            fetch("http://localhost:8080/api/products/all")
-                .then(response => response.json())
-                .then(data => {
-                    // Populate navigation and product items
-                    populateNavigation(data);
-                    populateProducts(data);
-                })
-                .catch(error => console.error("Error fetching data:", error));
-        });
-
-        function populateNavigation(data) {
-            const navList = document.getElementById("navList");
-            const categories = [...new Set(data.map(product => product.category))];
-
-            categories.forEach(category => {
-                const li = document.createElement("li");
-                const a = document.createElement("a");
-                a.href = `#${category}`;
-                a.textContent = category;
-                li.appendChild(a);
-                navList.appendChild(li);
-            });
-        }
-
-        function populateProducts(data) {
-            const productContainer = document.getElementById("productContainer");
-
-            data.forEach(product => {
-                const square = document.createElement("div");
-                square.className = "square";
-
-                const a = document.createElement("a");
-                a.href = "#";
-
-                const img = document.createElement("img");
-                img.src = product.imageUrl;
-                img.alt = product.name;
-
-                const p = document.createElement("p");
-                p.textContent = product.name;
-
-                a.appendChild(img);
-                a.appendChild(p);
-                square.appendChild(a);
-
-                productContainer.appendChild(square);
-            });
-        }
-    </script>
 </body>
 
 </html>

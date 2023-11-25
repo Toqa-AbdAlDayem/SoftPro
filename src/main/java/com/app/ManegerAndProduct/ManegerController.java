@@ -1,6 +1,9 @@
 package com.app.ManegerAndProduct;
+import com.app.customer.CustomerDb;
+import com.app.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,20 +27,20 @@ ProductDb productDb=new ProductDb();
 }
 
 
-    @PostMapping("/add-product")
+/*    @PostMapping("/add-product")
     public boolean addProduct(ProductInfo productInfo) {
 
 String isAdd =productService.SaveProduct(productInfo);
 
 
-           /*
+           *//*
            احططططططططططططططططططط يطلع pop uppppppp
-            */
+            *//*
 
         return true;
 
 
-    }
+    }*/
     private final CatagroisRepositary catagroisRepositary;
 
 
@@ -52,4 +55,33 @@ String isAdd =productService.SaveProduct(productInfo);
         return "Home";
     }
 
+@PostMapping("/add-product")
+public String addProduct(ProductInfo productInfo){
+
+        return "manager";
+
+
+}
+
+
+
+  /*
+
+
+    ههههوووون عشان اضيف ال product list
+    @GetMapping("/product/{productId}")
+    public String viewProduct(@PathVariable Long productId, Model model) {
+        // Logic to retrieve product details from productId
+        // You can use the productId to fetch the specific product from your database or service
+        // For simplicity, let's assume you have a method getProductById in a service class
+
+        // productService.getProductById(productId);
+
+        // Add the product details to the model (replace with actual logic)
+        model.addAttribute("productName", "Sample Product");
+        model.addAttribute("productDescription", "Sample Product Description");
+
+        // Return the Thymeleaf template for displaying detailed product information
+        return "productDetails";
+    }*/
 }

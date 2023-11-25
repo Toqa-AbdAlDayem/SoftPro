@@ -16,6 +16,17 @@ import javax.sql.DataSource;
 @TestConfiguration
 @TestPropertySource
 public class testConfi {
+    @Bean
+    public WebMvcConfigurer webMvcConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("/css/**")
+                        .addResourceLocations("classpath:/static/css/")
+                        .addResourceLocations("classpath:/css/");
+            }
+        };
+    }
     public class OracleConfig {
 
 
@@ -48,7 +59,7 @@ public class testConfi {
             return new WebMvcConfigurer() {
                 @Override
                 public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                    registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+                    registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
                 }
             };
         }

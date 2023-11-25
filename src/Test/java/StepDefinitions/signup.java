@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import io.cucumber.java.en.Given;
 import java.net.ConnectException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.logging.Logger;
 import static org.junit.Assert.assertTrue;
 
@@ -39,12 +42,17 @@ public class signup {
         Assertions.assertEquals(200, response.getStatusCodeValue());
         String htmlContent = response.getBody();
         webDriver = new ChromeDriver();
+        System.out.println(htmlContent);
         webDriver.get("data:text/html;charset=utf-8," + htmlContent);
 
     }
 
     @When("they fill in the registration form with a valid username {string} and a strong password {string} and a correct confirmpass {string} and a correct email {string} and Birthdate {string} and Gender {string}")
     public void theyFillInTheRegistrationFormWithAValidUsernameAndAStrongPasswordAndACorrectConfirmpassAndACorrectEmailAndBirthdateAndGender(String username, String password, String confirmPassword, String email, String birthDate, String gender) {
+
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        WebElement userNameElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user_name")));
+
         WebElement usernameField = webDriver.findElement(By.id("user_name"));
         usernameField.sendKeys(username);
 

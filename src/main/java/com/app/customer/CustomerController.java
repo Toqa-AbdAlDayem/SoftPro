@@ -3,22 +3,22 @@ import com.app.Appointment.AppointmenRepository;
 import com.app.Appointment.AppointmentDb;
 import com.app.Appointment.AppointmentForm;
 import com.app.Appointment.AppointmentService;
-import com.app.ManegerAndProduct.ProductDb;
-import com.app.ManegerAndProduct.ProductInfo;
-import com.app.ManegerAndProduct.ProductRepository;
-import com.app.ManegerAndProduct.ProductService;
+import com.app.ManegerAndProduct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
 public class CustomerController {
     Logger logger = Logger.getLogger(getClass().getName());
 
-
+@Autowired
+CatagroisRepositary catagroisRepositary;
 
     @Autowired
     AppointmentService appointmentService;
@@ -44,7 +44,7 @@ public class CustomerController {
     @GetMapping(value = "/form")
     public String showForm() {
 
-        return "signup"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
+        return "signup";
     }
     @GetMapping(value = "/home")
     public String showForm2() {
@@ -63,8 +63,9 @@ public class CustomerController {
         return "Admin";
     }
 
+
     @PostMapping(value = "/search")
-    public String LogInFunc(DataForm data) {
+    public String LogInFunc(DataForm data,Model model) {
 
         String logInResult = customerService.searchAccount(data);
         System.out.println(logInResult);
@@ -72,11 +73,13 @@ public class CustomerController {
             return "Login";
         }
         else{
+            List<Catagroies> productList = catagroisRepositary.findAll();
+            model.addAttribute("userRole", logInResult );
+            model.addAttribute("products", productList);
+            return "Home";
 
-            return logInResult;
         }
     }
-
 
 
     @PostMapping(value = "/saveData")

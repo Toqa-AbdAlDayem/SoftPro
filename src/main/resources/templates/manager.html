@@ -20,7 +20,7 @@
 
 <h2>Add New Product</h2>
 
-<form id="addProductForm"   action="/add-product" th:object="${ProductInfo}" method="post">
+<form id="addProductForm"   action="/add-product" method="post">
     <label for="productId">Product ID:</label>
     <input type="text" id="productId" name="productId" required>
 
@@ -57,23 +57,6 @@
     </div>
 </div>
 
-<script th:inline="javascript">
-    function toggleFormVisibility(event) {
-        event.preventDefault();
-        var addProductForm = document.getElementById("addProductForm");
-        if (addProductForm) {
-            addProductForm.style.display = (addProductForm.style.display === "none") ? "block" : "none";
-        }
-    }
-        function openModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
-    }
 
-    function closeModal() {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-    }
-</script>
 </body>
 </html>
