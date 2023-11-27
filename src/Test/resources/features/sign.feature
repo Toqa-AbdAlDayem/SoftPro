@@ -4,7 +4,7 @@ Feature: Signup
 
   Scenario:  Successful Sign Up with Minimal Information
     Given  the user is on the registration page
-    And they fill in the registration form with a valid username "eman" and a strong password "secure123ahmad" and a correct confirmpass "secure123ahmad" and a correct email "ahmadomar24@gmail.com" and Birthdate "1999-2-1" and Gender "Male"
+    And they fill in the registration form with a valid username "eman12" and a strong password "secure123ahmad" and a correct confirmpass "secure123ahmad" and a correct email "ahmadomar24@gmail.com" and Birthdate "1999-2-1" and Gender "Male"
     And they click the "Sign Up" button
    Then their account should be successfully created
     And they should be redirected to the home page

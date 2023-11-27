@@ -62,6 +62,7 @@ public class LogInSteps {
         String htmlContent = response.getBody();
        driver = new ChromeDriver();
         driver.get("data:text/html;charset=utf-8," + htmlContent);
+  //      driver.get("C://Users//user//Desktop//SoftPro//src//main//resources//templates//Login.html");
 
     }
     @When("I enter my admin username {string} and password {string}")
@@ -99,7 +100,9 @@ public class LogInSteps {
         String htmlContent = response.getBody();
       //  driver = new ChromeDriver();
         driver.get("data:text/html;charset=utf-8," + htmlContent);
-        sleep(2000);}
+//            driver.get("C://Users//user//Desktop//SoftPro//src//main//resources//templates//Home.html");
+
+            sleep(2000);}
         driver.close();
         driver.quit();
 
@@ -126,6 +129,7 @@ public class LogInSteps {
             String htmlContent = response.getBody();
             //  driver = new ChromeDriver();
             driver.get("data:text/html;charset=utf-8," + htmlContent);
+            driver.get("");
             sleep(2000);}
         driver.close();
         driver.quit();
