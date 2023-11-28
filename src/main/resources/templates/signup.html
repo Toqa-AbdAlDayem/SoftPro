@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
-    <link th:href="@{/css/signup.css}" rel="stylesheet">
-
+    <link rel="stylesheet" href="/static/css/signup.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
 </head>
@@ -18,31 +18,31 @@
             <div class="form-step form-step-active">
 
                     <label for="user_name">User Name</label>
-                    <input type="text" id="user_name" name="userName" placeholder="User Name" value=" " required/>
+                    <input type="text" id="user_name" name="userName" placeholder="User Name" value="" required/>
 
 
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="Email" required/>
+                    <input type="text" id="email" name="email" placeholder="Email" required  value=""/>
 
 
 
 
                     <label for="birth">Birth Date</label>
-                    <input type="date" id="birth" name="birthDate" placeholder="Birth Date"/>
+                    <input type="date" id="birth" name="birthDate" placeholder="Birth Date"  value=""/>
 
 
                     <label for="gender">Gender</label>
-                    <input type="text" id="gender" name="gender" placeholder="Gender"/>
+                    <input type="text" id="gender" name="gender" placeholder="Gender"  value=""/>
 
                 <!-- Add your fields for the third step here -->
 
 
                     <label for="pass">Password</label>
-                    <input type="password" id="pass" name="password" placeholder="Password" required/>
+                    <input type="password" id="pass" name="password" placeholder="Password" required  value=""/>
 
 
                     <label for="conf">Confirm Password</label>
-                    <input type="password" id="conf" name="confirmPassword" placeholder="Confirm Password" required/>
+                    <input type="password" id="conf" name="confirmPassword" placeholder="Confirm Password" required  value=""/>
 
             </div>
 <br>

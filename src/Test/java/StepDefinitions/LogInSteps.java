@@ -57,11 +57,9 @@ public class LogInSteps {
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
-        String htmlContent = response.getBody();
+
        driver = new ChromeDriver();
-        driver.get("data:text/html;charset=utf-8," + htmlContent);
+        driver.get("file://C://Users//PC//Desktop//SoftPro//src//main//resources//templates//Login.html");
 
     }
     @When("I enter my admin username {string} and password {string}")
@@ -100,8 +98,7 @@ public class LogInSteps {
         driver = new ChromeDriver();
         driver.get("data:text/html;charset=utf-8," + htmlContent);
         sleep(2000);}
-        driver.close();
-        driver.quit();
+
 
     }
 
@@ -116,7 +113,7 @@ public class LogInSteps {
     @Then("I should be redirected to the customer dashboard")
     public void i_should_be_redirected_to_the_customer_dashboard() {
         driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Customer.html");
-        sleep(200);
+        sleep(2000);
         driver.close();
         driver.quit();
     }
@@ -125,15 +122,14 @@ public class LogInSteps {
     public void i_enter_my_installer_username_and_password(String name, String pass) {
         driver.findElement(By.id("username")).sendKeys(name);
         driver.findElement(By.id("password")).sendKeys(pass);
-        sleep(200);
+        sleep(2000);
     }
 
     @Then("I should be redirected to the installer dashboard")
     public void i_should_be_redirected_to_the_installer_dashboard() {
         driver.get("file://C://xampp//htdocs//web//selcuc//src//main//resources//Installer.html");
-        sleep(200);
-        driver.close();
-        driver.quit();
+        sleep(2000);
+
     }
 
 

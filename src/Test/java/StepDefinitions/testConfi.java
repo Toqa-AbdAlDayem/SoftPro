@@ -1,6 +1,8 @@
 package StepDefinitions;
 
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -62,6 +64,11 @@ public class testConfi {
                     registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
                 }
             };
+        }
+        @Bean
+        public WebDriver webDriver() {
+
+             return new ChromeDriver();
         }
 
     }}

@@ -17,16 +17,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>3.0.4</version>
+      <version>3.1.0</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.30</version>
-      <scope>provided</scope>
-    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
     <dependency>
       <groupId>org.apache.derby</groupId>
@@ -57,7 +51,7 @@
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>5.6.0</version>
+      <version>5.3.2</version>
     </dependency>
 
 
@@ -90,7 +84,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>3.0.4</version>
+      <version>3.1.0</version>
     </dependency>
 
     <dependency>
@@ -136,20 +130,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>3.0.4</version>
+      <version>3.1.0</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-mongodb</artifactId>
-      <version>3.0.4</version>
-    </dependency>
 
-    <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongo-java-driver</artifactId>
-      <version>3.12.12</version> <!-- Use the appropriate version -->
-    </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>

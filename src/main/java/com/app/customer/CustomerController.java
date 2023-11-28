@@ -47,8 +47,10 @@ CatagroisRepositary catagroisRepositary;
         return "signup";
     }
     @GetMapping(value = "/home")
-    public String showForm2() {
+    public String showForm2(Model model) {
+        List<Catagroies> productList = catagroisRepositary.findAll();
 
+        model.addAttribute("products", productList);
         return "Home"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
     }
     @GetMapping(value = "/")
@@ -84,12 +86,13 @@ CatagroisRepositary catagroisRepositary;
 
     @PostMapping(value = "/saveData")
     public String signUp(DataForm data) {
+
         CustomerDb dataEntity = new CustomerDb();
         String signUpResult = customerService.createAccount(data, dataEntity);
         if (signUpResult.equals("Account created successfully")) {
             customerService.displayPopup("Account created successfully");
 
-            return "Home";
+            return "redirect:/home";
         } else if (signUpResult.equals("User ID already exists")) {
             customerService.displayPopup("User ID already exists");
         } else {
@@ -99,7 +102,7 @@ CatagroisRepositary catagroisRepositary;
 
 
 
-        return "signup";
+        return "redirect:/signup";
     }
 
     @GetMapping ("/manager")

@@ -38,7 +38,7 @@ public class Management {
     WebDriver webDriver;
     @Given("the user is on the Admin page")
     public void the_user_is_on_the_admin_page() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/manager", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
         Assertions.assertEquals(200, response.getStatusCodeValue());
         String htmlContent = response.getBody();
         webDriver = new ChromeDriver();

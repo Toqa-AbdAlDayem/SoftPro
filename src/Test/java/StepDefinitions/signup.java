@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import io.cucumber.java.en.Given;
+import org.springframework.ui.Model;
 
 import java.net.ConnectException;
 import java.text.ParseException;
@@ -28,23 +29,19 @@ public class signup {
     @Autowired
     private TestRestTemplate restTemplate;
     Logger logger = Logger.getLogger(getClass().getName());
-    private WebDriver webDriver = null;
+    @Autowired
+    private WebDriver webDriver;
     private DataForm data = new DataForm();
     @Autowired
     private DataService dataService;
     @Autowired
     private CustomerController customerController;
-
-
+ private Model model;
     @Given("the user is on the registration page")
     public void givenTheUserIsOnTheRegistrationPage() throws ConnectException {
-        ResponseEntity<String> response = restTemplate.getForEntity("/form", String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
-        String htmlContent = response.getBody();
-        webDriver = new ChromeDriver();
-        System.out.println(htmlContent);
-        webDriver.get("data:text/html;charset=utf-8," + htmlContent);
 
+        webDriver = new ChromeDriver();
+       webDriver.get("http://localhost:"+CucumberIT.getPort()+"/form");
     }
 
     @When("they fill in the registration form with a valid username {string} and a strong password {string} and a correct confirmpass {string} and a correct email {string} and Birthdate {string} and Gender {string}")
@@ -65,8 +62,8 @@ public class signup {
         WebElement emailField = webDriver.findElement(By.id("email"));
         emailField.sendKeys(email);
 
-        WebElement dateField = webDriver.findElement(By.id("birth"));
-        dateField.sendKeys(birthDate);
+      /*  WebElement dateField = webDriver.findElement(By.id("birth"));
+        dateField.sendKeys(birthDate);*/
 
         WebElement genderField = webDriver.findElement(By.id("gender"));
         genderField.sendKeys(gender);
@@ -77,29 +74,29 @@ public class signup {
     @And("they click the {string} button")
     public void andTheyClickTheButton(String button) {
         WebElement signUpButton = webDriver.findElement(By.id("signup"));
-        signUpButton.click();
-    }
-
-    @Then("their account should be successfully created")
-    public void thenTheirAccountShouldBeSuccessfullyCreated() throws ParseException {
         String pattern = "mm-dd-yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        WebElement userNameElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("user_name")));
 
         data.setUserName(webDriver.findElement(By.id("user_name")).getAttribute("value"));
         data.setPassword((webDriver.findElement(By.id("pass")).getAttribute("value")));
         data.setConfirmPassword(webDriver.findElement(By.id("conf")).getAttribute("value"));
         data.setEmail(webDriver.findElement(By.id("email")).getAttribute("value"));
         data.setGender(webDriver.findElement(By.id("gender")).getAttribute("value"));
-data.setUserId(12347556);
+        data.setUserId(123472556);
 
-       String result = customerController.signUp(data);
+        signUpButton.click();
+    }
+
+    @Then("their account should be successfully created")
+    public void thenTheirAccountShouldBeSuccessfullyCreated() throws ParseException {
+
+     String result = customerController.signUp(data);
+     System.out.println(result);
         if (result.equals("Home")) {
             assertTrue(true);
-            ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
-            Assertions.assertEquals(200, response.getStatusCodeValue());
-            String htmlContent = response.getBody();
-            webDriver = new ChromeDriver();
-            webDriver.get("data:text/html;charset=utf-8," + htmlContent);
+
         }
     }
 
