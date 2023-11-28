@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -24,7 +23,7 @@ CatagroisRepositary catagroisRepositary;
     AppointmentService appointmentService;
 
     private final AppointmenRepository appointmenRepository;
-    private final CustomerRepository customer;
+    private final CustomerRepository customerRepository;
     private final DataService customerService;
     //private final AppointmentService appointmentService;
 
@@ -35,7 +34,7 @@ CatagroisRepositary catagroisRepositary;
     @Autowired
     public CustomerController(AppointmenRepository appointmenRepository, CustomerRepository cust, DataService customerService) {
         this.appointmenRepository = appointmenRepository;
-        this.customer = cust;
+        this.customerRepository = cust;
         this.customerService = customerService;
        // this.appointmentService = appointmentService;
         this.appoinmentDb = new AppointmentDb();
@@ -63,6 +62,21 @@ CatagroisRepositary catagroisRepositary;
     public String showForm4() {
 
         return "Admin";
+    }
+
+    @GetMapping(value = "/ViewCustomers")
+    public String showCustomers(Model model) {
+        List<CustomerDb> customers = customerRepository.findAll();
+        model.addAttribute("customers", customers);
+        return "ViewCustomers";
+    }
+
+    @GetMapping("/customers/{customerId}")
+    public String showCustomerDetails(@PathVariable Long customerId, Model model) {
+        CustomerDb customer = customerRepository.findById(Math.toIntExact(customerId))
+                .orElseThrow(() -> new IllegalArgumentException("Invalid customer id: " + customerId));
+        model.addAttribute("customer", customer);
+        return "customerDetails";
     }
 
 
