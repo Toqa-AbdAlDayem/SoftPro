@@ -31,7 +31,7 @@ public class DataService {
 
     public String createAccount(DataForm data, CustomerDb dataEntity) {
      boolean existingData=dataRepository.existsByName(data.getUserName());
-System.out.println(data.getUserName());
+logger.info(data.getUserName());
         if (existingData) {
 
             logger.info("User ID already exists");
@@ -81,15 +81,15 @@ System.out.println(data.getUserName());
 
     public String searchAccount(DataForm data) {
         try {
-            System.out.println(data.getUserName());
-            System.out.println("Searching for user: " + data.getUserName());
-            System.out.println("Searching for pass: " + data.getPassword());
+           logger.info(data.getUserName());
+            logger.info("Searching for user: " + data.getUserName());
+            logger.info("Searching for pass: " + data.getPassword());
 
             Optional<CustomerDb> userOptional = dataRepository.findByNameAndPass(
                     data.getUserName().trim(), data.getPassword().trim()
             );
 
-            System.out.println("User found: " + userOptional.isPresent());
+            logger.info("User found: " + userOptional.isPresent());
 
             if (userOptional.isPresent()) {
                 CustomerDb user = userOptional.get();

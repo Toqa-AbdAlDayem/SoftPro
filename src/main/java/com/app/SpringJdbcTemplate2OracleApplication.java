@@ -23,7 +23,7 @@ public class SpringJdbcTemplate2OracleApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Application is running.");
-        // Your code logic goes here
+
     }
 
     @Bean

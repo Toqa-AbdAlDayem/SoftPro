@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
+
 import io.cucumber.java.en.Given;
 import org.springframework.ui.Model;
 
@@ -93,7 +93,7 @@ public class signup {
     public void thenTheirAccountShouldBeSuccessfullyCreated() throws ParseException {
 
      String result = customerController.signUp(data);
-     System.out.println(result);
+
         if (result.equals("Home")) {
             assertTrue(true);
 

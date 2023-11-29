@@ -1,11 +1,14 @@
 package com.app.ManegerAndProduct;
 import com.app.customer.CustomerDb;
 import com.app.customer.CustomerRepository;
+import io.cucumber.messages.types.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
@@ -14,6 +17,7 @@ import java.util.List;
 @Controller
 public class ManegerController {
 
+    private CatagroiesForm catagroiesInfo;
     private final ProductService  productService;
 
 @Autowired
@@ -27,61 +31,56 @@ ProductDb productDb=new ProductDb();
 }
 
 
-/*    @PostMapping("/add-product")
+    @PostMapping("/add-product")
     public boolean addProduct(ProductInfo productInfo) {
 
-String isAdd =productService.SaveProduct(productInfo);
+   String isAdd =productService.SaveProduct(productInfo);
 
 
-           *//*
-           احططططططططططططططططططط يطلع pop uppppppp
-            *//*
+
 
         return true;
 
 
-    }*/
+    }
     private final CatagroisRepositary catagroisRepositary;
 
 
-
-    @GetMapping("/all")
-
-        public String getAllProducts(Model model) {
-            List<Catagroies> productList = catagroisRepositary.findAll();
-
-            // Add the productList to the model with a specific attribute name
-            model.addAttribute("products", productList);
+    @GetMapping("/select")
+    public String yourMapping(Model model) {
+        List<String> sections = productService.getAllCategories();
+        model.addAttribute("sections", sections);
         return "Home";
     }
 
-@PostMapping("/add-product")
-public String addProduct(ProductInfo productInfo){
 
-        return "manager";
-
-
-}
-
-
-
-  /*
+    @GetMapping("/all")
+        public String getAllProducts(Model model) {
+            List<Catagroies> productList = catagroisRepositary.findAll();
+            model.addAttribute("products", productList);
+             return "Home";
+    }
 
 
-    ههههوووون عشان اضيف ال product list
-    @GetMapping("/product/{productId}")
-    public String viewProduct(@PathVariable Long productId, Model model) {
-        // Logic to retrieve product details from productId
-        // You can use the productId to fetch the specific product from your database or service
-        // For simplicity, let's assume you have a method getProductById in a service class
+ @PostMapping("/add-catagroies")
+    public String addCatagroies(@ModelAttribute CatagroiesForm catagroiesForm){
+System.out.println(catagroiesForm.getCataName());
 
-        // productService.getProductById(productId);
+     String isAdd =productService.SaveCatagroies(catagroiesForm);
 
-        // Add the product details to the model (replace with actual logic)
-        model.addAttribute("productName", "Sample Product");
-        model.addAttribute("productDescription", "Sample Product Description");
+     return "redirect:/home";
 
-        // Return the Thymeleaf template for displaying detailed product information
-        return "productDetails";
-    }*/
-}
+ }
+
+
+
+
+ @GetMapping("/search/{productId}")
+public String viewProduct(@PathVariable Long productId, Model model) {
+     List<ProductDb> productList = productRepository.findAll();
+
+     model.addAttribute("products", productList);
+
+     return "productList";
+
+}}
