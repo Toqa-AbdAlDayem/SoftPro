@@ -32,7 +32,7 @@ public class ViewCustomer {
         Assertions.assertEquals(200, response.getStatusCodeValue());
         String htmlContent = response.getBody();
         webDriver = new ChromeDriver();
-        System.out.println(htmlContent);
+
         webDriver.get("data:text/html;charset=utf-8," + htmlContent);
 
         webDriver.findElement(By.id("user_name")).sendKeys("admin_user");
@@ -68,7 +68,7 @@ public class ViewCustomer {
         Assertions.assertEquals(200, response.getStatusCodeValue());
         String htmlContent = response.getBody();
         webDriver = new ChromeDriver();
-        System.out.println(htmlContent);
+
         webDriver.get("data:text/html;charset=utf-8," + htmlContent);
     }
 

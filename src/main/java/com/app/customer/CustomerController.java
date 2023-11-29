@@ -46,11 +46,12 @@ CatagroisRepositary catagroisRepositary;
         return "signup";
     }
     @GetMapping(value = "/home")
-    public String showForm2(Model model) {
+    public String showForm2(Model model,DataForm dataForm) {
         List<Catagroies> productList = catagroisRepositary.findAll();
-
+        String searchAdmin=customerService.searchAccount(dataForm);
+        model.addAttribute("userRole",  searchAdmin );
         model.addAttribute("products", productList);
-        return "Home"; // This assumes the HTML file is named "signup.html" in the "resources/templates" directory
+        return "Home";
     }
     @GetMapping(value = "/")
     public String showForm3() {
@@ -84,7 +85,7 @@ CatagroisRepositary catagroisRepositary;
     public String LogInFunc(DataForm data,Model model) {
 
         String logInResult = customerService.searchAccount(data);
-        System.out.println(logInResult);
+        logger.info(logInResult);
         if(logInResult.equals("Not Found")) {
             return "Login";
         }

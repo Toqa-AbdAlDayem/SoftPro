@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<!--<link rel="stylesheet" type="text/css" href="/static/cssfiles/LogIn.css">-->
+<!--<link rel="stylesheet" type="text/css" href="/static/css/LogIn.css">-->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY MARKET</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY MARKET</title>
+  <style>
     form {
         width: 300px;
         padding: 20px;
@@ -37,6 +37,9 @@
         font-size: 14px;
     }
 
+    select {
+        cursor: pointer;
+    }
 
     button {
         padding: 10px;
@@ -129,17 +132,17 @@
 
 <body>
 <header>
-    <nav>
-        <ul>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">category</a></li>
-            <li><a href="#">Bag</a></li>
-            <li><a href="#">Exit</a></li>
-            <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
-            <li th:if="${userRole == 'Admin'}"><a href="#">View Customers</a></li>
+  <nav>
+    <ul>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">category</a></li>
+      <li><a href="#">Bag</a></li>
+      <li><a href="#">Exit</a></li>
+      <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
+      <li th:if="${userRole == 'Admin'}"><a href="#">View Customers</a></li>
 
-        </ul>
-    </nav>
+    </ul>
+  </nav>
 </header>
 
 
@@ -149,46 +152,63 @@
 </header>
 <main id="productContainer">
 
-    <!-- Add more HTML elements to display other product details -->
+  <!-- Add more HTML elements to display other product details -->
 
-    <div th:each="product : ${products}">
+  <div th:each="product : ${products}">
 
-        <div class="square" th:onclick="'/product/' + ${product.getId()}">
-            <a href="#">
-                <img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">
-                <p th:text="${product.getName()}"></p>
-                <button class="deleteButton" style="display: none;">Delete</button>
-                <button class="updateButton" style="display: none;">Update</button>
-            </a>
-        </div>
-
+    <div class="square" th:onclick="'/product/' + ${product.getId()}">
+      <a href="#">
+        <img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">
+        <p th:text="${product.getName()}"></p>
+        <button class="deleteButton" style="display: none;">Delete</button>
+        <button class="updateButton" style="display: none;">Update</button>
+      </a>
     </div>
-    <div class="square" id="addNewButton" style="display: none;" th:onclick="showAddForm()">
-        <a href="#">
-            <!--<img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">-->
-            <p text="Add New"></p>
 
-        </a>
-    </div>
+  </div>
+  <div class="square" id="addNewButton" style="display: none;" th:onclick="showAddForm()">
+    <a href="#">
+      <!--<img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">-->
+      <p text="Add New"></p>
+
+    </a>
+  </div>
 
 
 </main>
 
 <div id="addForm" style="display: none;">
-    <form id="addProductForm"   action="/add-catagroies" method="post" th:object="${catagroiesForm}">
+  <form id="addProductForm"   action="/add-product" method="post" th:object="${productInfo}" >
 
-        <label for="productId">Categories ID:</label>
-        <input type="text" id="productId" name="cataId" required>
+    <label for="productId">Product ID:</label>
+    <input type="text" id="productId" name="productId" required>
 
-        <label for="productName">Categories Name:</label>
-        <input type="text" id="productName" name="cataName" required>
+    <label for="productName">Product Name:</label>
+    <input type="text" id="productName" name="productName" required>
 
+    <label for="information">Information:</label>
+    <textarea id="information" name="information" rows="4" required></textarea>
 
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image" accept="image/*" >
-        <button>Add</button>
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" min="0" step="0.01" required>
 
-    </form>
+    <label for="section">Section:</label>
+
+    <select id="section" name="section" required>
+      <option value="Electronics">Electronics</option>
+      <option value="clothing">Clothing</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <label for="numberOf">Number of:</label>
+    <input type="number" id="numberOf" name="numberOf" min="0" required>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" >
+
+    <button id="add_pro"  type="submit">Add Product</button>
+    <button id="closeFormButton" onclick="closeForm()"  >close</button>
+  </form>
 </div>
 <script th:inline="javascript">
   function showDeleteButton() {

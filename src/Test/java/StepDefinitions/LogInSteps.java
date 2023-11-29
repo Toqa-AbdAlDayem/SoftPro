@@ -1,36 +1,28 @@
 package StepDefinitions;
 
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.Duration;
+
 import java.util.logging.Logger;
 
 import com.app.customer.*;
-import io.cucumber.java.BeforeAll;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
+import java.net.http.HttpClient;
 
 public class LogInSteps {
     @Autowired
@@ -42,7 +34,7 @@ public class LogInSteps {
 
     private static HttpClient httpClient = HttpClient.newHttpClient();
     Logger logger = Logger.getLogger(getClass().getName());
-    private WebDriver driver =null;
+    private WebDriver driver =new ChromeDriver();
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -57,12 +49,7 @@ public class LogInSteps {
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
-        String htmlContent = response.getBody();
-       driver = new ChromeDriver();
-        driver.get("data:text/html;charset=utf-8," + htmlContent);
-  //      driver.get("C://Users//user//Desktop//SoftPro//src//main//resources//templates//Login.html");
+      driver.get("http://localhost:"+CucumberIT.getPort()+"/");
 
     }
     @When("I enter my admin username {string} and password {string}")
@@ -95,12 +82,7 @@ public class LogInSteps {
         String result=dataService.searchAccount(dataForm);
         if(result.equals("Admin")){
             assert(true);
-        ResponseEntity<String> response = restTemplate.getForEntity("/home", String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
-        String htmlContent = response.getBody();
-      //  driver = new ChromeDriver();
-        driver.get("data:text/html;charset=utf-8," + htmlContent);
-//            driver.get("C://Users//user//Desktop//SoftPro//src//main//resources//templates//Home.html");
+            driver.get("http://localhost:"+CucumberIT.getPort()+"/home");
 
             sleep(2000);}
         driver.close();
