@@ -1,5 +1,6 @@
 package StepDefinitions;
 
+import com.app.customer.CustomerController;
 import com.app.customer.DataForm;
 import com.app.customer.DataService;
 import io.cucumber.java.en.Given;
@@ -14,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 
 import java.util.logging.Logger;
 
@@ -23,70 +25,71 @@ public class ViewCustomer {
     DataForm dataForm=new DataForm();
     @Autowired
     private TestRestTemplate restTemplate;
+    CustomerController customerController ;
     private WebDriver webDriver = null;
     Logger logger = Logger.getLogger(getClass().getName());
+    @Autowired
+    Model model;
     @Given("the Admin is logged in")
     public void the_admin_is_logged_in() {
         // Write code here that turns the phrase above into concrete actions
-        ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
-        String htmlContent = response.getBody();
         webDriver = new ChromeDriver();
-        System.out.println(htmlContent);
-        webDriver.get("data:text/html;charset=utf-8," + htmlContent);
+        webDriver.get("http://localhost:"+CucumberIT.getPort()+"/");
 
-        webDriver.findElement(By.id("user_name")).sendKeys("admin_user");
-        webDriver.findElement(By.id("pass")).sendKeys("admin_password");
+        webDriver.findElement(By.id("user_name")).sendKeys("eman");
+        webDriver.findElement(By.id("pass")).sendKeys("555");
         sleep(200);
-
-        webDriver.findElement(By.id("LogInBtn")).click();
-
 
         dataForm.setUserName( webDriver.findElement(By.id("user_name")).getAttribute("value"));
         dataForm.setPassword( webDriver.findElement(By.id("pass")).getAttribute("value"));
 
+        webDriver.findElement(By.id("LogInBtn")).click();
+
         String result=dataService.searchAccount(dataForm);
         if(result.equals("Admin")){
-            assert(true);
-            ResponseEntity<String> response1 = restTemplate.getForEntity("/home", String.class);
-            Assertions.assertEquals(200, response1.getStatusCodeValue());
-            String htmlContent1 = response1.getBody();
-            //  driver = new ChromeDriver();
-            webDriver.get("data:text/html;charset=utf-8," + htmlContent1);
+            webDriver.get("http://localhost:"+CucumberIT.getPort()+"/home");
+
             sleep(2000);}
     }
 
     @When("the Admin navigates to the {string} section")
     public void the_admin_navigates_to_the_section(String string) {
-        WebElement viewCustomersLink = webDriver.findElement(By.linkText("View Customers"));
-        viewCustomersLink.click();
+        WebElement customerDetailsLink = webDriver.findElement(By.linkText(string));
+        customerDetailsLink.click();
+        webDriver.get("http://localhost:"+CucumberIT.getPort()+"/ViewCustomers");
+        sleep(3000);
     }
 
     @Then("the Admin should see a list of customer accounts")
     public void the_admin_should_see_a_list_of_customer_accounts() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/ViewCustomers", String.class);
-        Assertions.assertEquals(200, response.getStatusCodeValue());
-        String htmlContent = response.getBody();
-        webDriver = new ChromeDriver();
-        System.out.println(htmlContent);
-        webDriver.get("data:text/html;charset=utf-8," + htmlContent);
+        String expectedUrl = "http://localhost:"+CucumberIT.getPort()+"/ViewCustomers";
+        String currentUrl = webDriver.getCurrentUrl();
+        Assert.assertEquals(currentUrl, expectedUrl);
+
+// Check if the title matches
+//        String expectedTitle = "Expected Page Title";
+//        String currentTitle = webDriver.getTitle();
+//        Assert.assertEquals(currentTitle, expectedTitle);
+        webDriver.quit();
     }
 
-    @When("selects a customer account to {string}")
-    public void selects_a_customer_account_to(String string) {
+
+    @When("selects a customer account to {string} with ID {string}")
+    public void selects_a_customer_account_to_with_id(String string, String string2) {
         // Write code here that turns the phrase above into concrete actions
-        WebElement customerDetailsLink = webDriver.findElement(By.linkText("View Details"));
+        WebElement customerDetailsLink = webDriver.findElement(By.linkText(string));
         customerDetailsLink.click();
+        customerController.showCustomerDetails(Long.valueOf(string2),model);
+        webDriver.get("http://localhost:"+CucumberIT.getPort()+"//customers/"+string2);
+        sleep(3000);
     }
+
 
     @Then("the customer details should be displayed successfully")
     public void the_customer_details_should_be_displayed_successfully() {
-        // Write code here that turns the phrase above into concrete actions
-        // Assuming there's an element on the customer details page
-        WebElement customerDetailsElement = webDriver.findElement(By.id("customerDetails"));
-
-        // Add assertions based on what you expect to see on the customer details page
-        Assert.assertTrue(customerDetailsElement.isDisplayed());
+        String expectedUrl = "http://localhost:"+CucumberIT.getPort()+"//customers/2";
+        String currentUrl = webDriver.getCurrentUrl();
+        Assert.assertEquals(currentUrl, expectedUrl);
     }
 
 
