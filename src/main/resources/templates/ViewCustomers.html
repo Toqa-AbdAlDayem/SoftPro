@@ -21,7 +21,8 @@
         <td th:text="${customer.name}"></td>
         <td th:text="${customer.email}"></td>
         <td>
-            <a th:href="@{/customers/{id}(id=${customer.id})}">View Details</a>
+            <!-- Include the customer ID in the link text -->
+            <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="'View ' + ${customer.name} + ' Details'">View Details</a>
         </td>
     </tr>
     </tbody>
