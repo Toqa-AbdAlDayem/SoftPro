@@ -1,6 +1,7 @@
 package com.app.ManegerAndProduct;
 import com.app.customer.CustomerDb;
 import com.app.customer.CustomerRepository;
+import io.cucumber.core.logging.Logger;
 import io.cucumber.messages.types.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +20,15 @@ public class ManegerController {
 
     private CatagroiesForm catagroiesInfo;
     private final ProductService  productService;
+
+
+    @GetMapping("/model")
+    public String showModel(Model model){
+
+
+        return "error";
+    }
+
 
 @Autowired
 private ProductRepository productRepository;
@@ -63,11 +73,19 @@ ProductDb productDb=new ProductDb();
 
 
  @PostMapping("/add-catagroies")
-    public String addCatagroies(@ModelAttribute CatagroiesForm catagroiesForm){
+    public String addCatagroies(@ModelAttribute CatagroiesForm catagroiesForm,Model model){
 System.out.println(catagroiesForm.getCataName());
 
      String isAdd =productService.SaveCatagroies(catagroiesForm);
+     System.out.println(isAdd);
+     if (isAdd.equals("The Id already exist")){
 
+
+     }
+     else if (isAdd.equals("The Name already exist")){
+
+
+}
      return "redirect:/home";
 
  }

@@ -2,10 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <title>Error Page</title>
+  <title>Your Page</title>
+  <!-- Add your stylesheets and other metadata here -->
 </head>
 <body>
-<h2>Error Message:</h2>
-<p th:text="${errorMessage}"></p>
+<!-- Result box to display the message -->
+<div id="resultBox" th:if="${resultMessage}">
+  <span th:text="${resultMessage}"></span>
+</div>
+
+<!-- Rest of your HTML content goes here -->
 </body>
 </html>

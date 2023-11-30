@@ -45,7 +45,7 @@ public class ProductService {
 
     public String SaveCatagroies( CatagroiesForm catagroiesForm) {
         boolean exist = catagroiesRepository.existsById( catagroiesForm.getCataId());
-        boolean nameExist=catagroiesRepository.existsByName(catagroiesForm.getCataName();
+        boolean nameExist=catagroiesRepository.existsByName(catagroiesForm.getCataName());
         if (!exist) {
             catagroies=new Catagroies();
             catagroies.setId(catagroiesForm.getCataId());
