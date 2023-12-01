@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <!-- Include your profile-specific styles here -->
+  <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-header {
+            background-color: #1877f2;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .profile-info {
+            max-width: 600px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-image {
+            max-width: 200px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .update-profile {
+            max-width: 400px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .update-profile form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .update-profile label {
+            margin-bottom: 10px;
+        }
+
+        .update-profile input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        .update-profile button {
+            padding: 10px;
+            background-color: #1877f2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="profile-header">
+  <h1>User Profile</h1>
+</div>
+
+<div class="profile-container">
+  <div class="profile-info">
+    <!-- Display user information -->
+    <h2 th:text="${user.name}"></h2>
+    <p th:text="${user.email}"></p>
+
+    <!-- Display profile image -->
+    <div class="profile-image">
+      <img th:src="@{'/profile-image?id=' + ${user.id}}" alt="Profile Image" />
+    </div>
+  </div>
+
+  <!-- Add a form for updating profile information -->
+  <div class="update-profile">
+    <h2>Update Profile</h2>
+    <form th:action="@{'/update-profile?id=' + ${user.id}}" method="post" enctype="multipart/form-data">
+      <label for="profileImage">Profile Image:</label>
+      <input type="file" id="profileImage" name="profileImage" accept="image/*" />
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--  &lt;!&ndash; Add your head content here &ndash;&gt;-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>User Profile</title>-->
+<!--  <link rel="stylesheet" type="text/css" href="/static/cssfiles/home.css">-->
+<!--  <link rel="stylesheet" type="text/css" href="/static/cssfiles/profile.css"> &lt;!&ndash; Add the new CSS file &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--<header>-->
+<!--  <nav>-->
+<!--    <ul>-->
+<!--      <li><a href="/profile">Profile</a></li>-->
+<!--      &lt;!&ndash; Add other navigation links as needed &ndash;&gt;-->
+<!--    </ul>-->
+<!--  </nav>-->
+<!--</header>-->
+
+<!--<main id="profileContainer">-->
+<!--  <div class="profile-header">-->
+<!--    <h1 th:text="${user.name}"></h1>-->
+<!--&lt;!&ndash;    <p th:text="${user.bio}"></p>&ndash;&gt;-->
+<!--    &lt;!&ndash; Add other profile information as needed &ndash;&gt;-->
+<!--  </div>-->
+
+<!--  <div class="profile-content">-->
+<!--    &lt;!&ndash; Display user's posts, photos, etc. &ndash;&gt;-->
+<!--    <div class="square">-->
+<!--      <img id="profileImage" th:src="${user.profileImage}" alt="User Photo">-->
+<!--      <button onclick="changeProfileImage()">Change Photo</button>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Add more content as needed &ndash;&gt;-->
+<!--  </div>-->
+<!--</main>-->
+
+<!--<script th:inline="javascript">-->
+<!--        function changeProfileImage() {-->
+<!--            var input = document.createElement('input');-->
+<!--            input.type = 'file';-->
+
+<!--            input.onchange = function (e) {-->
+<!--                var file = e.target.files[0];-->
+<!--                var formData = new FormData();-->
+<!--                formData.append('image', file);-->
+
+<!--                // Send an AJAX request to update the profile image-->
+<!--                var xhr = new XMLHttpRequest();-->
+<!--                xhr.open('POST', '/update-profile-image', true);-->
+<!--                xhr.onload = function () {-->
+<!--                    if (xhr.status === 200) {-->
+<!--                        alert(xhr.responseText); // Handle the success response-->
+<!--                        // Optionally, update the 'src' attribute of the 'profileImage' element-->
+<!--                        // document.getElementById('profileImage').src = 'new_image_url';-->
+<!--                    } else {-->
+<!--                        console.error(xhr.statusText);-->
+<!--                    }-->
+<!--                };-->
+<!--                xhr.send(formData);-->
+<!--            };-->
+
+<!--            input.click();-->
+<!--        }-->
+<!--    </script>-->
+
+<!--&lt;!&ndash; Add your footer content here &ndash;&gt;-->
+
+<!--</body>-->
+<!--</html>-->

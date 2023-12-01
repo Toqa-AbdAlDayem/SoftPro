@@ -110,5 +110,57 @@ logger.info(data.getUserName());
             return "Error";
         }
     }
+    public CustomerDb findByUsername(String username) {
+        return dataRepository.findByName(username);
+    }
+
+public UserResult searchAccountForProfile(DataForm data) {
+    try {
+        logger.info("Searching for user: " + data.getUserName());
+        logger.info("Searching for pass: " + data.getPassword());
+
+        Optional<CustomerDb> userOptional = dataRepository.findByNameAndPass(
+                data.getUserName().trim(), data.getPassword().trim()
+        );
+
+        logger.info("User found: " + userOptional.isPresent());
+
+        if (userOptional.isPresent()) {
+            CustomerDb user = userOptional.get();
+            String role = user.getRole();
+
+            if ("admin".equals(role)) {
+                return new UserResult("Admin", user);
+            } else if ("customer".equals(role)) {
+                return new UserResult("Customer", user);
+            } else if ("installer".equals(role)) {
+                return new UserResult("Installer", user);
+            }
+        }
+
+        return new UserResult("Not Found", null);
+    } catch (Exception e) {
+        // Handle the exception, log it, or return an appropriate error message
+        return new UserResult("Error", null);
+    }
+}
+
+    public static class UserResult {
+        private final String role;
+        private final CustomerDb user;
+
+        public UserResult(String role, CustomerDb user) {
+            this.role = role;
+            this.user = user;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public CustomerDb getUser() {
+            return user;
+        }
+    }
 
 }

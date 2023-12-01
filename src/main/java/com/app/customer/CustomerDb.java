@@ -91,4 +91,27 @@ public class CustomerDb {
     public void setRole(String role) {
         this.role = role;
     }
+    @Lob
+    @Column(name = "profile_image", columnDefinition = "BLOB")
+    private byte[] profileImage;
+
+    // ... existing methods
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDb{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                // Add other fields as needed
+                '}';
+    }
 }
