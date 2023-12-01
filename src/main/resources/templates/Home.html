@@ -17,7 +17,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: #f8f8f8;
+         background-color: #f8f8f8;
     }
 
     label {
@@ -25,6 +25,7 @@
         margin-bottom: 8px;
         color: #333;
         font-weight: bold;
+        margin-right: 8px; /* Adjust spacing */
     }
 
     input, select, textarea, file {
@@ -36,7 +37,11 @@
         border-radius: 4px;
         font-size: 14px;
     }
+    input{
+     width: 70%; /* Adjust width */
+    margin-right: 8px; /* Adjust spacing */
 
+    }
 
     button {
         padding: 10px;
@@ -45,8 +50,10 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        width: 100%;
         font-size: 16px;
+        width: 25%; /* Adjust width */
+        font-size: 16px;
+}
     }
         body {
             margin: 0;
@@ -124,6 +131,12 @@
             margin-top: 15px;
             font-weight: bold;
         }
+        .search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px; /* Adjust spacing */
+}
+
     </style>
 </head>
 
@@ -136,7 +149,7 @@
             <li><a th:href="@{'/user/' + ${userId} + '/card'}">Bag</a></li>
             <li><a href="#">Exit</a></li>
             <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
-            <li th:if="${userRole == 'Admin'}"><a href="#">View Customers</a></li>
+            <li th:if="${userRole == 'Admin'}"><a href="/ViewCustomers">View Customers</a></li>
 
         </ul>
     </nav>
@@ -147,6 +160,14 @@
 
 
 </header>
+<form onsubmit="searchProducts(); return false;">
+    <div class="search-container">
+        <label for="searchInput">Search:</label>
+        <input type="text" id="searchInput" name="searchInput">
+    </div>
+    <button type="submit">Search</button>
+</form>
+
 <main id="productContainer">
 
     <!-- Add more HTML elements to display other product details -->
@@ -208,19 +229,115 @@
             addNewButton.style.display = 'block';
         }
 }
-function showAddForm() {
-    var addForm = document.getElementById('addForm');
+
+    function showAddForm() {
+        var addForm = document.getElementById('addForm');
         if (addForm) {
             addForm.style.display = 'block';
         }
-
     }
-   function closeForm() {
+
+    function closeForm() {
         var addForm = document.getElementById('addForm');
         if (addForm) {
             addForm.style.display = 'none';
         }
     }
+
+    function searchProducts() {
+        var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+        // Make an AJAX request to your Spring Boot backend
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/search?term=' + searchTerm, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response from the server
+                var products = JSON.parse(xhr.responseText);
+                updateProductDisplay(products);
+            }
+        };
+        xhr.send();
+    }
+
+    function updateProductDisplay(products) {
+    var productContainer = document.getElementById('productContainer');
+    productContainer.innerHTML = ''; // Clear existing content
+
+    for (var i = 0; i < products.length; i++) {
+        var product = products[i];
+
+        // Create HTML elements to display the product
+        var productDiv = document.createElement('div');
+        productDiv.className = 'square';
+
+        var productLink = document.createElement('a');
+        productLink.href = '/product/' + product.id; // Adjust the product details link
+
+        var productImage = document.createElement('img');
+        productImage.src = product.imageUrl; // Adjust the product image URL
+        productImage.alt = product.name; // Adjust the product name
+
+        var productName = document.createElement('p');
+        productName.textContent = product.name; // Adjust the property for product name
+
+        // Append the elements to the productContainer
+        productLink.appendChild(productImage);
+        productLink.appendChild(productName);
+        productDiv.appendChild(productLink);
+
+        productContainer.appendChild(productDiv);
+    }
+}
+<!--    function searchProducts() {-->
+<!--        var searchTerm = document.getElementById('searchInput').value.toLowerCase();-->
+
+<!--        // Make an AJAX request to your Spring Boot backend-->
+<!--        var xhr = new XMLHttpRequest();-->
+<!--        xhr.open('GET', '/search?term=' + searchTerm, true);-->
+<!--        xhr.onreadystatechange = function () {-->
+<!--            if (xhr.readyState === 4) {-->
+<!--                if (xhr.status === 200) {-->
+<!--                    // Handle the response from the server-->
+<!--                    var products = JSON.parse(xhr.responseText);-->
+<!--                    updateProductDisplay(products);-->
+<!--                } else {-->
+<!--                    console.error('Error fetching products:', xhr.statusText);-->
+<!--                }-->
+<!--            }-->
+<!--        };-->
+<!--        xhr.send();-->
+<!--    }-->
+
+<!--    function updateProductDisplay(products) {-->
+<!--        var productContainer = document.getElementById('productContainer');-->
+<!--        productContainer.innerHTML = ''; // Clear existing content-->
+
+<!--        for (var i = 0; i < products.length; i++) {-->
+<!--            var product = products[i];-->
+
+<!--            // Create HTML elements to display the product-->
+<!--            var productDiv = document.createElement('div');-->
+<!--            productDiv.className = 'square';-->
+
+<!--            var productLink = document.createElement('a');-->
+<!--            productLink.href = '/product/' + product.id; // Adjust the product details link-->
+
+<!--            var productImage = document.createElement('img');-->
+<!--            productImage.src = product.imageUrl; // Adjust the product image URL-->
+<!--            productImage.alt = product.name; // Adjust the product name-->
+
+<!--            var productName = document.createElement('p');-->
+<!--            productName.textContent = product.name; // Adjust the property for product name-->
+
+<!--            // Append the elements to the productContainer-->
+<!--            productLink.appendChild(productImage);-->
+<!--            productLink.appendChild(productName);-->
+<!--            productDiv.appendChild(productLink);-->
+
+<!--            productContainer.appendChild(productDiv);-->
+<!--        }-->
+<!--    }-->
 </script>
 
 </body>

@@ -122,4 +122,10 @@ public class ProductService {
 
         return products;
     }
+
+    public List<ProductDb> searchProducts(String term) {
+        // Implement your logic to search for products in the database
+        // You might use the productRepository to query the database
+        return productRepository.findByProductNameContainingIgnoreCase(term);
+    }
 }
