@@ -37,13 +37,15 @@ public class CatagroiesForm {
             this.category = category;
         }
 
-        public String getImageUrl() {
-            return image;
-        }
-
-        public void setImageUrl(String imageUrl) {
-            this.image = imageUrl;
-        }
+    public String getImage() {
+        return image;
     }
+
+    public void setImage(String image) {
+        this.image = image;
+    }}
+
+
+
 
 

@@ -3,6 +3,7 @@ import com.app.customer.CustomerDb;
 import com.app.customer.CustomerRepository;
 import io.cucumber.core.logging.Logger;
 import io.cucumber.messages.types.Product;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ManegerController {
@@ -40,6 +42,25 @@ ProductDb productDb=new ProductDb();
     this.catagroisRepositary = catagroisRepositary;
 }
 
+    @GetMapping("/category/{categoryId}")
+    public String getProductFromCatagroies(@PathVariable int categoryId, Model model) {
+        List<ProductDb> productList =productRepository.findByCategoryId(categoryId);
+        model.addAttribute("products", productList);
+        return "product"; // Return the name of the Thymeleaf template (product.html)
+    }
+
+
+    @GetMapping("/product/{productId}")
+    public String getProduct(@PathVariable int productId, Model model) {
+
+        Optional<ProductDb> productOptional = productRepository.findById(productId);
+
+        if (productOptional.isPresent()) {
+            ProductDb product = productOptional.get();
+            model.addAttribute("product", product);
+        }
+return "productList";
+    }
 
     @PostMapping("/add-product")
     public boolean addProduct(ProductInfo productInfo) {
@@ -53,6 +74,7 @@ ProductDb productDb=new ProductDb();
 
 
     }
+
     private final CatagroisRepositary catagroisRepositary;
 
 
@@ -67,7 +89,7 @@ ProductDb productDb=new ProductDb();
     @GetMapping("/all")
         public String getAllProducts(Model model) {
             List<Catagroies> productList = catagroisRepositary.findAll();
-            model.addAttribute("products", productList);
+            model.addAttribute("categories", productList);
              return "Home";
     }
 
@@ -101,4 +123,25 @@ public String viewProduct(@PathVariable Long productId, Model model) {
 
      return "productList";
 
-}}
+}
+
+ /*   @PostMapping("/add-to-cart/{productId}")
+    public String addToCart(@PathVariable int productId, Model model) {
+        // Logic to add the product to the cart
+        productService.addToCart(productId);
+
+        // You can add a success message or perform additional actions here
+
+        return "redirect:/product/{productId}"; // Redirect back to the product details page
+    }*/
+
+    @GetMapping("/user/{userId}/card")
+    public String showUserCardDetails(@PathVariable int userId, Model model, HttpSession session) {
+
+        List<ProductDb> products = productService.getProductsByUserId(userId);
+        model.addAttribute("products", products);
+        model.addAttribute("userId", userId);
+        return "ShoppingList";
+    }
+
+}

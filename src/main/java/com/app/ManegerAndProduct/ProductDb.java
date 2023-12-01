@@ -1,10 +1,7 @@
 package com.app.ManegerAndProduct;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "product")
@@ -16,9 +13,13 @@ public class ProductDb {
     private String productName;
     private String information;
     private int price;
+    private int discount ;
+    @ManyToOne
+    @JoinColumn(name = "catid", nullable = false)
+    private Catagroies category;
     @Column(name = "number_of")
     private int numberOf;
-    private int discount;
+
     private String image;
     private String section;
     private String available;
@@ -93,4 +94,6 @@ public class ProductDb {
     public void setAvailable(String available) {
         this.available = available;
     }
+
+
 }

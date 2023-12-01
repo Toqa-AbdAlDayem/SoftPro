@@ -133,7 +133,7 @@
         <ul>
             <li><a href="#">Profile</a></li>
             <li><a href="#">category</a></li>
-            <li><a href="#">Bag</a></li>
+            <li><a th:href="@{'/user/' + ${userId} + '/card'}">Bag</a></li>
             <li><a href="#">Exit</a></li>
             <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
             <li th:if="${userRole == 'Admin'}"><a href="#">View Customers</a></li>
@@ -151,12 +151,12 @@
 
     <!-- Add more HTML elements to display other product details -->
 
-    <div th:each="product : ${products}">
+    <div th:each="category : ${categories}">
 
-        <div class="square" th:onclick="'/product/' + ${product.getId()}">
-            <a href="#">
-                <img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">
-                <p th:text="${product.getName()}"></p>
+        <div class="square" th:onclick="'/category/' + ${category.getId()}">
+            <a th:href="@{'/category/' + ${category.getId()}}">
+                <img th:src="${category.getImageUrl()}" th:alt="${category.getName()}">
+                <p th:text="${category.getName()}"></p>
                 <button class="deleteButton" style="display: none;">Delete</button>
                 <button class="updateButton" style="display: none;">Update</button>
             </a>

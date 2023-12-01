@@ -1,17 +1,28 @@
 package com.app.ManegerAndProduct;
 
+import com.app.customer.CustomerDb;
+import com.app.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
+/*import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;*/
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 
 public class ProductService {
 
+    CardDb cardDb=new CardDb();
     @Autowired
     CatagroisRepositary catagroiesRepository;
+    @Autowired
+    CustomerRepository customerRepository;
+    @Autowired
+    CardRepository cardRepository;
     ProductDb productDb;
 
     Catagroies catagroies;
@@ -50,7 +61,7 @@ public class ProductService {
             catagroies=new Catagroies();
             catagroies.setId(catagroiesForm.getCataId());
             catagroies.setName(catagroiesForm.getCataName());
-            catagroies.setImageUrl(catagroiesForm.getImageUrl());
+            catagroies.setImageUrl(catagroiesForm.getImage());
             catagroies.setCategory(catagroiesForm.getCataName());
             catagroiesRepository.save(catagroies);
             return "Catagroies added successfully";
@@ -67,6 +78,48 @@ public class ProductService {
 
 
 
+/*public String addToCart(int productId) {
+    Optional<ProductDb> productOptional = productRepository.findById(productId);
+    if (productOptional.isPresent()) {
+        ProductDb product = productOptional.get();
+        int number = product.getNumberOf();
+        number -= 1;
+        product.setNumberOf(number);
+        if (number == 0) {
+            product.setAvailable("false");
+        }
+        productRepository.save(product);
 
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        CustomerDb customer = customerRepository.findByUsername(username);
+
+        // Create a new CartDb instance
+        CardDb cartItem = new CardDb();
+        cartItem.setProductDb(product);
+        cartItem.setCustomerDb(customer);
+
+
+        cardRepository.save(cartItem);
+
+        // You can add a success message or perform additional actions here
+
+        return "redirect:/product/{productId}";
+    }
+}*/
+
+
+
+
+    public List<ProductDb> getProductsByUserId(int userId) {
+        List<CardDb> cards = cardRepository.findByCustomerDbId(userId);
+        List<ProductDb> products = new ArrayList<>();
+
+        for (CardDb card : cards) {
+            products.add(card.getProductDb());
+        }
+
+        return products;
+    }
 }

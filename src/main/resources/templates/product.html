@@ -156,10 +156,10 @@
 
   <div th:each="product : ${products}">
 
-    <div class="square" th:onclick="'/product/' + ${product.getId()}">
-      <a href="#">
-        <img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">
-        <p th:text="${product.getName()}"></p>
+    <div class="square" th:onclick="'/product/' + ${product.getProductId()}">
+      <a th:href="@{'/product/' + ${product.getProductId()}}">
+        <img th:src="${product.getImage()}" th:alt="${product.getProductName()}">
+        <p th:text="${product.getProductName()}"></p>
         <button class="deleteButton" style="display: none;">Delete</button>
         <button class="updateButton" style="display: none;">Update</button>
       </a>
@@ -177,7 +177,7 @@
 
 </main>
 
-<div id="addForm" style="display: none;">
+<div id="addForm" >
   <form id="addProductForm"   action="/add-product" method="post" th:object="${productInfo}" >
 
     <label for="productId">Product ID:</label>
