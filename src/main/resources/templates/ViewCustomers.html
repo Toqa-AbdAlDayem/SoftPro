@@ -61,7 +61,7 @@
         <td th:text="${customer.name}"></td>
         <td th:text="${customer.email}"></td>
         <td>
-            <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="'View ' + ${customer.name} + ' Details'">View Details</a>
+            <a th:id="${customer.name}" th:href="@{/customers/{id}(id=${customer.id})}" th:text="'View ' + ${customer.name} + ' Details'">View Details</a>
         </td>
     </tr>
     </tbody>

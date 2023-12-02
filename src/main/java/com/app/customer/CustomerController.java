@@ -263,6 +263,14 @@ CatagroisRepositary catagroisRepositary;
         return "edit-customer"; // Create an edit-customer.html page
     }
 
+
+
+    @PostMapping("/delete-customer/{id}")
+    public String deleteCustomer(@PathVariable int id ){
+        customerRepository.deleteById(id);
+        return "redirect:/ViewCustomers";
+    }
+
     @PostMapping("/edit/{id}")
     public String processEditForm(@PathVariable int id, @ModelAttribute CustomerDb editedCustomer) {
         // Update customer in the database with the edited information

@@ -8,7 +8,7 @@ Feature: Admin Dashboard - View and Manage Customer Accounts
   Scenario: Admin chose a customer account to show details
     Given the Admin is logged in
     When the Admin navigates to the "View Customers" section
-    And selects a customer account to "View mone Details"
+    And selects a customer account to "View tot2 Details"
     Then the customer details should be displayed successfully
 
   Scenario: Admin edit a customer account

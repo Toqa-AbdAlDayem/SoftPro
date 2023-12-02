@@ -2,6 +2,7 @@ package com.app.ManegerAndProduct;
 
 import com.app.customer.CustomerDb;
 import com.app.customer.CustomerRepository;
+import com.app.customer.DataForm;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class ProductService {
 
     CardDb cardDb=new CardDb();
+    @Autowired
+    CatagroisRepositary catagroisRepositary;
     @Autowired
     CatagroisRepositary catagroiesRepository;
     @Autowired
@@ -135,4 +138,32 @@ Optional<CustomerDb> customerDbOptional =customerRepository.findById(userId);
 
    productRepository.deleteAllById(Collections.singleton(productId));
     return "delete successfully";
-}}
+}
+    public List<ProductDb> searchProducts(String term) {
+        // Implement your logic to search for products in the database
+        // You might use the productRepository to query the database
+        return productRepository.findByProductNameContainingIgnoreCase(term);
+    }
+
+
+    public String updateProduct(int id, ProductInfo productInfo){
+        Catagroies catagroies1=catagroiesRepository.findByName(productInfo.getSection());
+
+        Optional<ProductDb> optionalProduct = productRepository.findById(id);
+        ProductDb Product=optionalProduct.get();
+        Product.setProductId(productInfo.getProductId());
+        Product.setProductName(productInfo.getProductName());
+        Product.setPrice(productInfo.getPrice());
+        Product.setSection(productInfo.getSection());
+        Product.setNumberOf(productInfo.getNumberOf());
+        Product.setImage(productInfo.getImage());
+        Product.setInformation(productInfo.getInformation());
+        Product.setCategory(catagroies1);
+      productRepository.save(Product);
+        return "hi ";
+    }
+
+    public void deleteCategories(int id) {
+        catagroisRepositary.deleteAllById(Collections.singleton(id));
+    }
+}

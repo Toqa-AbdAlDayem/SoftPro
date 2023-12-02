@@ -14,5 +14,6 @@ public interface CatagroisRepositary extends JpaRepository<Catagroies, Integer> 
     Catagroies findByName(String categoryName);
 
 
+    void deleteById(int id);
 }
 

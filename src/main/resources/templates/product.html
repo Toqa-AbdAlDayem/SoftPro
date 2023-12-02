@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MY MARKET</title>
   <style>
+
+
     form {
+    z-index: 1000;
         width: 300px;
         padding: 20px;
         border: 2px solid #ccc;
@@ -157,12 +160,12 @@
   <div th:each="product : ${products}">
 
 
-    <div id="updateConfirmation" style="display: none;">
+    <div id="deleteConfirmation" style="display: none;">
       <form method="post" th:action="@{'/delete-product/' + ${product.getProductId()}}" >
         <!-- <form id="updateConfirmationForm" action="/update-category" method="post">-->
         <label>Are you sure you want to update this category?</label>
-        <button type="submit" id="updateConfirmationYes">Yes</button>
-        <button type="button" onclick="cancelUpdateConfirmation()">No</button>
+        <button type="submit" id="deleteConfirmationYes">Yes</button>
+        <button id="cancelDelete" type="button" onclick="cancelUpdateConfirmation()">No</button>
       </form>
     </div>
 
@@ -175,10 +178,11 @@
 
       <button class="deleteButton" id="deleteButton" onclick="showUpdateConfirmation()" style="display: none;">Delete</button>
 
-      <button class="updateButton"  id="updateButton" onclick="showUpdateConfirmation()" style="display: none;">Update</button>
+      <button id="updateButtons" class="updateButton" onclick="showUpdateForm()">Update Product</button>
     </div>
 
-  </div>
+
+
   <div class="square" id="addNewButton" style="display: none;" th:onclick="showAddForm()">
     <a href="#">
       <!--<img th:src="${product.getImageUrl()}" th:alt="${product.getName()}">-->
@@ -187,7 +191,35 @@
     </a>
   </div>
 
+    <div id="updateForm" style="display: none;">
+      <form method="post" th:action="@{'/update-product/' + ${product.getProductId()}}" th:object="${productInfo}">
+        <label for="updateProductName">Product Name:</label>
+        <input type="text" id="updateProductName" name="productName" th:value="${product.getProductName()}" required>
 
+        <label for="updateInformation">Information:</label>
+        <textarea id="updateInformation" name="information" rows="4" required th:text="${product.getInformation()}"></textarea>
+
+        <label for="updatePrice">Price:</label>
+        <input type="number" id="updatePrice" name="price" min="0" step="0.01" required th:value="${product.getPrice()}">
+
+        <label for="updateSection">Section:</label>
+        <select id="updateSection" name="section" required>
+          <option value="Electronics" th:selected="${product.getSection() == 'Electronics'}">Electronics</option>
+          <option value="Clothing" th:selected="${product.getSection() == 'Clothing'}">Clothing</option>
+
+
+        </select>
+
+        <label for="updateNumberOf">Number of:</label>
+        <input type="number" id="updateNumberOf" name="numberOf" min="0" required th:value="${product.getNumberOf()}">
+
+        <!-- Add other fields as needed -->
+
+        <button id="updateButton" type="submit">Update Product</button>
+        <button type="button" onclick="cancelUpdateForm()">Cancel</button>
+      </form>
+    </div>
+  </div>
 </main>
 
 
@@ -270,6 +302,19 @@ function showAddForm() {
     var updateConfirmation = document.getElementById('updateConfirmation');
     if (updateConfirmation) {
       updateConfirmation.style.display = 'none';
+    }
+  }
+  function showUpdateForm() {
+    var updateForm = document.getElementById('updateForm');
+    if (updateForm) {
+      updateForm.style.display = 'block';
+    }
+  }
+
+  function cancelUpdateForm() {
+    var updateForm = document.getElementById('updateForm');
+    if (updateForm) {
+      updateForm.style.display = 'none';
     }
   }
 </script>

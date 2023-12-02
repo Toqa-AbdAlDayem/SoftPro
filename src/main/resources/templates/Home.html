@@ -151,8 +151,8 @@
             <li><a href="#">category</a></li>
             <li><a th:href="@{'/user/' + ${userId} + '/card'}">Bag</a></li>
             <li><a href="#">Exit</a></li>
-            <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
-            <li th:if="${userRole == 'Admin'}"><a href="/ViewCustomers">View Customers</a></li>
+            <li th:id="management" th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
+            <li id="view" th:if="${userRole == 'Admin'}"><a href="/ViewCustomers">View Customers</a></li>
             <li th:if="${userRole == 'Admin'}"><a href="/installation-requests">View Installation</a></li>
 
         </ul>
@@ -171,13 +171,24 @@
 
     <div th:each="category : ${categories}">
 
-        <div class="square" th:onclick="'/category/' + ${category.getId()}">
+        <div id="updateConfirmation" style="display: none;">
+            <form method="post" th:action="@{'/delete-categories/' + ${category.getId()}}" >
+                <!-- <form id="updateConfirmationForm" action="/update-category" method="post">-->
+                <label>Are you sure you want to update this category?</label>
+                <button type="submit" id="updateConfirmationYes">Yes</button>
+                <button type="button" onclick="cancelUpdateConfirmation()">No</button>
+            </form>
+        </div>
+
+        <div th:id="${category.getName()}" class="square" th:onclick="'/category/' + ${category.getId()}">
+
             <a th:href="@{'/category/' + ${category.getId()}}">
-                <img th:src="${category.getImageUrl()}" th:alt="${category.getName()}">
+                <img th:src="@{/images/{imageName}(imageName=${category.getImageUrl()})}" th:alt="${category.getName()}">
+
                 <p th:text="${category.getName()}"></p>
-                <button class="deleteButton" style="display: none;">Delete</button>
-                <button class="updateButton" style="display: none;">Update</button>
             </a>
+
+            <button id="deleteButton" class="deleteButton" style="display: none;" onclick="showUpdateConfirmation()">Delete</button>
         </div>
 
     </div>
@@ -195,16 +206,16 @@
 <div id="addForm" style="display: none;">
     <form id="addProductForm"   action="/add-catagroies" method="post" th:object="${catagroiesForm}">
 
-        <label for="productId">Categories ID:</label>
-        <input type="text" id="productId" name="cataId" required>
+        <label for="categorytId">Categories ID:</label>
+        <input type="text" id="categorytId" name="cataId" required>
 
-        <label for="productName">Categories Name:</label>
-        <input type="text" id="productName" name="cataName" required>
+        <label for="categoryName">Categories Name:</label>
+        <input type="text" id="categoryName" name="cataName" required>
 
 
         <label for="image">Image:</label>
         <input type="file" id="image" name="image" accept="image/*" >
-        <button>Add</button>
+        <button id="add categories">Add</button>
 
     </form>
 </div>
@@ -287,6 +298,20 @@
         }
     }
 
+ function showUpdateConfirmation() {
+    var updateConfirmation = document.getElementById('updateConfirmation');
+    if (updateConfirmation) {
+      updateConfirmation.style.display = 'block';
+    }
+  }
+
+
+  function cancelUpdateConfirmation() {
+    var updateConfirmation = document.getElementById('updateConfirmation');
+    if (updateConfirmation) {
+      updateConfirmation.style.display = 'none';
+    }
+  }
 </script>
 
 </body>

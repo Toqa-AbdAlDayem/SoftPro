@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <!-- Add Bootstrap CDN -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f8f8;
+    text-align: center;
+  }
+
+  header {
+    background-color: #5c8a8a;
+    padding: 15px;
+    color: #fff;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #5c8a8a;
+    padding: 15px 0;
+  }
+
+  nav li {
+    margin-right: 20px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    transition: color 0.3s ease-in-out;
+  }
+
+  nav a:hover {
+    color: #333;
+  }
+
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .product-details {
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+</style>
+
+<body>
+
+<header>
+  <nav>
+    <ul>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Category</a></li>
+      <li><a href="#">Bag</a></li>
+      <li><a href="#">Exit</a></li>
+      <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
+      <li th:if="${userRole == 'Admin'}"><a href="#">View Customers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <img th:src="${product.image}" class="img-fluid" alt="Product Image">
+    </div>
+    <div class="col-md-6">
+      <h2 class="editable" onclick="makeEditable(this)" th:text="${product.productName}" class="mb-3"></h2>
+      <p><strong>Price:</strong> $<span class="editable" onclick="makeEditable(this)"
+                                        th:text="${product.price}"></span></p>
+      <p><strong>Discount:</strong> <span class="editable" onclick="makeEditable(this)"
+                                          th:text="${product.discount}"></span>%</p>
+      <p><strong>Information:</strong> <span class="editable" onclick="makeEditable(this)"
+                                             th:text="${product.information}"></span></p>
+      <p><strong>Available:</strong> <span class="editable" onclick="makeEditable(this)"
+                                           th:text="${product.available}"></span></p>
+      <form th:action="@{'/add-to-cart/' + ${product.productId}}" method="post">
+        <button class="btn btn-primary">Add to Cart</button>
+      </form>
+      <button class="btn btn-primary" onclick="toggleEdit()">Edit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js CDN -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function makeEditable(element) {
+      element.contentEditable = true;
+      element.focus();
+    }
+
+    function toggleEdit() {
+      var editableElements = document.querySelectorAll('.editable');
+      editableElements.forEach(function (element) {
+        element.contentEditable = !element.isContentEditable;
+      });
+    }
+  </script>
+</body>
+
+</html>

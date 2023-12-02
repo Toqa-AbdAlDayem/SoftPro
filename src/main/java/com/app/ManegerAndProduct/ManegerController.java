@@ -1,6 +1,7 @@
 package com.app.ManegerAndProduct;
 import com.app.customer.CustomerDb;
 import com.app.customer.CustomerRepository;
+import com.app.customer.DataForm;
 import io.cucumber.core.logging.Logger;
 import io.cucumber.messages.types.Product;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -156,4 +158,20 @@ public String viewProduct(@PathVariable Long productId, Model model) {
     productService.deleteproduct(productId);
 return "signup";
     }
+    @PostMapping("/update-product/{productId}")
+    public String updateProduct(@PathVariable int productId,@ModelAttribute ProductInfo productInfo){
+
+        productService.updateProduct(productId,productInfo);
+        return "signup";
+    }
+
+
+
+    @PostMapping(" /delete-categories/{id}")
+    public String deleteCategories(@PathVariable int id){
+        productService.deleteCategories(id);
+
+        return "signup";
+    }
+
 }

@@ -25,6 +25,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
 
@@ -50,14 +51,16 @@ public class Management {
     private CustomerDb customerDb=new CustomerDb();
     @Given("the user is on the Admin page")
     public void the_user_is_on_the_admin_page() {
-    /*    logInSteps.i_am_on_the_login_page();
-        logInSteps.i_enter_my_admin_username_and_password("eman","555");
-        logInSteps.i_click_the_button("LogInBtn");
-*/
+        webDriver.get("http://localhost:"+CucumberIT.getPort()+"/");
 
-
-        webDriver.get("http://localhost:"+CucumberIT.getPort()+"/home");
+        webDriver.findElement(By.id("user_name")).sendKeys("eman");
+        webDriver.findElement(By.id("pass")).sendKeys("555");
         sleep(2000);
+
+        webDriver.findElement(By.id("LogInBtn")).click();
+
+         sleep(6000);
+
     }
 
     @When("the admin clicks on Management")
@@ -128,7 +131,7 @@ public class Management {
     @Then("the {string} section should appear with delete and update buttons")
     public void theSectionShouldAppearWithDeleteAndUpdateButtons(String arg0) {
         boolean delete = webDriver.findElement(By.id("deleteButton")).isDisplayed();
-        boolean update = webDriver.findElement(By.id("updateButton")).isDisplayed();
+        boolean update = webDriver.findElement(By.id("updateButtons")).isDisplayed();
         boolean Add= webDriver.findElement(By.id("addNewButton")).isDisplayed();
         boolean result=(delete & Add & update);
         Assertions.assertTrue(result);
@@ -226,7 +229,108 @@ sleep(2000);
 
     @When("the admin clicks on Update Product")
     public void theAdminClicksOnUpdateProduct() {
-        webDriver.findElement(By.id("updateButton")).click();
+        webDriver.findElement(By.id("updateButtons")).click();
+sleep(2000);
+    }
+
+
+
+    @When("the admin clicks on Delete Product")
+    public void the_admin_clicks_on_delete_product() {
+        webDriver.findElement(By.id("deleteButton")).click();
 
     }
+
+    @Then("an alert should appear asking for confirmation")
+    public void an_alert_should_appear_asking_for_confirmation() {
+       boolean result= webDriver.findElement(By.id("deleteConfirmation")).isDisplayed();
+       assertTrue(result);
+    }
+
+    @When("the admin clicks on Yes")
+    public void the_admin_clicks_on_yes() {
+        webDriver.findElement(By.id("deleteConfirmationYes")).click();
+    }
+
+    @Then("the product should be deleted successfully")
+    public void the_product_should_be_deleted_successfully() {
+        boolean result= webDriver.findElement(By.id("deleteConfirmation")).isDisplayed();
+        assertTrue(result);
+    }
+
+
+    @Then("a form should appear with the previous product data")
+    public void a_form_should_appear_with_the_previous_product_data() {
+        boolean result= webDriver.findElement(By.id("updateForm")).isDisplayed();
+        assertTrue(result);
+        sleep(2000);
+    }
+
+
+    @And("the admin fills in the updated product details: Product Name {string}, Information {string}, Price {string}, Section {string}, Number {string}, Image {string}")
+    public void theAdminFillsInTheUpdatedProductDetailsProductNameInformationPriceSectionNumberImage(String productId, String productName, String info, String price, String section, String number) {
+
+        webDriver.findElement(By.id("productName")).sendKeys(productName);
+        webDriver.findElement(By.id("information")).sendKeys(info);
+        webDriver.findElement(By.id("price")).sendKeys(price);
+
+        WebElement serviceSelect = webDriver.findElement(By.id("section"));
+        Select select2 = new Select(serviceSelect);
+        select2.selectByVisibleText(section);
+        webDriver.findElement(By.id("numberOf")).sendKeys(number);
+
+        productInfo.setProductId(Integer.parseInt(webDriver.findElement(By.id("productId")).getAttribute("value")));
+        productInfo.setProductName(webDriver.findElement(By.id("productName")).getAttribute("value"));
+        productInfo.setInformation(webDriver.findElement(By.id("information")).getAttribute("value"));
+        productInfo.setPrice(Integer.parseInt(webDriver.findElement(By.id("price")).getAttribute("value")));
+        productInfo.setSection(webDriver.findElement(By.id("section")).getAttribute("value"));
+        productInfo.setSection(webDriver.findElement(By.id("numberOf")).getAttribute("value"));
+        productInfo.setImage(webDriver.findElement(By.id("image")).getAttribute("value"));
+        sleep(2000);
+    }
+
+    @And("the manager submits the update form")
+    public void theManagerSubmitsTheUpdateForm() {
+        webDriver.findElement(By.id("updateButton"));
+        sleep(2000);
+    }
+
+    @When("the admin clicks on No or Cancel")
+    public void theAdminClicksOnNoOrCancel() {
+        webDriver.findElement(By.id("cancelDelete")).click();
+    }
+
+
+    @Then("the product should not be deleted")
+    public void theProductShouldNotBeDeleted() {
+    }
+
+    @When("the admin clicks on Delete Category")
+    public void the_admin_clicks_on_delete_category() {
+
+    }
+
+    @Then("the category should be deleted successfully")
+    public void the_category_should_be_deleted_successfully() {
+
+    }
+
+    @Then("the category should not be visible on the home page")
+    public void the_category_should_not_be_visible_on_the_home_page() {
+
+    }
+
+
+
+
+    @When("the admin clicks on No")
+    public void the_admin_clicks_on_no() {
+
+    }
+
+    @Then("the category should still be visible on the home page")
+    public void the_category_should_still_be_visible_on_the_home_page() {
+
+    }
+
 }
