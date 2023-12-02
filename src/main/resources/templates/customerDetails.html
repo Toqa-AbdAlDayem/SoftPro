@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <title>Customer Details</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    // Store the original values when the page is loaded
+    var originalValues = {
+      name: /*[[${customer.name}]]*/,
+      email: /*[[${customer.email}]]*/
+    };
+
+    // Function to set the form fields to their original values
+    function resetToOriginalValues() {
+      document.getElementById('name').value = originalValues.name;
+      document.getElementById('email').value = originalValues.email;
+    }
+
+    // Function to cancel changes and reset form fields
+    function cancelChanges() {
+      resetToOriginalValues();
+    }
+    /*]]>*/
+</script>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -99,7 +119,8 @@
   <label for="email">Email:</label>
   <input type="text" id="email" name="email" th:field="*{email}" />
 
-  <button type="submit">Save Changes</button>
+  <button type="submit" name="Save Changes" id="SaveChanges">Save Changes</button>
+  <button type="button" onclick="cancelChanges()" id="Cancel" name="Cancel">Cancel</button>
 </form>
 
 <!-- Add Delete Button -->
