@@ -13,12 +13,13 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin: auto;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+<!--        position: absolute;-->
+<!--        top: 50%;-->
+<!--        left: 50%;-->
+<!--        transform: translate(-50%, -50%);-->
          background-color: #f8f8f8;
     }
+
 
     label {
         display: block;
@@ -51,8 +52,10 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 16px;
-        width: 25%; /* Adjust width */
+        width: 100%; /* Adjust width */
         font-size: 16px;
+        padding: 10px;
+    margin-top: 16px; /* Adjust spacing */
 }
     }
         body {
@@ -150,26 +153,20 @@
             <li><a href="#">Exit</a></li>
             <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
             <li th:if="${userRole == 'Admin'}"><a href="/ViewCustomers">View Customers</a></li>
+            <li th:if="${userRole == 'Admin'}"><a href="/installation-requests">View Installation</a></li>
 
         </ul>
     </nav>
 </header>
 
+<!--<div class="search-container">-->
+<!--    <label for="searchInput">Search:</label>-->
+<!--    <input type="text" id="searchInput" name="searchInput">-->
+<!--    <button onclick="searchProducts()">Search</button>-->
+<!--</div>-->
 
-<header>
-
-
-</header>
-<form onsubmit="searchProducts(); return false;">
-    <div class="search-container">
-        <label for="searchInput">Search:</label>
-        <input type="text" id="searchInput" name="searchInput">
-    </div>
-    <button type="submit">Search</button>
-</form>
 
 <main id="productContainer">
-
     <!-- Add more HTML elements to display other product details -->
 
     <div th:each="category : ${categories}">
@@ -261,83 +258,35 @@
     }
 
     function updateProductDisplay(products) {
-    var productContainer = document.getElementById('productContainer');
-    productContainer.innerHTML = ''; // Clear existing content
+        var productContainer = document.getElementById('productContainer');
+        productContainer.innerHTML = ''; // Clear existing content
 
-    for (var i = 0; i < products.length; i++) {
-        var product = products[i];
+        for (var i = 0; i < products.length; i++) {
+            var product = products[i];
 
-        // Create HTML elements to display the product
-        var productDiv = document.createElement('div');
-        productDiv.className = 'square';
+            // Create HTML elements to display the product
+            var productDiv = document.createElement('div');
+            productDiv.className = 'square';
 
-        var productLink = document.createElement('a');
-        productLink.href = '/product/' + product.id; // Adjust the product details link
+            var productLink = document.createElement('a');
+            productLink.href = '/product/' + product.id; // Adjust the product details link
 
-        var productImage = document.createElement('img');
-        productImage.src = product.imageUrl; // Adjust the product image URL
-        productImage.alt = product.name; // Adjust the product name
+            var productImage = document.createElement('img');
+            productImage.src = product.imageUrl; // Adjust the product image URL
+            productImage.alt = product.name; // Adjust the product name
 
-        var productName = document.createElement('p');
-        productName.textContent = product.name; // Adjust the property for product name
+            var productName = document.createElement('p');
+            productName.textContent = product.name; // Adjust the property for product name
 
-        // Append the elements to the productContainer
-        productLink.appendChild(productImage);
-        productLink.appendChild(productName);
-        productDiv.appendChild(productLink);
+            // Append the elements to the productContainer
+            productLink.appendChild(productImage);
+            productLink.appendChild(productName);
+            productDiv.appendChild(productLink);
 
-        productContainer.appendChild(productDiv);
+            productContainer.appendChild(productDiv);
+        }
     }
-}
-<!--    function searchProducts() {-->
-<!--        var searchTerm = document.getElementById('searchInput').value.toLowerCase();-->
 
-<!--        // Make an AJAX request to your Spring Boot backend-->
-<!--        var xhr = new XMLHttpRequest();-->
-<!--        xhr.open('GET', '/search?term=' + searchTerm, true);-->
-<!--        xhr.onreadystatechange = function () {-->
-<!--            if (xhr.readyState === 4) {-->
-<!--                if (xhr.status === 200) {-->
-<!--                    // Handle the response from the server-->
-<!--                    var products = JSON.parse(xhr.responseText);-->
-<!--                    updateProductDisplay(products);-->
-<!--                } else {-->
-<!--                    console.error('Error fetching products:', xhr.statusText);-->
-<!--                }-->
-<!--            }-->
-<!--        };-->
-<!--        xhr.send();-->
-<!--    }-->
-
-<!--    function updateProductDisplay(products) {-->
-<!--        var productContainer = document.getElementById('productContainer');-->
-<!--        productContainer.innerHTML = ''; // Clear existing content-->
-
-<!--        for (var i = 0; i < products.length; i++) {-->
-<!--            var product = products[i];-->
-
-<!--            // Create HTML elements to display the product-->
-<!--            var productDiv = document.createElement('div');-->
-<!--            productDiv.className = 'square';-->
-
-<!--            var productLink = document.createElement('a');-->
-<!--            productLink.href = '/product/' + product.id; // Adjust the product details link-->
-
-<!--            var productImage = document.createElement('img');-->
-<!--            productImage.src = product.imageUrl; // Adjust the product image URL-->
-<!--            productImage.alt = product.name; // Adjust the product name-->
-
-<!--            var productName = document.createElement('p');-->
-<!--            productName.textContent = product.name; // Adjust the property for product name-->
-
-<!--            // Append the elements to the productContainer-->
-<!--            productLink.appendChild(productImage);-->
-<!--            productLink.appendChild(productName);-->
-<!--            productDiv.appendChild(productLink);-->
-
-<!--            productContainer.appendChild(productDiv);-->
-<!--        }-->
-<!--    }-->
 </script>
 
 </body>

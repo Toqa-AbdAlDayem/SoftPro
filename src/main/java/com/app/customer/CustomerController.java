@@ -62,7 +62,7 @@ CatagroisRepositary catagroisRepositary;
         List<Catagroies> productList = catagroisRepositary.findAll();
         String searchAdmin=customerService.searchAccount(dataForm);
         model.addAttribute("userRole",  searchAdmin );
-        model.addAttribute("products", productList);
+        model.addAttribute("categories", productList);
         return "Home";
     }
     @GetMapping(value = "/")
@@ -134,7 +134,7 @@ CatagroisRepositary catagroisRepositary;
 
             List<Catagroies> productList = catagroisRepositary.findAll();
             model.addAttribute("userRole", logInResult );
-            model.addAttribute("products", productList);
+            model.addAttribute("categories", productList);
             session.setAttribute("loggedInUser", user);
 
 
