@@ -2,6 +2,7 @@ package com.app.ManegerAndProduct;
 
 import com.app.customer.CustomerDb;
 import com.app.customer.CustomerRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /*import org.springframework.security.core.Authentication;
@@ -28,11 +29,13 @@ public class ProductService {
     Catagroies catagroies;
     @Autowired
     ProductRepository productRepository;
-    public String SaveProduct(ProductInfo productInfo) {
+    public String SaveProduct(ProductInfo productInfo,ProductDb productDb) {
 
+
+        Catagroies catagroies1=catagroiesRepository.findByName(productInfo.getSection());
         boolean exist = productRepository.existsById(productInfo.getProductId());
         if (!exist) {
-            productDb = new ProductDb();
+
             productDb.setProductId(productInfo.getProductId());
             productDb.setProductName(productInfo.getProductName());
             productDb.setPrice(productInfo.getPrice());
@@ -40,8 +43,8 @@ public class ProductService {
             productDb.setNumberOf(productInfo.getNumberOf());
             productDb.setImage(productInfo.getImage());
             productDb.setInformation(productInfo.getInformation());
+            productDb.setCategory(catagroies1);
 
-            productRepository.save(productDb);
             return "Product added successfully";
         }
         else
@@ -56,29 +59,34 @@ public class ProductService {
 
     public String SaveCatagroies( CatagroiesForm catagroiesForm) {
         boolean exist = catagroiesRepository.existsById( catagroiesForm.getCataId());
+        System.out.println(exist);
         boolean nameExist=catagroiesRepository.existsByName(catagroiesForm.getCataName());
         if (!exist) {
+            System.out.println("llll");
             catagroies=new Catagroies();
             catagroies.setId(catagroiesForm.getCataId());
             catagroies.setName(catagroiesForm.getCataName());
             catagroies.setImageUrl(catagroiesForm.getImage());
             catagroies.setCategory(catagroiesForm.getCataName());
             catagroiesRepository.save(catagroies);
-            return "Catagroies added successfully";
+            return "Category added successfully";
         }
     else if(exist){
-            return "The Id already exist";
+            return "The Name already exist";
+
     }
 
 
-            return "The Name already exist";
 
+        return "The Id already exist";
 
 }
 
 
 
-/*public String addToCart(int productId) {
+public String addToCart(int productId,int userId) {
+
+
     Optional<ProductDb> productOptional = productRepository.findById(productId);
     if (productOptional.isPresent()) {
         ProductDb product = productOptional.get();
@@ -91,23 +99,23 @@ public class ProductService {
         productRepository.save(product);
 
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        CustomerDb customer = customerRepository.findByUsername(username);
 
+Optional<CustomerDb> customerDbOptional =customerRepository.findById(userId);
+   CustomerDb customer=customerDbOptional.get();
         // Create a new CartDb instance
         CardDb cartItem = new CardDb();
         cartItem.setProductDb(product);
         cartItem.setCustomerDb(customer);
 
-
+         cartItem.setCardId(2);
         cardRepository.save(cartItem);
 
-        // You can add a success message or perform additional actions here
+
 
         return "redirect:/product/{productId}";
     }
-}*/
+    return "product";
+}
 
 
 
@@ -122,4 +130,9 @@ public class ProductService {
 
         return products;
     }
-}
+
+    public String deleteproduct(int productId){
+
+   productRepository.deleteAllById(Collections.singleton(productId));
+    return "delete successfully";
+}}

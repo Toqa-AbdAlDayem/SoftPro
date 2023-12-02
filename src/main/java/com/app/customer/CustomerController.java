@@ -62,12 +62,13 @@ CatagroisRepositary catagroisRepositary;
         List<Catagroies> productList = catagroisRepositary.findAll();
         String searchAdmin=customerService.searchAccount(dataForm);
         model.addAttribute("userRole",  searchAdmin );
-        model.addAttribute("products", productList);
+        model.addAttribute("categories", productList);
         return "Home";
     }
     @GetMapping(value = "/")
-    public String showForm3() {
-
+    public String showForm3(HttpSession session,Model model) {
+        CustomerDb loggedInUser = (CustomerDb) session.getAttribute("loggedInUser");
+        model.addAttribute("user", loggedInUser);
         return "Login";
     }
 
@@ -97,12 +98,12 @@ CatagroisRepositary catagroisRepositary;
         CustomerDb loggedInUser = (CustomerDb) session.getAttribute("loggedInUser");
 
         if (loggedInUser != null) {
-            // Add user information to the model
+
             model.addAttribute("user", loggedInUser);
 
             return "profile";
         } else {
-            // Handle the case when the user object is not found in the session
+
             return "redirect:/login"; // or another appropriate action
         }
 //        String loggedInUsername = (String) session.getAttribute("loggedInUser");
@@ -123,7 +124,7 @@ CatagroisRepositary catagroisRepositary;
     @PostMapping(value = "/search")
     public String LogInFunc(DataForm data, Model model, HttpSession session) {
 
-          String logInResult = customerService.searchAccount(data);
+        String logInResult = customerService.searchAccount(data);
         logger.info(logInResult);
         if(logInResult.equals("Not Found")) {
             return "Login";
@@ -131,10 +132,10 @@ CatagroisRepositary catagroisRepositary;
         else{
             CustomerDb user = customerService.findByUsername(data.getUserName());
 
-
+            model.addAttribute("userId", user.getId());
             List<Catagroies> productList = catagroisRepositary.findAll();
             model.addAttribute("userRole", logInResult );
-            model.addAttribute("products", productList);
+            model.addAttribute("categories", productList);
             session.setAttribute("loggedInUser", user);
 
 
@@ -146,7 +147,7 @@ CatagroisRepositary catagroisRepositary;
 //        } else {
 //            List<Catagroies> productList = catagroisRepositary.findAll();
 //            model.addAttribute("userRole", userResult.getRole());
-//            model.addAttribute("products", productList);
+//            model.addAttribute("categories", productList);
 //
 //            // Add user information to the model
 //            model.addAttribute("user", userResult.getUser());
@@ -162,7 +163,7 @@ CatagroisRepositary catagroisRepositary;
 //
 //            List<Catagroies> productList = catagroisRepositary.findAll();
 //            model.addAttribute("userRole", logInResult );
-//            model.addAttribute("products", productList);
+//           model.addAttribute("categories", productList);
 //            model.addAttribute("user", userResult.getUser());
 //
 //            return "Home";
@@ -177,7 +178,7 @@ CatagroisRepositary catagroisRepositary;
         // Example: userService.updateProfileImage(userId, image);
         return ResponseEntity.ok("Profile image updated successfully");
     }
-    @PostMapping("/update-profile")
+   /* @PostMapping("/update-profile")
     public String updateProfile(@RequestParam("id") int userId,
                                 @RequestParam("profileImage") MultipartFile profileImage,
                                 Model model) {
@@ -189,15 +190,17 @@ CatagroisRepositary catagroisRepositary;
 
             try {
                 // Convert the uploaded image to a byte array and save it to the user entity
-                byte[] imageBytes = profileImage.getBytes();
-                user.setProfileImage(imageBytes);
+               // String imageBytes = profileImage.getBytes();
+               // user.setProfileImage(imageBytes);
 
                 // Save the updated user entity to the database
                 customerRepository.save(user);
 
                 // Redirect to the user profile page
                 return "redirect:/profile";
-            } catch (IOException e) {
+            }
+
+            catch (IOException e) {
                 // Handle the exception (e.g., log it, show an error message)
                 model.addAttribute("error", "Error updating profile picture");
                 return "error";
@@ -207,7 +210,7 @@ CatagroisRepositary catagroisRepositary;
             model.addAttribute("error", "User not found");
             return "error";
         }
-    }
+    }*/
 
 
 

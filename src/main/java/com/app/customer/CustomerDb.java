@@ -91,17 +91,17 @@ public class CustomerDb {
     public void setRole(String role) {
         this.role = role;
     }
-    @Lob
-    @Column(name = "profile_image", columnDefinition = "BLOB")
-    private byte[] profileImage;
+
+    @Column(name = "profile_image")
+    private String profileImage;
 
     // ... existing methods
 
-    public byte[] getProfileImage() {
+    public String getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(byte[] profileImage) {
+    public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
 

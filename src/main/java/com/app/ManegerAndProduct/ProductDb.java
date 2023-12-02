@@ -95,5 +95,11 @@ public class ProductDb {
         this.available = available;
     }
 
+    public Catagroies getCategory() {
+        return category;
+    }
 
+    public void setCategory(Catagroies category) {
+        this.category = category;
+    }
 }

@@ -102,9 +102,10 @@
       <p><strong>Discount:</strong> <span th:text="${product.discount}"></span>%</p>
       <p><strong>Information:</strong> <span th:text="${product.information}"></span></p>
       <p><strong>Available:</strong> <span th:text="${product.available}"></span></p>
-      <form action="@{'/add-to-cart/' + ${product.productId}}" method="post">
+      <form th:action="@{'/add-to-cart/' + ${product.productId}}" method="post">
       <button class="btn btn-primary">Add to Cart</button>
-        <form>
+
+        </form>
     </div>
   </div>
 </div>

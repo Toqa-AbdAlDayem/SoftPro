@@ -138,8 +138,8 @@
       <li><a href="#">category</a></li>
       <li><a href="#">Bag</a></li>
       <li><a href="#">Exit</a></li>
-      <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
-      <li th:if="${userRole == 'Admin'}"><a href="#">View Customers</a></li>
+      <li  onclick="showDeleteButton(); return false;" id="management"><a href="#">Management</a></li>
+      <li ><a href="#">View Customers</a></li>
 
     </ul>
   </nav>
@@ -156,13 +156,26 @@
 
   <div th:each="product : ${products}">
 
+
+    <div id="updateConfirmation" style="display: none;">
+      <form method="post" th:action="@{'/delete-product/' + ${product.getProductId()}}" >
+        <!-- <form id="updateConfirmationForm" action="/update-category" method="post">-->
+        <label>Are you sure you want to update this category?</label>
+        <button type="submit" id="updateConfirmationYes">Yes</button>
+        <button type="button" onclick="cancelUpdateConfirmation()">No</button>
+      </form>
+    </div>
+
     <div class="square" th:onclick="'/product/' + ${product.getProductId()}">
       <a th:href="@{'/product/' + ${product.getProductId()}}">
         <img th:src="${product.getImage()}" th:alt="${product.getProductName()}">
         <p th:text="${product.getProductName()}"></p>
-        <button class="deleteButton" style="display: none;">Delete</button>
-        <button class="updateButton" style="display: none;">Update</button>
+
       </a>
+
+      <button class="deleteButton" id="deleteButton" onclick="showUpdateConfirmation()" style="display: none;">Delete</button>
+
+      <button class="updateButton"  id="updateButton" onclick="showUpdateConfirmation()" style="display: none;">Update</button>
     </div>
 
   </div>
@@ -177,8 +190,10 @@
 
 </main>
 
-<div id="addForm" >
-  <form id="addProductForm"   action="/add-product" method="post" th:object="${productInfo}" >
+
+
+<div id="addForm" style="display: none;" >
+  <form id="addProductForm"   action="/add-product" method="post" th:object="${productInfo}"  >
 
     <label for="productId">Product ID:</label>
     <input type="text" id="productId" name="productId" required>
@@ -241,6 +256,22 @@ function showAddForm() {
             addForm.style.display = 'none';
         }
     }
+
+
+      function showUpdateConfirmation() {
+    var updateConfirmation = document.getElementById('updateConfirmation');
+    if (updateConfirmation) {
+      updateConfirmation.style.display = 'block';
+    }
+  }
+
+
+  function cancelUpdateConfirmation() {
+    var updateConfirmation = document.getElementById('updateConfirmation');
+    if (updateConfirmation) {
+      updateConfirmation.style.display = 'none';
+    }
+  }
 </script>
 
 </body>

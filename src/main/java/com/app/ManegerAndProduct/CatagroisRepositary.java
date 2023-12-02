@@ -11,6 +11,7 @@ public interface CatagroisRepositary extends JpaRepository<Catagroies, Integer> 
     @Query("SELECT DISTINCT c.category FROM Catagroies c")
     List<String> findDistinctCategories();
     boolean existsByName(String name);
+    Catagroies findByName(String categoryName);
 
 
 }

@@ -63,14 +63,17 @@ return "productList";
     }
 
     @PostMapping("/add-product")
-    public boolean addProduct(ProductInfo productInfo) {
+    public String addProduct(ProductInfo productInfo) {
+productDb=new ProductDb();
+   String isAdd =productService.SaveProduct(productInfo,productDb);
+ if (isAdd.equals("Product added successfully")){
 
-   String isAdd =productService.SaveProduct(productInfo);
+     productRepository.save(productDb);
+ }
 
 
 
-
-        return true;
+        return "product";
 
 
     }
@@ -125,23 +128,32 @@ public String viewProduct(@PathVariable Long productId, Model model) {
 
 }
 
- /*   @PostMapping("/add-to-cart/{productId}")
+    @PostMapping("/add-to-cart/{productId}")
     public String addToCart(@PathVariable int productId, Model model) {
-        // Logic to add the product to the cart
-        productService.addToCart(productId);
+        List<ProductDb> productList = productRepository.findAll();
+        model.addAttribute("products", productList);
+       // int userId = (int) session.getAttribute("userId");
+        productService.addToCart(productId,987);
 
-        // You can add a success message or perform additional actions here
 
-        return "redirect:/product/{productId}"; // Redirect back to the product details page
-    }*/
+
+        return "signup"; // Redirect back to the product details page
+    }
 
     @GetMapping("/user/{userId}/card")
     public String showUserCardDetails(@PathVariable int userId, Model model, HttpSession session) {
 
+        model.addAttribute("userId",userId);
         List<ProductDb> products = productService.getProductsByUserId(userId);
         model.addAttribute("products", products);
         model.addAttribute("userId", userId);
         return "ShoppingList";
     }
 
+
+    @PostMapping("/delete-product/{productId}")
+    public String deleteProduct(@PathVariable int productId){
+    productService.deleteproduct(productId);
+return "signup";
+    }
 }

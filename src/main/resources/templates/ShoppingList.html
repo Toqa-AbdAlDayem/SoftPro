@@ -80,7 +80,7 @@
   <div th:each="product : ${products}" class="product">
     <img th:src="${product.image}" alt="Product Image">
     <h2 th:text="${product.productName}"></h2>
-    <p th:text="${product.description}"></p>
+    <p th:text="${product.information}"></p>
     <p th:text="'$' + ${product.price}"></p>
 
   </div>

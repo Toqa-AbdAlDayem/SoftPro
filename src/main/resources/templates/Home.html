@@ -135,8 +135,8 @@
             <li><a href="#">category</a></li>
             <li><a th:href="@{'/user/' + ${userId} + '/card'}">Bag</a></li>
             <li><a href="#">Exit</a></li>
-            <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
-            <li th:if="${userRole == 'Admin'}"><a href="#">View Customers</a></li>
+            <li  onclick="showDeleteButton(); return false;" id="management"><a href="#">Management</a></li>
+            <li ><a href="#">View Customers</a></li>
 
         </ul>
     </nav>
@@ -153,13 +153,14 @@
 
     <div th:each="category : ${categories}">
 
-        <div class="square" th:onclick="'/category/' + ${category.getId()}">
+        <div th:id="${category.getName()}" class="square" th:onclick="'/category/' + ${category.getId()}">
             <a th:href="@{'/category/' + ${category.getId()}}">
                 <img th:src="${category.getImageUrl()}" th:alt="${category.getName()}">
                 <p th:text="${category.getName()}"></p>
-                <button class="deleteButton" style="display: none;">Delete</button>
-                <button class="updateButton" style="display: none;">Update</button>
+
             </a>
+            <button class="deleteButton" id="deleteButton" style="display: none;">Delete</button>
+
         </div>
 
     </div>
@@ -177,20 +178,27 @@
 <div id="addForm" style="display: none;">
     <form id="addProductForm"   action="/add-catagroies" method="post" th:object="${catagroiesForm}">
 
-        <label for="productId">Categories ID:</label>
-        <input type="text" id="productId" name="cataId" required>
+        <label for="categorytId">Categories ID:</label>
+        <input type="text" id="categorytId" name="cataId" required>
 
-        <label for="productName">Categories Name:</label>
-        <input type="text" id="productName" name="cataName" required>
+        <label for="categoryName">Categories Name:</label>
+        <input type="text" id="categoryName" name="cataName" required>
 
 
         <label for="image">Image:</label>
         <input type="file" id="image" name="image" accept="image/*" >
-        <button>Add</button>
+        <button id="add categories">Add</button>
 
     </form>
 </div>
 <script th:inline="javascript">
+function showDeleteConfirmation(index) {
+        var confirmation = confirm("Are you sure you want to delete this category?");
+        if (confirmation) {
+            // If user confirms, proceed with deletion
+            deleteCategory(index);
+        }
+    }
   function showDeleteButton() {
    var deleteButtons = document.getElementsByClassName('deleteButton');
         var updateButtons = document.getElementsByClassName('updateButton');
@@ -199,9 +207,7 @@
             deleteButtons[i].style.display = 'block';
         }
 
-        for (var j = 0; j < updateButtons.length; j++) {
-            updateButtons[j].style.display = 'block';
-        }
+
 
  var addNewButton = document.getElementById('addNewButton');
         if (addNewButton) {

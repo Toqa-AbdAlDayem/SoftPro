@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 @Table(name = "card")
 public class CardDb {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cardid")
+   //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CARDID")
     private int cardId;
 
     @ManyToOne
