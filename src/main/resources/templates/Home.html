@@ -13,18 +13,20 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin: auto;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #f8f8f8;
+<!--        position: absolute;-->
+<!--        top: 50%;-->
+<!--        left: 50%;-->
+<!--        transform: translate(-50%, -50%);-->
+         background-color: #f8f8f8;
     }
+
 
     label {
         display: block;
         margin-bottom: 8px;
         color: #333;
         font-weight: bold;
+        margin-right: 8px; /* Adjust spacing */
     }
 
     input, select, textarea, file {
@@ -36,7 +38,11 @@
         border-radius: 4px;
         font-size: 14px;
     }
+    input{
+     width: 70%; /* Adjust width */
+    margin-right: 8px; /* Adjust spacing */
 
+    }
 
     button {
         padding: 10px;
@@ -45,8 +51,12 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        width: 100%;
         font-size: 16px;
+        width: 100%; /* Adjust width */
+        font-size: 16px;
+        padding: 10px;
+    margin-top: 16px; /* Adjust spacing */
+}
     }
         body {
             margin: 0;
@@ -124,6 +134,12 @@
             margin-top: 15px;
             font-weight: bold;
         }
+        .search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px; /* Adjust spacing */
+}
+
     </style>
 </head>
 
@@ -135,32 +151,33 @@
             <li><a href="#">category</a></li>
             <li><a th:href="@{'/user/' + ${userId} + '/card'}">Bag</a></li>
             <li><a href="#">Exit</a></li>
-            <li  onclick="showDeleteButton(); return false;" id="management"><a href="#">Management</a></li>
-            <li ><a href="#">View Customers</a></li>
+            <li th:if="${userRole == 'Admin'}" onclick="showDeleteButton(); return false;"><a href="#">Management</a></li>
+            <li th:if="${userRole == 'Admin'}"><a href="/ViewCustomers">View Customers</a></li>
+            <li th:if="${userRole == 'Admin'}"><a href="/installation-requests">View Installation</a></li>
 
         </ul>
     </nav>
 </header>
 
+<!--<div class="search-container">-->
+<!--    <label for="searchInput">Search:</label>-->
+<!--    <input type="text" id="searchInput" name="searchInput">-->
+<!--    <button onclick="searchProducts()">Search</button>-->
+<!--</div>-->
 
-<header>
 
-
-</header>
 <main id="productContainer">
-
     <!-- Add more HTML elements to display other product details -->
 
     <div th:each="category : ${categories}">
 
-        <div th:id="${category.getName()}" class="square" th:onclick="'/category/' + ${category.getId()}">
+        <div class="square" th:onclick="'/category/' + ${category.getId()}">
             <a th:href="@{'/category/' + ${category.getId()}}">
                 <img th:src="${category.getImageUrl()}" th:alt="${category.getName()}">
                 <p th:text="${category.getName()}"></p>
-
+                <button class="deleteButton" style="display: none;">Delete</button>
+                <button class="updateButton" style="display: none;">Update</button>
             </a>
-            <button class="deleteButton" id="deleteButton" style="display: none;">Delete</button>
-
         </div>
 
     </div>
@@ -178,27 +195,20 @@
 <div id="addForm" style="display: none;">
     <form id="addProductForm"   action="/add-catagroies" method="post" th:object="${catagroiesForm}">
 
-        <label for="categorytId">Categories ID:</label>
-        <input type="text" id="categorytId" name="cataId" required>
+        <label for="productId">Categories ID:</label>
+        <input type="text" id="productId" name="cataId" required>
 
-        <label for="categoryName">Categories Name:</label>
-        <input type="text" id="categoryName" name="cataName" required>
+        <label for="productName">Categories Name:</label>
+        <input type="text" id="productName" name="cataName" required>
 
 
         <label for="image">Image:</label>
         <input type="file" id="image" name="image" accept="image/*" >
-        <button id="add categories">Add</button>
+        <button>Add</button>
 
     </form>
 </div>
 <script th:inline="javascript">
-function showDeleteConfirmation(index) {
-        var confirmation = confirm("Are you sure you want to delete this category?");
-        if (confirmation) {
-            // If user confirms, proceed with deletion
-            deleteCategory(index);
-        }
-    }
   function showDeleteButton() {
    var deleteButtons = document.getElementsByClassName('deleteButton');
         var updateButtons = document.getElementsByClassName('updateButton');
@@ -207,26 +217,76 @@ function showDeleteConfirmation(index) {
             deleteButtons[i].style.display = 'block';
         }
 
-
+        for (var j = 0; j < updateButtons.length; j++) {
+            updateButtons[j].style.display = 'block';
+        }
 
  var addNewButton = document.getElementById('addNewButton');
         if (addNewButton) {
             addNewButton.style.display = 'block';
         }
 }
-function showAddForm() {
-    var addForm = document.getElementById('addForm');
+
+    function showAddForm() {
+        var addForm = document.getElementById('addForm');
         if (addForm) {
             addForm.style.display = 'block';
         }
-
     }
-   function closeForm() {
+
+    function closeForm() {
         var addForm = document.getElementById('addForm');
         if (addForm) {
             addForm.style.display = 'none';
         }
     }
+
+    function searchProducts() {
+        var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+        // Make an AJAX request to your Spring Boot backend
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/search?term=' + searchTerm, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response from the server
+                var products = JSON.parse(xhr.responseText);
+                updateProductDisplay(products);
+            }
+        };
+        xhr.send();
+    }
+
+    function updateProductDisplay(products) {
+        var productContainer = document.getElementById('productContainer');
+        productContainer.innerHTML = ''; // Clear existing content
+
+        for (var i = 0; i < products.length; i++) {
+            var product = products[i];
+
+            // Create HTML elements to display the product
+            var productDiv = document.createElement('div');
+            productDiv.className = 'square';
+
+            var productLink = document.createElement('a');
+            productLink.href = '/product/' + product.id; // Adjust the product details link
+
+            var productImage = document.createElement('img');
+            productImage.src = product.imageUrl; // Adjust the product image URL
+            productImage.alt = product.name; // Adjust the product name
+
+            var productName = document.createElement('p');
+            productName.textContent = product.name; // Adjust the property for product name
+
+            // Append the elements to the productContainer
+            productLink.appendChild(productImage);
+            productLink.appendChild(productName);
+            productDiv.appendChild(productLink);
+
+            productContainer.appendChild(productDiv);
+        }
+    }
+
 </script>
 
 </body>

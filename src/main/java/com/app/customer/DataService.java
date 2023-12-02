@@ -3,9 +3,11 @@ package com.app.customer;
 
 
 
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 @Service
@@ -113,54 +115,83 @@ logger.info(data.getUserName());
     public CustomerDb findByUsername(String username) {
         return dataRepository.findByName(username);
     }
-
-public UserResult searchAccountForProfile(DataForm data) {
-    try {
-        logger.info("Searching for user: " + data.getUserName());
-        logger.info("Searching for pass: " + data.getPassword());
-
-        Optional<CustomerDb> userOptional = dataRepository.findByNameAndPass(
-                data.getUserName().trim(), data.getPassword().trim()
-        );
-
-        logger.info("User found: " + userOptional.isPresent());
-
-        if (userOptional.isPresent()) {
-            CustomerDb user = userOptional.get();
-            String role = user.getRole();
-
-            if ("admin".equals(role)) {
-                return new UserResult("Admin", user);
-            } else if ("customer".equals(role)) {
-                return new UserResult("Customer", user);
-            } else if ("installer".equals(role)) {
-                return new UserResult("Installer", user);
-            }
-        }
-
-        return new UserResult("Not Found", null);
-    } catch (Exception e) {
-        // Handle the exception, log it, or return an appropriate error message
-        return new UserResult("Error", null);
+    public List<CustomerDb> getAllCustomers() {
+        return dataRepository.findAll();
     }
-}
 
-    public static class UserResult {
-        private final String role;
-        private final CustomerDb user;
+    public Optional<CustomerDb> findById(int id) {
+        return dataRepository.findById(id);
+    }
 
-        public UserResult(String role, CustomerDb user) {
-            this.role = role;
-            this.user = user;
-        }
+    public CustomerDb saveCustomer(CustomerDb customer) {
+        return dataRepository.save(customer);
+    }
 
-        public String getRole() {
-            return role;
-        }
+    public void updateCustomer(int id, CustomerDb editedCustomer) {
+        Optional<CustomerDb> existingCustomerOptional = dataRepository.findById(id);
 
-        public CustomerDb getUser() {
-            return user;
+        if (existingCustomerOptional.isPresent()) {
+            CustomerDb existingCustomer = existingCustomerOptional.get();
+            existingCustomer.setName(editedCustomer.getName());
+            existingCustomer.setEmail(editedCustomer.getEmail());
+            // Update other fields as needed
+            dataRepository.save(existingCustomer);
+        } else {
+            // Handle the case where the customer with the given ID is not found
+            throw new RuntimeException("Customer not found with id: " + id);
         }
     }
+
+    public void deleteCustomer(int id) {
+        dataRepository.deleteById(id);
+    }
+//public UserResult searchAccountForProfile(DataForm data) {
+//    try {
+//        logger.info("Searching for user: " + data.getUserName());
+//        logger.info("Searching for pass: " + data.getPassword());
+//
+//        Optional<CustomerDb> userOptional = dataRepository.findByNameAndPass(
+//                data.getUserName().trim(), data.getPassword().trim()
+//        );
+//
+//        logger.info("User found: " + userOptional.isPresent());
+//
+//        if (userOptional.isPresent()) {
+//            CustomerDb user = userOptional.get();
+//            String role = user.getRole();
+//
+//            if ("admin".equals(role)) {
+//                return new UserResult("Admin", user);
+//            } else if ("customer".equals(role)) {
+//                return new UserResult("Customer", user);
+//            } else if ("installer".equals(role)) {
+//                return new UserResult("Installer", user);
+//            }
+//        }
+//
+//        return new UserResult("Not Found", null);
+//    } catch (Exception e) {
+//        // Handle the exception, log it, or return an appropriate error message
+//        return new UserResult("Error", null);
+//    }
+//}
+//
+//    public static class UserResult {
+//        private final String role;
+//        private final CustomerDb user;
+//
+//        public UserResult(String role, CustomerDb user) {
+//            this.role = role;
+//            this.user = user;
+//        }
+//
+//        public String getRole() {
+//            return role;
+//        }
+//
+//        public CustomerDb getUser() {
+//            return user;
+//        }
+//    }
 
 }

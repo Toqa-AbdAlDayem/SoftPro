@@ -254,5 +254,36 @@ CatagroisRepositary catagroisRepositary;
         return "signup";
     }}
 
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable int id, Model model) {
+        // Fetch customer by ID and add it to the model
+        // This will be used to pre-populate the edit form
+        Optional<CustomerDb> customer = customerService.findById(id);
+        model.addAttribute("customer", customer);
+        return "edit-customer"; // Create an edit-customer.html page
+    }
+
+    @PostMapping("/edit/{id}")
+    public String processEditForm(@PathVariable int id, @ModelAttribute CustomerDb editedCustomer) {
+        // Update customer in the database with the edited information
+        customerService.updateCustomer(id, editedCustomer);
+        return "redirect:/customers/" + id; // Redirect to the customer details page
+    }
+
+    @GetMapping("/delete/{id}")
+    public String showDeleteConfirmation(@PathVariable int id, Model model) {
+        // Fetch customer by ID and add it to the model
+        // This will be used to display customer details before deletion
+        Optional<CustomerDb> customer = customerService.findById(id);
+        model.addAttribute("customer", customer.orElse(null));
+        return "delete-confirmation"; // Create a delete-confirmation.html page
+    }
+
+    @PostMapping("/delete/{id}")
+    public String processDelete(@PathVariable int id) {
+        // Delete customer from the database
+        customerService.deleteCustomer(id);
+        return "redirect:/ViewCustomers"; // Redirect to the customer list page
+    }
 
 }
